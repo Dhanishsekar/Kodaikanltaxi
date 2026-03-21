@@ -491,7 +491,7 @@
     nav { padding: 0 4%; }
     .nav-links { display: none; }
     .hamburger { display: flex; }
-    .mobile-menu.open { display: flex; flex-direction: column; gap: 0; position: fixed; top: 68px; left: 0; right: 0; background: var(--dark); border-bottom: 1px solid var(--border); z-index: 998; padding: 16px 0; }
+    .mobile-menu.open { display: flex; flex-direction: column; gap: 0; position: fixed; top: 68px; left: 0; right: 0; background: var(--dark); border-bottom: 1px solid var(--border); z-index: 9999; padding: 16px 0; }
     .mobile-menu a { padding: 14px 5%; font-size: 15px; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); font-weight: 500; }
     .mobile-menu a:last-child { border-bottom: none; color: var(--gold); font-weight: 700; }
     section { padding: 60px 5%; }
@@ -569,7 +569,7 @@
     <span></span><span></span><span></span>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" style="display:none;">
   <a href="#home" onclick="toggleMenu()">Home</a>
   <a href="#packages" onclick="toggleMenu()">Packages</a>
   <a href="#vehicles" onclick="toggleMenu()">Vehicles</a>
@@ -976,8 +976,14 @@
 
 </script><script>
   function toggleMenu() {
-    const m = document.getElementById('mobileMenu');
-    m.classList.toggle('open');
+    var m = document.getElementById('mobileMenu');
+    if (m.classList.contains('open')) {
+      m.classList.remove('open');
+      m.style.display = 'none';
+    } else {
+      m.classList.add('open');
+      m.style.display = 'flex';
+    }
   }
 
   function submitBooking() {
