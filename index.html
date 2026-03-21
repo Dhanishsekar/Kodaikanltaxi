@@ -488,9 +488,11 @@
     .hero-stats { gap: 20px; }
   }
   @media (max-width: 680px) {
+    .nav-links { display: none !important; }
     nav { padding: 0 4%; }
     .nav-links { display: none; }
     .hamburger { display: flex; }
+    #hambtn { display: flex !important; }
     .mobile-menu.open { display: flex; flex-direction: column; gap: 0; position: fixed; top: 68px; left: 0; right: 0; background: var(--dark); border-bottom: 1px solid var(--border); z-index: 9999; padding: 16px 0; }
     .mobile-menu a { padding: 14px 5%; font-size: 15px; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); font-weight: 500; }
     .mobile-menu a:last-child { border-bottom: none; color: var(--gold); font-weight: 700; }
@@ -565,19 +567,20 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="tel:+918056598036" class="nav-cta">📞 Book Now</a></li>
   </ul>
-  <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
+  <div onclick="var m=document.getElementById('mob');if(m.style.display=='flex'){m.style.display='none';}else{m.style.display='flex';}" style="display:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px;" id="hambtn">
+    <span style="display:block;width:26px;height:3px;background:#F5A623;border-radius:2px;"></span>
+    <span style="display:block;width:26px;height:3px;background:#F5A623;border-radius:2px;"></span>
+    <span style="display:block;width:26px;height:3px;background:#F5A623;border-radius:2px;"></span>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" style="display:none;">
-  <a href="#home" onclick="toggleMenu()">Home</a>
-  <a href="#packages" onclick="toggleMenu()">Packages</a>
-  <a href="#vehicles" onclick="toggleMenu()">Vehicles</a>
-  <a href="#why" onclick="toggleMenu()">Why Us</a>
-  <a href="#contact" onclick="toggleMenu()">Contact</a>
-  <a href="tel:+918056598036" onclick="toggleMenu()">📞 Call: +91 8056598036</a>
+<div id="mob" style="display:none;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:#111118;border-bottom:1px solid rgba(245,166,35,0.3);z-index:99999;padding:8px 0;">
+  <a href="#home" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Home</a>
+  <a href="#packages" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Packages</a>
+  <a href="#vehicles" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Vehicles</a>
+  <a href="#why" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Why Us</a>
+  <a href="#contact" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Contact</a>
+  <a href="tel:+918056598036" style="padding:15px 5%;font-size:15px;color:#F5A623;text-decoration:none;font-weight:700;display:block;">📞 Call: +91 8056598036</a>
 </div>
-
 <!-- Hero -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
