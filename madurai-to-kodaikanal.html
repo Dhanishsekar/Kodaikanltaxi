@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Madurai to Kodaikanal Taxi | KodaikanaTaxi</title>
+<title>Madurai to Kodaikanal Taxi | KodaikanalTaxi</title>
 <meta name="description" content="Book cab from Madurai to Kodaikanal. 120 KM, ~3 hrs. From ₹3,800. Call +91 8056598036">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -247,7 +247,7 @@
         <div class="form-group"><label>Travel Date</label><input type="date" id="bDate"></div>
         <div class="form-group"><label>Pickup Point in Madurai</label><input type="text" id="bPickup" placeholder="e.g. Madurai Bus Stand"></div>
         <div class="form-group"><label>Drop Point in Kodaikanal</label><input type="text" id="bDrop" placeholder="e.g. Hotel / Lake area"></div>
-        <button class="book-btn" onclick="bookNow()">📞 Confirm Booking</button>
+        <a href="tel:+918056598036" class="book-btn" style="display:block;text-align:center;text-decoration:none;">📞 Call to Book Now</a>
         <button class="book-wa" onclick="bookWhatsApp()">💬 Book via WhatsApp</button>
         <p class="sidebar-note">✅ Free cancellation · No advance payment · Instant confirmation</p>
       </div>
@@ -259,7 +259,7 @@
     </div>
   </div>
 </div>
-<footer><div class="footer-bottom"><p>© 2025 KodaikanaTaxi. All Rights Reserved.</p><p>📞 +91 8056598036 | Kodaikanal, Tamil Nadu</p></div></footer>
+<footer><div class="footer-bottom"><p>© 2025 KodaikanalTaxi. All Rights Reserved.</p><p>📞 +91 8056598036 | Kodaikanal, Tamil Nadu</p></div></footer>
 <a href="https://wa.me/918056598036?text=Hi, I want to book a cab from Madurai to Kodaikanal" class="whatsapp-float" target="_blank">💬</a>
 <script>
   let selectedVehicle = 'Indigo';
@@ -279,13 +279,13 @@
     const pickup = document.getElementById('bPickup').value;
     const drop = document.getElementById('bDrop').value;
     if (!phone) { alert('Please enter your phone number'); return; }
-    const msg = 'Hi KodaikanaTaxi!\n\nBooking Request:\nRoute: Madurai → Kodaikanal\nVehicle: ' + selectedVehicle + '\nFare: ₹' + parseInt(selectedPrice).toLocaleString('en-IN') + '\nName: ' + (name||'Not given') + '\nPhone: ' + phone + '\nDate: ' + (date||'Not specified') + '\nPickup: ' + (pickup||'Madurai') + '\nDrop: ' + (drop||'Kodaikanal');
+    const msg = 'Hi KodaikanalTaxi!\n\nBooking Request:\nRoute: Madurai → Kodaikanal\nVehicle: ' + selectedVehicle + '\nFare: ₹' + parseInt(selectedPrice).toLocaleString('en-IN') + '\nName: ' + (name||'Not given') + '\nPhone: ' + phone + '\nDate: ' + (date||'Not specified') + '\nPickup: ' + (pickup||'Madurai') + '\nDrop: ' + (drop||'Kodaikanal');
     window.open('https://wa.me/918056598036?text=' + encodeURIComponent(msg), '_blank');
   }
   function bookWhatsApp() {
     const name = document.getElementById('bName').value;
     const date = document.getElementById('bDate').value;
-    const msg = 'Hi KodaikanaTaxi! I want to book a cab.\nRoute: Madurai → Kodaikanal\nVehicle: ' + selectedVehicle + ' (₹' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nDate: ' + (date||'Not specified');
+    const msg = 'Hi KodaikanalTaxi! I want to book a cab.\nRoute: Madurai → Kodaikanal\nVehicle: ' + selectedVehicle + ' (₹' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nDate: ' + (date||'Not specified');
     window.open('https://wa.me/918056598036?text=' + encodeURIComponent(msg), '_blank');
   }
 </script>
