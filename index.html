@@ -561,7 +561,7 @@
   <a href="#" class="logo">Kodaikanal<span>Taxi</span></a>
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
-    <li><a href="#packages">Packages</a></li>
+    <li><a href="#packages">Cab Service</a></li>
     <li><a href="#vehicles">Vehicles</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -574,7 +574,7 @@
   </div>
   <div id="mob" style="display:none;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#111118;border-bottom:2px solid rgba(245,166,35,0.4);z-index:99999;padding:8px 0;box-shadow:0 8px 24px rgba(0,0,0,0.5);">
     <a href="#home" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Home</a>
-    <a href="#packages" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Packages</a>
+    <a href="#packages" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Cab Service</a>
     <a href="#vehicles" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Vehicles</a>
     <a href="#why" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Why Us</a>
     <a href="#contact" onclick="document.getElementById('mob').style.display='none'" style="padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;">Contact</a>
@@ -620,7 +620,7 @@
           <select>
             <option>Innova</option>
             <option>Etios</option>
-            <option>Qualis</option>
+            <option>Tavera</option>
             <option>Tempo Traveller</option>
           </select>
         </div>
@@ -635,10 +635,10 @@
 </section>
 
 <!-- Packages -->
-<section id="packages">
+<section id="packages" style="background:var(--dark);">
   <div class="section-header">
-    <span class="section-label">Popular Routes</span>
-    <h2 class="section-title">Recommended Taxi Packages</h2>
+    <span class="section-label">Cab Service</span>
+    <h2 class="section-title">Our Cab Service Packages</h2>
     <p class="section-sub">Affordable packages for the most popular routes to and from Kodaikanal.</p>
   </div>
   <div class="packages-grid">
@@ -744,6 +744,30 @@
   </div>
 </section>
 
+<script>
+  function showTab(tab) {
+    document.getElementById('tab1').style.display = tab === 'tab1' ? 'block' : 'none';
+    document.getElementById('tab2').style.display = tab === 'tab2' ? 'block' : 'none';
+    document.getElementById('btn1').style.background = tab === 'tab1' ? 'linear-gradient(135deg,#F5A623,#FF6B35)' : 'var(--card)';
+    document.getElementById('btn1').style.color = tab === 'tab1' ? 'var(--night)' : 'var(--muted)';
+    document.getElementById('btn1').style.border = tab === 'tab1' ? 'none' : '1px solid var(--border)';
+    document.getElementById('btn2').style.background = tab === 'tab2' ? 'linear-gradient(135deg,#F5A623,#FF6B35)' : 'var(--card)';
+    document.getElementById('btn2').style.color = tab === 'tab2' ? 'var(--night)' : 'var(--muted)';
+    document.getElementById('btn2').style.border = tab === 'tab2' ? 'none' : '1px solid var(--border)';
+  }
+</script>
+
+
+<!-- ── EXPLORE PACKAGES BUTTON ── -->
+<section style="background:var(--night);padding:60px 5%;text-align:center;">
+  <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Sightseeing Tours</span>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,40px);font-weight:900;color:var(--white);margin-bottom:12px;">Explore Kodaikanal</h2>
+  <p style="font-size:15px;color:var(--muted);max-width:520px;margin:0 auto 36px;">Discover the Queen of Hills with our handpicked sightseeing packages.</p>
+  <a href="kodaikanal-packages.html" style="display:inline-block;background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%);color:#0A0A0F;border-radius:14px;padding:20px 52px;font-family:'Playfair Display',serif;font-size:22px;font-weight:900;text-decoration:none;text-transform:uppercase;letter-spacing:1px;box-shadow:0 8px 32px rgba(245,166,35,0.4);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 40px rgba(245,166,35,0.55)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 32px rgba(245,166,35,0.4)'">
+    🏔️ EXPLORE KODAIKANAL PACKAGES
+  </a>
+</section>
+
 <!-- Vehicles -->
 <section id="vehicles" style="background: var(--night);">
   <div class="section-header">
@@ -778,13 +802,13 @@
     </div>
     <div class="vehicle-card">
       <div class="vehicle-icon">🚙</div>
-      <div class="vehicle-name">Toyota Qualis</div>
-      <div class="vehicle-capacity">👥 7 Passengers</div>
+      <div class="vehicle-name">Tavera</div>
+      <div class="vehicle-capacity">👥 9 Passengers</div>
       <div class="vehicle-desc">Sturdy and roomy, ideal for group travel on mountain terrain with maximum comfort.</div>
       <div class="vehicle-features">
         <span class="feature-tag">AC</span>
-        <span class="feature-tag">7 Seater</span>
-        <span class="feature-tag">4WD Ready</span>
+        <span class="feature-tag">9 Seater</span>
+        <span class="feature-tag">Hill Ready</span>
       </div>
     </div>
     <div class="vehicle-card">
@@ -946,7 +970,7 @@
       <h4>Quick Links</h4>
       <ul>
         <li><a href="#home">Home</a></li>
-        <li><a href="#packages">Packages</a></li>
+        <li><a href="#packages">Cab Service</a></li>
         <li><a href="#vehicles">Our Vehicles</a></li>
         <li><a href="#why">Why Us</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -964,7 +988,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 KodaikanaTaxi. All Rights Reserved.</p>
+    <p>© 2025 KodaikanalTaxi. All Rights Reserved.</p>
     <p style="color:var(--muted);font-size:13px;">📞 +91 8056598036 | Kodaikanal, Tamil Nadu</p>
   </div>
 </footer>
@@ -993,7 +1017,7 @@
     const phone = document.querySelector('.hero-card input[type="tel"]').value;
     const pickup = document.querySelector('.hero-card input[placeholder*="Kodaikanal"]').value;
     const drop = document.querySelector('.hero-card input[placeholder*="Madurai"]').value;
-    const msg = `Hi KodaikanaTaxi! I want to book a cab.\nPickup: ${pickup || 'Not specified'}\nDrop: ${drop || 'Not specified'}\nMy number: ${phone || 'Not specified'}`;
+    const msg = `Hi KodaikanalTaxi! I want to book a cab.\nPickup: ${pickup || 'Not specified'}\nDrop: ${drop || 'Not specified'}\nMy number: ${phone || 'Not specified'}`;
     window.open('https://wa.me/918056598036?text=' + encodeURIComponent(msg), '_blank');
   }
 
