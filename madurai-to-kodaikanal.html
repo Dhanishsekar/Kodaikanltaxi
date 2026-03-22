@@ -133,9 +133,11 @@
     .hero-ctas { flex-direction: column !important; width: 100% !important; }
     .btn-primary, .btn-whatsapp { justify-content: center !important; width: 100% !important; text-align: center !important; }
 
-    .tariff-table-wrap { border-radius: 10px !important; overflow-x: auto !important; width: 100% !important; }
-    table { width: 100% !important; }
-    thead th, tbody td { padding: 9px 7px !important; font-size: 12px !important; white-space: nowrap !important; }
+    .tariff-table-wrap { border-radius: 10px !important; overflow-x: hidden !important; width: 100% !important; }
+    table { width: 100% !important; table-layout: fixed !important; }
+    thead th { padding: 8px 3px !important; font-size: 10px !important; letter-spacing: 0 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+    tbody td { padding: 10px 3px !important; font-size: 11px !important; white-space: nowrap !important; }
+    .price-cell { font-size: 12px !important; }
 
     .section-title { font-size: 20px !important; }
     .section-desc { font-size: 14px !important; }
@@ -211,7 +213,7 @@
     <p class="section-desc">Pick up & Drop one-way charges. Distance: <strong style="color:var(--gold)">120 KM</strong> | Duration: <strong style="color:var(--gold)">~3 hrs</strong>. All fares include toll, parking, and driver tip.</p>
     <div class="tariff-table-wrap">
       <table>
-        <thead><tr><th>Pickup</th><th>Distance</th><th>Indigo</th><th>Etios</th><th>Qualis</th><th>Innova</th><th>Tempo</th></tr></thead>
+        <thead><tr><th>From</th><th>KM</th><th>Indigo</th><th>Etios</th><th>Qualis</th><th>Innova</th><th>Tempo</th></tr></thead>
         <tbody><tr><td>Madurai</td><td>120 km</td><td class="price-cell">₹3,200</td><td class="price-cell">₹3,800</td><td class="price-cell">₹5,200</td><td class="price-cell">₹5,000</td><td class="price-cell">₹6,800</td></tr></tbody>
       </table>
     </div>
