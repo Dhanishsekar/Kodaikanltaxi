@@ -107,30 +107,55 @@
   @media (max-width: 600px) { .nav-links { display: none; } .hamburger { display: flex; } .mobile-menu.open { display: flex; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--dark); border-bottom: 1px solid var(--border); z-index: 998; padding: 12px 0; } .mobile-menu a { padding: 13px 5%; font-size: 15px; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); font-weight: 500; } .hero-ctas { flex-direction: column; } .hero-ctas a { justify-content: center; } }
 
   /* ── MOBILE FIXES ── */
+  * { box-sizing: border-box; }
+  html, body { overflow-x: hidden !important; max-width: 100% !important; }
+
   @media (max-width: 768px) {
-    .main-content { grid-template-columns: 1fr !important; padding: 24px 4% !important; gap: 24px !important; }
-    .booking-sidebar { position: static !important; }
-    .vehicles-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
-    .v-card { padding: 14px !important; }
-    .v-icon { font-size: 26px !important; margin-bottom: 6px !important; }
-    .v-name { font-size: 14px !important; }
-    .v-price { font-size: 16px !important; }
-    .route-hero { padding: 30px 4% 36px !important; }
-    .route-title { font-size: 28px !important; }
-    .route-meta { gap: 8px !important; }
-    .meta-chip { padding: 8px 12px !important; font-size: 12px !important; }
-    .hero-ctas { flex-direction: column !important; }
-    .btn-primary, .btn-whatsapp { justify-content: center !important; width: 100% !important; }
-    .tariff-table-wrap { border-radius: 10px !important; }
-    table { min-width: unset !important; width: 100% !important; }
-    thead th, tbody td { padding: 10px 8px !important; font-size: 12px !important; }
+    .main-content { grid-template-columns: 1fr !important; padding: 20px 4% !important; gap: 20px !important; width: 100% !important; max-width: 100% !important; }
+    .booking-sidebar { position: static !important; width: 100% !important; }
+    .booking-card { width: 100% !important; }
     .booking-card-body { padding: 16px !important; }
+    .form-group input, .form-group select { width: 100% !important; max-width: 100% !important; font-size: 16px !important; }
+    .book-btn, .book-wa { width: 100% !important; }
+
+    .vehicles-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; width: 100% !important; }
+    .v-card { padding: 12px !important; width: 100% !important; }
+    .v-icon { font-size: 24px !important; margin-bottom: 6px !important; }
+    .v-name { font-size: 14px !important; }
+    .v-seats { font-size: 11px !important; }
+    .v-price { font-size: 15px !important; }
+
+    .route-hero { padding: 28px 4% 32px !important; }
+    .route-title { font-size: 26px !important; }
+    .route-badge { font-size: 10px !important; padding: 6px 12px !important; }
+    .route-meta { gap: 8px !important; }
+    .meta-chip { padding: 7px 10px !important; font-size: 12px !important; }
+    .hero-ctas { flex-direction: column !important; width: 100% !important; }
+    .btn-primary, .btn-whatsapp { justify-content: center !important; width: 100% !important; text-align: center !important; }
+
+    .tariff-table-wrap { border-radius: 10px !important; overflow-x: auto !important; width: 100% !important; }
+    table { width: 100% !important; }
+    thead th, tbody td { padding: 9px 7px !important; font-size: 12px !important; white-space: nowrap !important; }
+
     .section-title { font-size: 20px !important; }
-    .notes-box { padding: 14px !important; }
+    .section-desc { font-size: 14px !important; }
+    .notes-box { padding: 14px !important; width: 100% !important; }
+    .notes-box ul li { font-size: 13px !important; }
+
+    .contact-box { width: 100% !important; }
+    .sidebar-note { font-size: 11px !important; }
+
+    .footer-bottom { flex-direction: column !important; text-align: center !important; gap: 6px !important; }
+    footer { padding: 24px 4% !important; }
+
+    .breadcrumb { padding: 12px 4% !important; font-size: 12px !important; flex-wrap: wrap !important; }
   }
+
   @media (max-width: 400px) {
-    .vehicles-grid { grid-template-columns: 1fr 1fr !important; }
-    thead th, tbody td { padding: 8px 5px !important; font-size: 11px !important; }
+    thead th, tbody td { padding: 7px 5px !important; font-size: 11px !important; }
+    .v-card { padding: 10px !important; }
+    .v-name { font-size: 13px !important; }
+    .v-price { font-size: 14px !important; }
   }
 
 </style>
