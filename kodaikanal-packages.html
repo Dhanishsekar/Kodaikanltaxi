@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kodaikanal Sightseeing Packages | KodaikanalTaxi</title>
+<meta name="description" content="Kodaikanal sightseeing tour packages. Tour 1 Valley, Tour 2, Tour 3, Tour 4. Book now: +91 8056598036">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#F5A623;--night:#0A0A0F;--dark:#111118;--card:#16161F;
+    --border:rgba(245,166,35,0.18);--text:#F0EDE8;--muted:#9A9490;--white:#FFFFFF;
+    --gradient:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--night);color:var(--text);overflow-x:hidden;}
+  .topbar{background:var(--gold);padding:8px 0;text-align:center;font-size:13px;font-weight:600;color:var(--night);}
+  .topbar a{color:var(--night);text-decoration:none;font-weight:700;}
+  nav{position:sticky;top:0;z-index:9998;background:rgba(10,10,15,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px;overflow:visible;}
+  .logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--gold);text-decoration:none;}
+  .logo span{color:var(--white);}
+  .nav-links{display:flex;gap:28px;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-cta{background:var(--gradient);color:var(--night)!important;border-radius:50px;padding:9px 22px;font-weight:700!important;font-size:13px!important;}
+  .hamburger{display:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px;}
+  .hamburger span{display:block;width:26px;height:3px;background:var(--gold);border-radius:2px;}
+  .breadcrumb{padding:18px 5%;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .breadcrumb a{color:var(--gold);text-decoration:none;}
+
+  /* PAGE HERO */
+  .page-hero{background:var(--dark);border-bottom:1px solid var(--border);padding:50px 5% 60px;position:relative;overflow:hidden;text-align:center;}
+  .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(245,166,35,0.1) 0%,transparent 60%);}
+  .hero-grid-bg{position:absolute;inset:0;opacity:0.03;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:50px 50px;}
+  .page-hero-inner{position:relative;z-index:2;}
+  .page-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,0.12);border:1px solid var(--border);border-radius:50px;padding:7px 16px;margin-bottom:18px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;}
+  .page-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:14px;}
+  .page-title em{color:var(--gold);font-style:normal;}
+  .page-sub{font-size:16px;color:var(--muted);margin-bottom:0;max-width:600px;margin:0 auto;}
+
+  /* PACKAGE TABS */
+  .pkg-tabs{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:40px 5% 0;}
+  .tab-btn{background:var(--card);color:var(--muted);border:1px solid var(--border);border-radius:50px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+  .tab-btn.active{background:var(--gradient);color:var(--night);border:none;}
+  .tab-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* PACKAGE CONTENT */
+  .pkg-content{max-width:960px;margin:0 auto;padding:40px 5% 80px;}
+  .pkg-box{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;}
+  .pkg-header{background:var(--gradient);padding:28px 32px;}
+  .pkg-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(10,10,15,0.6);margin-bottom:6px;}
+  .pkg-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--night);margin-bottom:10px;}
+  .pkg-desc{font-size:14px;color:rgba(10,10,15,0.72);line-height:1.75;}
+  .pkg-body{padding:28px 32px;}
+  .sub-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:14px;margin-top:24px;display:block;}
+  .tariff-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border);margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;min-width:560px;}
+  thead tr{background:rgba(245,166,35,0.12);}
+  thead th{padding:12px 10px;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--gold);text-align:center;border-bottom:1px solid var(--border);}
+  thead th:first-child{text-align:left;padding-left:14px;}
+  tbody td{padding:14px 10px;font-size:14px;color:var(--text);text-align:center;}
+  tbody td:first-child{text-align:left;font-weight:700;color:var(--white);padding-left:14px;}
+  .price{font-weight:700;color:var(--gold);font-size:15px;}
+  .notes-box{background:rgba(245,166,35,0.06);border:1px solid var(--border);border-radius:14px;padding:18px;margin:20px 0;}
+  .notes-box div{font-size:13px;color:var(--muted);display:flex;gap:8px;margin-bottom:6px;}
+  .notes-box div:last-child{margin-bottom:0;}
+  .notes-box span.tick{color:var(--gold);font-weight:700;flex-shrink:0;}
+  .stops-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:28px;}
+  .stop{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
+  .stop-num{background:var(--gradient);color:var(--night);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;}
+  .stop-name{font-size:13px;color:var(--text);font-weight:500;}
+  .book-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;}
+  .book-call{flex:1;min-width:150px;background:var(--gradient);color:var(--night);border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform 0.2s;}
+  .book-call:hover{transform:translateY(-2px);}
+  .book-wa{flex:1;min-width:150px;background:#25D366;color:#fff;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform 0.2s;}
+  .book-wa:hover{transform:translateY(-2px);}
+  .coming-soon{text-align:center;padding:60px 20px;}
+  .coming-soon .icon{font-size:56px;margin-bottom:18px;}
+  .coming-soon h3{font-family:'Playfair Display',serif;font-size:26px;color:var(--white);margin-bottom:10px;}
+  .coming-soon p{color:var(--muted);font-size:15px;margin-bottom:28px;}
+
+  .whatsapp-float{position:fixed;bottom:28px;right:28px;z-index:9999;background:#25D366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 28px rgba(37,211,102,0.5);text-decoration:none;animation:floatWA 3s ease-in-out infinite;}
+  @keyframes floatWA{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  footer{background:#07070C;border-top:1px solid var(--border);padding:28px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  footer p{font-size:13px;color:var(--muted);}
+
+  @media(max-width:680px){
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+    #mob{display:none;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#111118;border-bottom:2px solid rgba(245,166,35,0.4);z-index:99999;padding:8px 0;box-shadow:0 8px 24px rgba(0,0,0,0.5);}
+    #mob a{padding:15px 5%;font-size:15px;color:#F0EDE8;text-decoration:none;border-bottom:1px solid rgba(245,166,35,0.1);font-weight:500;display:block;}
+    .pkg-header{padding:22px 20px;}
+    .pkg-body{padding:20px;}
+    .book-row{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">📞 Call Now: <a href="tel:+918056598036">+91 8056598036</a> &nbsp;|&nbsp; 24/7 Available</div>
+
+<nav>
+  <a href="index.html" class="logo">Kodaikanal<span>Taxi</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#packages">Cab Service</a></li>
+    <li><a href="index.html#vehicles">Vehicles</a></li>
+    <li><a href="index.html#why">Why Us</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="tel:+918056598036" class="nav-cta">📞 Book Now</a></li>
+  </ul>
+  <div class="hamburger" onclick="var m=document.getElementById('mob');m.style.display=m.style.display=='flex'?'none':'flex'">
+    <span></span><span></span><span></span>
+  </div>
+  <div id="mob" style="display:none;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#111118;border-bottom:2px solid rgba(245,166,35,0.4);z-index:99999;padding:8px 0;">
+    <a href="index.html" onclick="this.parentElement.style.display='none'">Home</a>
+    <a href="index.html#packages" onclick="this.parentElement.style.display='none'">Cab Service</a>
+    <a href="index.html#vehicles" onclick="this.parentElement.style.display='none'">Vehicles</a>
+    <a href="index.html#contact" onclick="this.parentElement.style.display='none'">Contact</a>
+    <a href="tel:+918056598036" style="color:#F5A623!important;font-weight:700;">📞 +91 8056598036</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>›</span>
+  <span style="color:var(--text)">Kodaikanal Packages</span>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="hero-grid-bg"></div>
+  <div class="page-hero-inner">
+    <div class="page-badge">🏔️ Sightseeing Tours</div>
+    <h1 class="page-title">Explore <em>Kodaikanal</em></h1>
+    <p class="page-sub">Choose from our handpicked sightseeing packages and discover every corner of the Queen of Hills.</p>
+  </div>
+</div>
+
+<!-- Package Tabs -->
+<div class="pkg-tabs">
+  <button class="tab-btn active" onclick="showPkg(1,this)">🗺️ Tour 1 — Valley</button>
+  <button class="tab-btn" onclick="showPkg(2,this)">🌄 Tour 2</button>
+  <button class="tab-btn" onclick="showPkg(3,this)">🌿 Tour 3</button>
+  <button class="tab-btn" onclick="showPkg(4,this)">🌅 Tour 4</button>
+</div>
+
+<!-- Package Contents -->
+<div class="pkg-content">
+
+  <!-- TOUR 1 -->
+  <div id="pkg1">
+    <div class="pkg-box">
+      <div class="pkg-header">
+        <div class="pkg-label">Package 1</div>
+        <div class="pkg-title">KODAIKANAL SIGHT SEEING – TOUR 1</div>
+        <p class="pkg-desc">A day long trip covering all the major spots in Kodaikanal. The tour starts at <strong>10 AM</strong> and goes on till <strong>3 PM</strong>. We will drop you at the hotel if it's within 2 kms from the Kodaikanal lake. All parking and toll charges are included in this package.</p>
+      </div>
+      <div class="pkg-body">
+
+        <span class="sub-label">Tariff : Tour 1 – Valley</span>
+        <div class="tariff-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Duration</th>
+                <th>Indigo</th>
+                <th>Swift Dzire</th>
+                <th>Etios</th>
+                <th>Innova</th>
+                <th>Tempo</th>
+                <th>Mini Bus (20)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>10 AM – 3 PM</td>
+                <td class="price">₹2,400</td>
+                <td class="price">₹2,600</td>
+                <td class="price">₹2,800</td>
+                <td class="price">₹3,700</td>
+                <td class="price">₹5,000</td>
+                <td class="price">₹5,700</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+
+        <div class="notes-box">
+          <div><span class="tick">✓</span> Toll, Parking Charges and Fuel included</div>
+          <div><span class="tick">✓</span> No extra fee beyond the displayed charges</div>
+          <div><span class="tick">✓</span> Drop/Pickup at Hotel within 2 KMs from Kodaikanal Lake</div>
+        </div>
+
+        <span class="sub-label" style="margin-top:28px;">🗺️ Tour 1 Itinerary — Valley Tour</span>
+        <div class="stops-grid">
+          <div class="stop"><div class="stop-num">1</div><div class="stop-name">Coaker's Walk</div></div>
+          <div class="stop"><div class="stop-num">2</div><div class="stop-name">Upper Lake View</div></div>
+          <div class="stop"><div class="stop-num">3</div><div class="stop-name">Pambar Falls</div></div>
+          <div class="stop"><div class="stop-num">4</div><div class="stop-name">Green Valley View</div></div>
+          <div class="stop"><div class="stop-num">5</div><div class="stop-name">Golf Course</div></div>
+          <div class="stop"><div class="stop-num">6</div><div class="stop-name">Pillar Rocks</div></div>
+          <div class="stop"><div class="stop-num">7</div><div class="stop-name">Devil's Kitchen (Guna Cave)</div></div>
+          <div class="stop"><div class="stop-num">8</div><div class="stop-name">Pine Forest (Shooting Spot)</div></div>
+          <div class="stop"><div class="stop-num">9</div><div class="stop-name">Shanthi Valley View</div></div>
+          <div class="stop"><div class="stop-num">10</div><div class="stop-name">Moier Point</div></div>
+          <div class="stop"><div class="stop-num">11</div><div class="stop-name">Bryant Park</div></div>
+          <div class="stop"><div class="stop-num">12</div><div class="stop-name">Kodai Lake Drop</div></div>
+        </div>
+
+        <div class="book-row">
+          <a href="tel:+918056598036" class="book-call">📞 Call to Book</a>
+          <a href="https://wa.me/918056598036?text=Hi! I want to book Tour 1 Valley Sightseeing Package in Kodaikanal" target="_blank" class="book-wa">💬 Book via WhatsApp</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TOUR 2 -->
+  <div id="pkg2" style="display:none;">
+    <div class="pkg-box">
+      <div class="pkg-header">
+        <div class="pkg-label">Package 2</div>
+        <div class="pkg-title">KODAIKANAL SIGHT SEEING – TOUR 2</div>
+        <p class="pkg-desc">Details for Tour 2 will be updated soon. Call or WhatsApp us to get the latest information and book your package.</p>
+      </div>
+      <div class="pkg-body">
+        <div class="coming-soon">
+          <div class="icon">🌄</div>
+          <h3>Tour 2 — Coming Soon</h3>
+          <p>We're updating this package. Call us to know more about Tour 2 details and pricing.</p>
+          <div class="book-row" style="justify-content:center;">
+            <a href="tel:+918056598036" class="book-call" style="max-width:260px;">📞 Call for Details</a>
+            <a href="https://wa.me/918056598036?text=Hi! I want to know about Tour 2 Sightseeing Package" target="_blank" class="book-wa" style="max-width:260px;">💬 WhatsApp Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOUR 3 -->
+  <div id="pkg3" style="display:none;">
+    <div class="pkg-box">
+      <div class="pkg-header">
+        <div class="pkg-label">Package 3</div>
+        <div class="pkg-title">KODAIKANAL SIGHT SEEING – TOUR 3</div>
+        <p class="pkg-desc">Details for Tour 3 will be updated soon. Call or WhatsApp us to get the latest information and book your package.</p>
+      </div>
+      <div class="pkg-body">
+        <div class="coming-soon">
+          <div class="icon">🌿</div>
+          <h3>Tour 3 — Coming Soon</h3>
+          <p>We're updating this package. Call us to know more about Tour 3 details and pricing.</p>
+          <div class="book-row" style="justify-content:center;">
+            <a href="tel:+918056598036" class="book-call" style="max-width:260px;">📞 Call for Details</a>
+            <a href="https://wa.me/918056598036?text=Hi! I want to know about Tour 3 Sightseeing Package" target="_blank" class="book-wa" style="max-width:260px;">💬 WhatsApp Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOUR 4 -->
+  <div id="pkg4" style="display:none;">
+    <div class="pkg-box">
+      <div class="pkg-header">
+        <div class="pkg-label">Package 4</div>
+        <div class="pkg-title">KODAIKANAL SIGHT SEEING – TOUR 4</div>
+        <p class="pkg-desc">Details for Tour 4 will be updated soon. Call or WhatsApp us to get the latest information and book your package.</p>
+      </div>
+      <div class="pkg-body">
+        <div class="coming-soon">
+          <div class="icon">🌅</div>
+          <h3>Tour 4 — Coming Soon</h3>
+          <p>We're updating this package. Call us to know more about Tour 4 details and pricing.</p>
+          <div class="book-row" style="justify-content:center;">
+            <a href="tel:+918056598036" class="book-call" style="max-width:260px;">📞 Call for Details</a>
+            <a href="https://wa.me/918056598036?text=Hi! I want to know about Tour 4 Sightseeing Package" target="_blank" class="book-wa" style="max-width:260px;">💬 WhatsApp Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end pkg-content -->
+
+<footer>
+  <p>© 2025 KodaikanalTaxi. All Rights Reserved.</p>
+  <p>📞 +91 8056598036 | Kodaikanal, Tamil Nadu</p>
+</footer>
+
+<a href="https://wa.me/918056598036?text=Hi, I want to book a sightseeing package in Kodaikanal" class="whatsapp-float" target="_blank">💬</a>
+
+<script>
+  function showPkg(n, btn) {
+    for(var i=1;i<=4;i++){
+      document.getElementById('pkg'+i).style.display = i===n ? 'block' : 'none';
+    }
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('pkg'+n).scrollIntoView({behavior:'smooth', block:'start'});
+  }
+</script>
+</body>
+</html>
