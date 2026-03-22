@@ -78,6 +78,23 @@
   .book-wa:hover{transform:translateY(-2px);}
   .coming-soon{text-align:center;padding:60px 20px;}
   .coming-soon .icon{font-size:56px;margin-bottom:18px;}
+
+  /* VEHICLE SELECTOR */
+  .vehicle-selector{margin:24px 0 28px;}
+  .vs-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:14px;display:block;}
+  .vs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+  .vs-card{background:var(--dark);border:2px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;}
+  .vs-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+  .vs-card.selected{border-color:var(--gold);background:rgba(245,166,35,0.08);}
+  .vs-card.selected::after{content:'✓';position:absolute;top:8px;right:10px;color:var(--gold);font-weight:900;font-size:13px;}
+  .vs-icon{font-size:28px;margin-bottom:6px;}
+  .vs-name{font-size:12px;font-weight:700;color:var(--white);margin-bottom:4px;}
+  .vs-seats{font-size:11px;color:var(--muted);}
+  .vs-price{font-size:15px;font-weight:900;color:var(--gold);margin-top:6px;}
+  .selected-display{background:rgba(245,166,35,0.08);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .selected-display span{font-size:13px;color:var(--muted);}
+  .selected-display strong{font-size:18px;color:var(--gold);font-weight:900;}
+
   .coming-soon h3{font-family:'Playfair Display',serif;font-size:26px;color:var(--white);margin-bottom:10px;}
   .coming-soon p{color:var(--muted);font-size:15px;margin-bottom:28px;}
 
@@ -210,9 +227,55 @@
           <div class="stop"><div class="stop-num">12</div><div class="stop-name">Kodai Lake Drop</div></div>
         </div>
 
+
+        <span class="vs-label">🚗 Select Your Vehicle</span>
+        <div class="vs-grid">
+          <div class="vs-card" onclick="selectVehicle(this, 'Indigo', 2400, 1)" id="t1_Indigo">
+            <div class="vs-icon">🚗</div>
+            <div class="vs-name">Indigo</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹2,400</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Swift Dzire', 2600, 1)" id="t1_Swift_Dzire">
+            <div class="vs-icon">🚗</div>
+            <div class="vs-name">Swift Dzire</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹2,600</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Etios', 2800, 1)" id="t1_Etios">
+            <div class="vs-icon">🚙</div>
+            <div class="vs-name">Etios</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹2,800</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Innova', 3700, 1)" id="t1_Innova">
+            <div class="vs-icon">🚕</div>
+            <div class="vs-name">Innova</div>
+            <div class="vs-seats">7 Seats</div>
+            <div class="vs-price">₹3,700</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Tempo', 5000, 1)" id="t1_Tempo">
+            <div class="vs-icon">🚌</div>
+            <div class="vs-name">Tempo</div>
+            <div class="vs-seats">12 Seats</div>
+            <div class="vs-price">₹5,000</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Mini Bus', 5700, 1)" id="t1_Mini_Bus">
+            <div class="vs-icon">🚍</div>
+            <div class="vs-name">Mini Bus</div>
+            <div class="vs-seats">20 Seats</div>
+            <div class="vs-price">₹5,700</div>
+          </div>
+        </div>
+
+        <div class="selected-display" id="t1_display">
+          <span>Selected: <strong id="t1_vname">Indigo</strong></span>
+          <span>Total: <strong id="t1_vprice">₹2,400</strong></span>
+        </div>
+
         <div class="book-row">
           <a href="tel:+918056598036" class="book-call">📞 Call to Book</a>
-          <a href="https://wa.me/918056598036?text=Hi! I want to book Tour 1 Valley Sightseeing Package in Kodaikanal" target="_blank" class="book-wa">💬 Book via WhatsApp</a>
+          <a href="#" onclick="bookWA(1); return false;" class="book-wa">💬 Book via WhatsApp</a>
         </div>
 
       </div>
@@ -271,9 +334,55 @@
           <div class="stop"><div class="stop-num">7</div><div class="stop-name">Mathi Kettan Sola (Medicine Forest)</div></div>
           <div class="stop"><div class="stop-num">8</div><div class="stop-name">Kodai Lake / City Drop</div></div>
         </div>
+
+        <span class="vs-label">🚗 Select Your Vehicle</span>
+        <div class="vs-grid">
+          <div class="vs-card" onclick="selectVehicle(this, 'Indigo', 3000, 2)" id="t2_Indigo">
+            <div class="vs-icon">🚗</div>
+            <div class="vs-name">Indigo</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹3,000</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Swift Dzire', 3100, 2)" id="t2_Swift_Dzire">
+            <div class="vs-icon">🚗</div>
+            <div class="vs-name">Swift Dzire</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹3,100</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Etios', 3200, 2)" id="t2_Etios">
+            <div class="vs-icon">🚙</div>
+            <div class="vs-name">Etios</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹3,200</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Innova', 4000, 2)" id="t2_Innova">
+            <div class="vs-icon">🚕</div>
+            <div class="vs-name">Innova</div>
+            <div class="vs-seats">7 Seats</div>
+            <div class="vs-price">₹4,000</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Tempo', 5000, 2)" id="t2_Tempo">
+            <div class="vs-icon">🚌</div>
+            <div class="vs-name">Tempo</div>
+            <div class="vs-seats">12 Seats</div>
+            <div class="vs-price">₹5,000</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Mini Bus', 6000, 2)" id="t2_Mini_Bus">
+            <div class="vs-icon">🚍</div>
+            <div class="vs-name">Mini Bus</div>
+            <div class="vs-seats">20 Seats</div>
+            <div class="vs-price">₹6,000</div>
+          </div>
+        </div>
+
+        <div class="selected-display" id="t2_display">
+          <span>Selected: <strong id="t2_vname">Indigo</strong></span>
+          <span>Total: <strong id="t2_vprice">₹3,000</strong></span>
+        </div>
+
         <div class="book-row">
           <a href="tel:+918056598036" class="book-call">📞 Call to Book</a>
-          <a href="https://wa.me/918056598036?text=Hi! I want to book Tour 2 Forest Sightseeing Package in Kodaikanal" target="_blank" class="book-wa">💬 Book via WhatsApp</a>
+          <a href="#" onclick="bookWA(2); return false;" class="book-wa">💬 Book via WhatsApp</a>
         </div>
       </div>
     </div>
@@ -330,9 +439,55 @@
           <div class="stop"><div class="stop-num">6</div><div class="stop-name">Line Cava Falls</div></div>
           <div class="stop"><div class="stop-num">7</div><div class="stop-name">Kodai Lake / City Drop</div></div>
         </div>
+
+        <span class="vs-label">🚗 Select Your Vehicle</span>
+        <div class="vs-grid">
+          <div class="vs-card" onclick="selectVehicle(this, 'Indigo', 2150, 3)" id="t3_Indigo">
+            <div class="vs-icon">🚗</div>
+            <div class="vs-name">Indigo</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹2,150</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Swift Dzire', 2300, 3)" id="t3_Swift_Dzire">
+            <div class="vs-icon">🚗</div>
+            <div class="vs-name">Swift Dzire</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹2,300</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Etios', 2400, 3)" id="t3_Etios">
+            <div class="vs-icon">🚙</div>
+            <div class="vs-name">Etios</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹2,400</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Innova', 3700, 3)" id="t3_Innova">
+            <div class="vs-icon">🚕</div>
+            <div class="vs-name">Innova</div>
+            <div class="vs-seats">7 Seats</div>
+            <div class="vs-price">₹3,700</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Tempo', 4400, 3)" id="t3_Tempo">
+            <div class="vs-icon">🚌</div>
+            <div class="vs-name">Tempo</div>
+            <div class="vs-seats">12 Seats</div>
+            <div class="vs-price">₹4,400</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Mini Bus', 5000, 3)" id="t3_Mini_Bus">
+            <div class="vs-icon">🚍</div>
+            <div class="vs-name">Mini Bus</div>
+            <div class="vs-seats">20 Seats</div>
+            <div class="vs-price">₹5,000</div>
+          </div>
+        </div>
+
+        <div class="selected-display" id="t3_display">
+          <span>Selected: <strong id="t3_vname">Indigo</strong></span>
+          <span>Total: <strong id="t3_vprice">₹2,150</strong></span>
+        </div>
+
         <div class="book-row">
           <a href="tel:+918056598036" class="book-call">📞 Call to Book</a>
-          <a href="https://wa.me/918056598036?text=Hi! I want to book Tour 3 Trekking Sightseeing Package in Kodaikanal" target="_blank" class="book-wa">💬 Book via WhatsApp</a>
+          <a href="#" onclick="bookWA(3); return false;" class="book-wa">💬 Book via WhatsApp</a>
         </div>
       </div>
     </div>
@@ -391,9 +546,55 @@
           <div class="stop"><div class="stop-num">8</div><div class="stop-name">Mannavanur Lake</div></div>
           <div class="stop"><div class="stop-num">9</div><div class="stop-name">Kodai Lake / City Drop</div></div>
         </div>
+
+        <span class="vs-label">🚗 Select Your Vehicle</span>
+        <div class="vs-grid">
+          <div class="vs-card" onclick="selectVehicle(this, 'Indigo', 3500, 4)" id="t4_Indigo">
+            <div class="vs-icon">🚗</div>
+            <div class="vs-name">Indigo</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹3,500</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Swift Dzire', 3600, 4)" id="t4_Swift_Dzire">
+            <div class="vs-icon">🚗</div>
+            <div class="vs-name">Swift Dzire</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹3,600</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Etios', 3700, 4)" id="t4_Etios">
+            <div class="vs-icon">🚙</div>
+            <div class="vs-name">Etios</div>
+            <div class="vs-seats">4 Seats</div>
+            <div class="vs-price">₹3,700</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Innova', 4600, 4)" id="t4_Innova">
+            <div class="vs-icon">🚕</div>
+            <div class="vs-name">Innova</div>
+            <div class="vs-seats">7 Seats</div>
+            <div class="vs-price">₹4,600</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Tempo', 5800, 4)" id="t4_Tempo">
+            <div class="vs-icon">🚌</div>
+            <div class="vs-name">Tempo</div>
+            <div class="vs-seats">12 Seats</div>
+            <div class="vs-price">₹5,800</div>
+          </div>
+          <div class="vs-card" onclick="selectVehicle(this, 'Mini Bus', 6700, 4)" id="t4_Mini_Bus">
+            <div class="vs-icon">🚍</div>
+            <div class="vs-name">Mini Bus</div>
+            <div class="vs-seats">20 Seats</div>
+            <div class="vs-price">₹6,700</div>
+          </div>
+        </div>
+
+        <div class="selected-display" id="t4_display">
+          <span>Selected: <strong id="t4_vname">Indigo</strong></span>
+          <span>Total: <strong id="t4_vprice">₹3,500</strong></span>
+        </div>
+
         <div class="book-row">
           <a href="tel:+918056598036" class="book-call">📞 Call to Book</a>
-          <a href="https://wa.me/918056598036?text=Hi! I want to book Tour 4 Village Sightseeing Package in Kodaikanal" target="_blank" class="book-wa">💬 Book via WhatsApp</a>
+          <a href="#" onclick="bookWA(4); return false;" class="book-wa">💬 Book via WhatsApp</a>
         </div>
       </div>
     </div>
@@ -409,6 +610,44 @@
 <a href="https://wa.me/918056598036?text=Hi, I want to book a sightseeing package in Kodaikanal" class="whatsapp-float" target="_blank">💬</a>
 
 <script>
+  var tourNames = {1:'Tour 1 Valley', 2:'Tour 2 Forest', 3:'Tour 3 Trekking', 4:'Tour 4 Village'};
+  var selected = {
+    1:{name:'Indigo', price:2400},
+    2:{name:'Indigo', price:3000},
+    3:{name:'Indigo', price:2150},
+    4:{name:'Indigo', price:3500}
+  };
+
+  // Pre-select first card on load
+  window.addEventListener('DOMContentLoaded', function(){
+    ['t1_Indigo','t2_Indigo','t3_Indigo','t4_Indigo'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.classList.add('selected');
+    });
+  });
+
+  function selectVehicle(el, name, price, tourNum) {
+    // Remove selected from all cards in this tour
+    var grid = el.parentElement;
+    grid.querySelectorAll('.vs-card').forEach(function(c){ c.classList.remove('selected'); });
+    el.classList.add('selected');
+    // Update selected data
+    selected[tourNum] = {name: name, price: price};
+    // Update display
+    document.getElementById('t'+tourNum+'_vname').textContent = name;
+    document.getElementById('t'+tourNum+'_vprice').textContent = '₹' + price.toLocaleString('en-IN');
+  }
+
+  function bookWA(tourNum) {
+    var s = selected[tourNum];
+    var msg = 'Hi KodaikanalTaxi! I want to book a sightseeing package.\n'
+            + 'Package: ' + tourNames[tourNum] + '\n'
+            + 'Vehicle: ' + s.name + '\n'
+            + 'Price: ₹' + s.price.toLocaleString('en-IN') + '\n'
+            + 'Please confirm availability.';
+    window.open('https://wa.me/918056598036?text=' + encodeURIComponent(msg), '_blank');
+  }
+
   function showPkg(n, btn) {
     for(var i=1;i<=4;i++){
       document.getElementById('pkg'+i).style.display = i===n ? 'block' : 'none';
