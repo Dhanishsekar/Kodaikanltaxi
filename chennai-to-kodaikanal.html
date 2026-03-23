@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chennai to Kodaikanal Taxi | KodaikanaTaxi</title>
+<title>Chennai to Kodaikanal Taxi | KodaikanalTaxi</title>
 <meta name="description" content="Book cab from Chennai to Kodaikanal. 530 KM, ~9 hrs. From ₹10,500. Call +91 8056598036">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -51,7 +51,7 @@
   .section-title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 2.5vw, 32px); font-weight: 900; color: var(--white); margin-bottom: 8px; }
   .section-desc { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
   .tariff-table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 28px; }
-  table { width: 100%; border-collapse: collapse; min-width: 500px; }
+  table { width: 100%; border-collapse: collapse; min-width: unset; }
   thead tr { background: rgba(245,166,35,0.12); }
   thead th { padding: 14px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); text-align: center; border-bottom: 1px solid var(--border); }
   thead th:first-child { text-align: left; }
@@ -61,7 +61,7 @@
   tbody td { padding: 14px 16px; font-size: 14px; color: var(--text); text-align: center; }
   tbody td:first-child { text-align: left; font-weight: 600; color: var(--white); }
   .price-cell { font-weight: 700; color: var(--gold); font-size: 15px; }
-  .vehicles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 32px; }
+  .vehicles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-bottom: 32px; }
   .v-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; cursor: pointer; transition: all 0.25s; position: relative; }
   .v-card:hover, .v-card.selected { border-color: var(--gold); background: rgba(245,166,35,0.06); }
   .v-card.selected::after { content: '✓'; position: absolute; top: 10px; right: 12px; color: var(--gold); font-weight: 700; font-size: 14px; }
@@ -105,6 +105,62 @@
   .footer-bottom p { font-size: 13px; color: var(--muted); }
   @media (max-width: 860px) { .main-content { grid-template-columns: 1fr; } .booking-sidebar { position: static; } }
   @media (max-width: 600px) { .nav-links { display: none; } .hamburger { display: flex; } .mobile-menu.open { display: flex; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--dark); border-bottom: 1px solid var(--border); z-index: 998; padding: 12px 0; } .mobile-menu a { padding: 13px 5%; font-size: 15px; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); font-weight: 500; } .hero-ctas { flex-direction: column; } .hero-ctas a { justify-content: center; } }
+
+  /* ── MOBILE FIXES ── */
+  * { box-sizing: border-box; }
+  html, body { overflow-x: hidden !important; max-width: 100% !important; }
+
+  @media (max-width: 768px) {
+    .main-content { grid-template-columns: 1fr !important; padding: 20px 4% !important; gap: 20px !important; width: 100% !important; max-width: 100% !important; }
+    .booking-sidebar { position: static !important; width: 100% !important; }
+    .booking-card { width: 100% !important; }
+    .booking-card-body { padding: 16px !important; }
+    .form-group input, .form-group select { width: 100% !important; max-width: 100% !important; font-size: 16px !important; }
+    .book-btn, .book-wa { width: 100% !important; }
+
+    .vehicles-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; width: 100% !important; }
+    .v-card { padding: 12px !important; width: 100% !important; }
+    .v-icon { font-size: 24px !important; margin-bottom: 6px !important; }
+    .v-name { font-size: 14px !important; }
+    .v-seats { font-size: 11px !important; }
+    .v-price { font-size: 15px !important; }
+
+    .route-hero { padding: 28px 4% 32px !important; }
+    .route-title { font-size: 26px !important; }
+    .route-badge { font-size: 10px !important; padding: 6px 12px !important; }
+    .route-meta { gap: 8px !important; }
+    .meta-chip { padding: 7px 10px !important; font-size: 12px !important; }
+    .hero-ctas { flex-direction: column !important; width: 100% !important; }
+    .btn-primary, .btn-whatsapp { justify-content: center !important; width: 100% !important; text-align: center !important; }
+
+    .tariff-table-wrap { border-radius: 10px !important; width: 100% !important; overflow-x: hidden !important; }
+    table { width: 100% !important; table-layout: fixed !important; }
+    thead th { padding: 8px 2px !important; font-size: 9px !important; letter-spacing: 0 !important; }
+    tbody td { padding: 10px 2px !important; font-size: 10px !important; }
+    .price-cell { font-size: 11px !important; font-weight: 700 !important; }
+    .hide-mobile { display: none !important; }
+
+    .section-title { font-size: 20px !important; }
+    .section-desc { font-size: 14px !important; }
+    .notes-box { padding: 14px !important; width: 100% !important; }
+    .notes-box ul li { font-size: 13px !important; }
+
+    .contact-box { width: 100% !important; }
+    .sidebar-note { font-size: 11px !important; }
+
+    .footer-bottom { flex-direction: column !important; text-align: center !important; gap: 6px !important; }
+    footer { padding: 24px 4% !important; }
+
+    .breadcrumb { padding: 12px 4% !important; font-size: 12px !important; flex-wrap: wrap !important; }
+  }
+
+  @media (max-width: 400px) {
+    thead th, tbody td { padding: 7px 5px !important; font-size: 11px !important; }
+    .v-card { padding: 10px !important; }
+    .v-name { font-size: 13px !important; }
+    .v-price { font-size: 14px !important; }
+  }
+
 </style>
 </head>
 <body>
@@ -113,7 +169,7 @@
   <a href="index.html" class="logo">Kodaikanal<span>Taxi</span></a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="index.html#packages">Packages</a></li>
+    <li><a href="index.html#packages">Cab Service</a></li>
     <li><a href="index.html#vehicles">Vehicles</a></li>
     <li><a href="index.html#why">Why Us</a></li>
     <li><a href="index.html#contact">Contact</a></li>
@@ -123,14 +179,14 @@
 </nav>
 <div class="mobile-menu" id="mm">
   <a href="index.html">Home</a>
-  <a href="index.html#packages">Packages</a>
+  <a href="index.html#packages">Cab Service</a>
   <a href="index.html#vehicles">Vehicles</a>
   <a href="index.html#contact">Contact</a>
   <a href="tel:+918056598036">📞 Call: +91 8056598036</a>
 </div>
 <div class="breadcrumb">
   <a href="index.html">Home</a><span>›</span>
-  <a href="index.html#packages">Packages</a><span>›</span>
+  <a href="index.html#packages">Cab Service</a><span>›</span>
   <span style="color:var(--text)">Chennai to Kodaikanal</span>
 </div>
 <div class="route-hero">
@@ -151,6 +207,18 @@
     </div>
   </div>
 </div>
+<!-- SMALL INTRO STRIP -->
+<div style="background:var(--dark);border-bottom:1px solid var(--border);padding:22px 5%;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">
+      Book your <strong style="color:var(--text);">Chennai to Kodaikanal taxi</strong> and journey from the vibrant capital city of Tamil Nadu through the long stretches of NH32 via Villupuram and Salem, past golden fields and the Dindigul plains, then ascend the scenic <strong style="color:var(--text);">Palani Hills ghat roads</strong> to the cool misty Queen of Hills — with toll, parking, and fuel all included.
+    </p>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:14px;">
+      <span style="font-size:13px;color:var(--gold);font-weight:600;">🏙️ Chennai City Start</span><span style="font-size:13px;color:var(--gold);font-weight:600;">🌾 Villupuram & Salem Plains</span><span style="font-size:13px;color:var(--gold);font-weight:600;">⛰️ Palani Hills Ghat Road</span>
+    </div>
+  </div>
+</div>
+
 <div class="main-content">
   <div class="tariff-section">
     <span class="section-label">Fare Details</span>
@@ -158,8 +226,8 @@
     <p class="section-desc">Pick up & Drop one-way charges. Distance: <strong style="color:var(--gold)">530 KM</strong> | Duration: <strong style="color:var(--gold)">~9 hrs</strong>. All fares include toll, parking, and driver tip.</p>
     <div class="tariff-table-wrap">
       <table>
-        <thead><tr><th>Pickup</th><th>Distance</th><th>Indigo</th><th>Etios</th><th>Qualis</th><th>Innova</th><th>Tempo</th></tr></thead>
-        <tbody><tr><td>Chennai</td><td>530 km</td><td class="price-cell">₹9,500</td><td class="price-cell">₹10,500</td><td class="price-cell">₹14,000</td><td class="price-cell">₹13,500</td><td class="price-cell">₹18,000</td></tr></tbody>
+        <thead><tr><th>From</th><th class="hide-mobile">KM</th><th>Indigo</th><th>Etios</th><th>Qualis</th><th>Innova</th><th>Tempo</th></tr></thead>
+        <tbody><tr><td>Chennai</td><td class="hide-mobile">530 km</td><td class="price-cell">₹9,500</td><td class="price-cell">₹10,500</td><td class="price-cell">₹14,000</td><td class="price-cell">₹13,500</td><td class="price-cell">₹18,000</td></tr></tbody>
       </table>
     </div>
     <span class="section-label" style="margin-top:12px;display:block;">Choose Your Vehicle</span>
@@ -192,7 +260,7 @@
         <div class="form-group"><label>Travel Date</label><input type="date" id="bDate"></div>
         <div class="form-group"><label>Pickup Point in Chennai</label><input type="text" id="bPickup" placeholder="e.g. Chennai Bus Stand"></div>
         <div class="form-group"><label>Drop Point in Kodaikanal</label><input type="text" id="bDrop" placeholder="e.g. Hotel / Lake area"></div>
-        <button class="book-btn" onclick="bookNow()">📞 Confirm Booking</button>
+        <a href="tel:+918056598036" class="book-btn" style="display:block;text-align:center;text-decoration:none;">📞 Call to Book Now</a>
         <button class="book-wa" onclick="bookWhatsApp()">💬 Book via WhatsApp</button>
         <p class="sidebar-note">✅ Free cancellation · No advance payment · Instant confirmation</p>
       </div>
@@ -204,7 +272,49 @@
     </div>
   </div>
 </div>
-<footer><div class="footer-bottom"><p>© 2025 KodaikanaTaxi. All Rights Reserved.</p><p>📞 +91 8056598036 | Kodaikanal, Tamil Nadu</p></div></footer>
+<!-- ROUTE INFO CARDS -->
+<section style="background:var(--dark);padding:60px 5%;border-top:1px solid var(--border);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Your Journey</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;color:var(--white);">Why Travel with KodaikanalTaxi</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.18)';this.style.transform='translateY(0)'">
+        <div style="font-size:36px;margin-bottom:14px;">🏙️</div>
+        <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Chennai City Start</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.65;">Begin your journey from the vibrant capital city of Tamil Nadu.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.18)';this.style.transform='translateY(0)'">
+        <div style="font-size:36px;margin-bottom:14px;">🌴</div>
+        <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Villupuram & Salem</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.65;">Drive through the flat plains of northern Tamil Nadu with golden fields.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.18)';this.style.transform='translateY(0)'">
+        <div style="font-size:36px;margin-bottom:14px;">⛰️</div>
+        <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Dindigul to Palani Hills</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.65;">The road begins to climb into misty mountain terrain.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.18)';this.style.transform='translateY(0)'">
+        <div style="font-size:36px;margin-bottom:14px;">🌿</div>
+        <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Misty Kodaikanal Arrival</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.65;">Cool mountain air and stunning valley views greet your arrival.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.18)';this.style.transform='translateY(0)'">
+        <div style="font-size:36px;margin-bottom:14px;">🚗</div>
+        <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Clean, AC Vehicles</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.65;">Well-maintained fleet from sedans to Tempo Travellers.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(245,166,35,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.18)';this.style.transform='translateY(0)'">
+        <div style="font-size:36px;margin-bottom:14px;">📞</div>
+        <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">24/7 Availability</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.65;">Book anytime by call or WhatsApp. Early morning pickups welcome.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="footer-bottom"><p>© 2025 KodaikanalTaxi. All Rights Reserved.</p><p>📞 +91 8056598036 | Kodaikanal, Tamil Nadu</p></div></footer>
 <a href="https://wa.me/918056598036?text=Hi, I want to book a cab from Chennai to Kodaikanal" class="whatsapp-float" target="_blank">💬</a>
 <script>
   let selectedVehicle = 'Indigo';
@@ -224,13 +334,13 @@
     const pickup = document.getElementById('bPickup').value;
     const drop = document.getElementById('bDrop').value;
     if (!phone) { alert('Please enter your phone number'); return; }
-    const msg = 'Hi KodaikanaTaxi!\n\nBooking Request:\nRoute: Chennai → Kodaikanal\nVehicle: ' + selectedVehicle + '\nFare: ₹' + parseInt(selectedPrice).toLocaleString('en-IN') + '\nName: ' + (name||'Not given') + '\nPhone: ' + phone + '\nDate: ' + (date||'Not specified') + '\nPickup: ' + (pickup||'Chennai') + '\nDrop: ' + (drop||'Kodaikanal');
+    const msg = 'Hi KodaikanalTaxi!\n\nBooking Request:\nRoute: Chennai → Kodaikanal\nVehicle: ' + selectedVehicle + '\nFare: ₹' + parseInt(selectedPrice).toLocaleString('en-IN') + '\nName: ' + (name||'Not given') + '\nPhone: ' + phone + '\nDate: ' + (date||'Not specified') + '\nPickup: ' + (pickup||'Chennai') + '\nDrop: ' + (drop||'Kodaikanal');
     window.open('https://wa.me/918056598036?text=' + encodeURIComponent(msg), '_blank');
   }
   function bookWhatsApp() {
     const name = document.getElementById('bName').value;
     const date = document.getElementById('bDate').value;
-    const msg = 'Hi KodaikanaTaxi! I want to book a cab.\nRoute: Chennai → Kodaikanal\nVehicle: ' + selectedVehicle + ' (₹' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nDate: ' + (date||'Not specified');
+    const msg = 'Hi KodaikanalTaxi! I want to book a cab.\nRoute: Chennai → Kodaikanal\nVehicle: ' + selectedVehicle + ' (₹' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nDate: ' + (date||'Not specified');
     window.open('https://wa.me/918056598036?text=' + encodeURIComponent(msg), '_blank');
   }
 </script>
