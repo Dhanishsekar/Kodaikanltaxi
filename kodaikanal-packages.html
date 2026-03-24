@@ -29,8 +29,6 @@
   .hamburger span{display:block;width:26px;height:3px;background:var(--gold);border-radius:2px;}
   .breadcrumb{padding:18px 5%;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .breadcrumb a{color:var(--gold);text-decoration:none;}
-
-  /* PAGE HERO */
   .page-hero{background:var(--dark);border-bottom:1px solid var(--border);padding:50px 5% 60px;position:relative;overflow:hidden;text-align:center;}
   .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(245,166,35,0.1) 0%,transparent 60%);}
   .hero-grid-bg{position:absolute;inset:0;opacity:0.03;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:50px 50px;}
@@ -39,14 +37,10 @@
   .page-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:14px;}
   .page-title em{color:var(--gold);font-style:normal;}
   .page-sub{font-size:16px;color:var(--muted);margin-bottom:0;max-width:600px;margin:0 auto;}
-
-  /* PACKAGE TABS */
   .pkg-tabs{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:40px 5% 0;}
   .tab-btn{background:var(--card);color:var(--muted);border:1px solid var(--border);border-radius:50px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
   .tab-btn.active{background:var(--gradient);color:var(--night);border:none;}
   .tab-btn:hover{border-color:var(--gold);color:var(--gold);}
-
-  /* PACKAGE CONTENT */
   .pkg-content{max-width:960px;margin:0 auto;padding:40px 5% 80px;}
   .pkg-box{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;}
   .pkg-header{background:var(--gradient);padding:28px 32px;}
@@ -76,11 +70,6 @@
   .book-call:hover{transform:translateY(-2px);}
   .book-wa{flex:1;min-width:150px;background:#25D366;color:#fff;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform 0.2s;}
   .book-wa:hover{transform:translateY(-2px);}
-  .coming-soon{text-align:center;padding:60px 20px;}
-  .coming-soon .icon{font-size:56px;margin-bottom:18px;}
-
-  /* VEHICLE SELECTOR */
-  .vehicle-selector{margin:24px 0 28px;}
   .vs-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:14px;display:block;}
   .vs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
   .vs-card{background:var(--dark);border:2px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;}
@@ -94,15 +83,10 @@
   .selected-display{background:rgba(245,166,35,0.08);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
   .selected-display span{font-size:13px;color:var(--muted);}
   .selected-display strong{font-size:18px;color:var(--gold);font-weight:900;}
-
-  .coming-soon h3{font-family:'Playfair Display',serif;font-size:26px;color:var(--white);margin-bottom:10px;}
-  .coming-soon p{color:var(--muted);font-size:15px;margin-bottom:28px;}
-
   .whatsapp-float{position:fixed;bottom:28px;right:28px;z-index:9999;background:#25D366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 28px rgba(37,211,102,0.5);text-decoration:none;animation:floatWA 3s ease-in-out infinite;}
   @keyframes floatWA{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   footer{background:#07070C;border-top:1px solid var(--border);padding:28px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
   footer p{font-size:13px;color:var(--muted);}
-
   @media(max-width:680px){
     .nav-links{display:none;}
     .hamburger{display:flex;}
@@ -145,7 +129,6 @@
   <span style="color:var(--text)">Kodaikanal Packages</span>
 </div>
 
-<!-- Page Hero -->
 <div class="page-hero">
   <div class="hero-grid-bg"></div>
   <div class="page-hero-inner">
@@ -155,7 +138,6 @@
   </div>
 </div>
 
-<!-- Package Tabs -->
 <div class="pkg-tabs">
   <button class="tab-btn active" onclick="showPkg(1,this)">🗺️ Tour 1 — Valley</button>
   <button class="tab-btn" onclick="showPkg(2,this)">🏘️ Tour 2 — Village</button>
@@ -163,54 +145,29 @@
   <button class="tab-btn" onclick="showPkg(4,this)">🥾 Tour 4 — Trekking</button>
 </div>
 
-<!-- Package Contents -->
 <div class="pkg-content">
 
-  <!-- TOUR 1 -->
+  <!-- TOUR 1 — VALLEY -->
   <div id="pkg1">
     <div class="pkg-box">
       <div class="pkg-header">
         <div class="pkg-label">Package 1</div>
-        <div class="pkg-title">KODAIKANAL SIGHT SEEING – TOUR 1</div>
+        <div class="pkg-title">KODAIKANAL SIGHT SEEING – TOUR 1 — VALLEY TOUR</div>
         <p class="pkg-desc">A day long trip covering all the major spots in Kodaikanal. The tour starts at <strong>10 AM</strong> and goes on till <strong>3 PM</strong>. We will drop you at the hotel if it's within 2 kms from the Kodaikanal lake. All parking and toll charges are included in this package.</p>
       </div>
       <div class="pkg-body">
-
         <span class="sub-label">Tariff : Tour 1 – Valley</span>
         <div class="tariff-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Duration</th>
-                <th>Indigo</th>
-                <th>Swift Dzire</th>
-                <th>Etios</th>
-                <th>Innova</th>
-                <th>Tempo</th>
-                <th>Mini Bus (20)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>10 AM – 3 PM</td>
-                <td class="price">₹2,400</td>
-                <td class="price">₹2,600</td>
-                <td class="price">₹2,800</td>
-                <td class="price">₹3,700</td>
-                <td class="price">₹5,000</td>
-                <td class="price">₹5,700</td>
-              </tr>
-            </tbody>
+            <thead><tr><th>Duration</th><th>Indigo</th><th>Swift Dzire</th><th>Etios</th><th>Innova</th><th>Tempo</th><th>Mini Bus (20)</th></tr></thead>
+            <tbody><tr><td>10 AM – 3 PM</td><td class="price">₹2,400</td><td class="price">₹2,600</td><td class="price">₹2,800</td><td class="price">₹3,700</td><td class="price">₹5,000</td><td class="price">₹5,700</td></tr></tbody>
           </table>
         </div>
-        
-
         <div class="notes-box">
           <div><span class="tick">✓</span> Toll, Parking Charges and Fuel included</div>
           <div><span class="tick">✓</span> No extra fee beyond the displayed charges</div>
           <div><span class="tick">✓</span> Drop/Pickup at Hotel within 2 KMs from Kodaikanal Lake</div>
         </div>
-
         <span class="sub-label" style="margin-top:28px;">🗺️ Tour 1 Itinerary — Valley Tour</span>
         <div class="stops-grid">
           <div class="stop"><div class="stop-num">1</div><div class="stop-name">Coaker's Walk</div></div>
@@ -226,96 +183,41 @@
           <div class="stop"><div class="stop-num">11</div><div class="stop-name">Bryant Park</div></div>
           <div class="stop"><div class="stop-num">12</div><div class="stop-name">Kodai Lake Drop</div></div>
         </div>
-
-
         <span class="vs-label">🚗 Select Your Vehicle</span>
         <div class="vs-grid">
-          <div class="vs-card" onclick="selectVehicle(this, 'Indigo', 2400, 1)" id="t1_Indigo">
-            <div class="vs-icon">🚗</div>
-            <div class="vs-name">Indigo</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹2,400</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Swift Dzire', 2600, 1)" id="t1_Swift_Dzire">
-            <div class="vs-icon">🚗</div>
-            <div class="vs-name">Swift Dzire</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹2,600</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Etios', 2800, 1)" id="t1_Etios">
-            <div class="vs-icon">🚙</div>
-            <div class="vs-name">Etios</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹2,800</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Innova', 3700, 1)" id="t1_Innova">
-            <div class="vs-icon">🚕</div>
-            <div class="vs-name">Innova</div>
-            <div class="vs-seats">7 Seats</div>
-            <div class="vs-price">₹3,700</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Tempo', 5000, 1)" id="t1_Tempo">
-            <div class="vs-icon">🚌</div>
-            <div class="vs-name">Tempo</div>
-            <div class="vs-seats">12 Seats</div>
-            <div class="vs-price">₹5,000</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Mini Bus', 5700, 1)" id="t1_Mini_Bus">
-            <div class="vs-icon">🚍</div>
-            <div class="vs-name">Mini Bus</div>
-            <div class="vs-seats">20 Seats</div>
-            <div class="vs-price">₹5,700</div>
-          </div>
+          <div class="vs-card" onclick="selectVehicle(this,'Indigo',2400,1)" id="t1_Indigo"><div class="vs-icon">🚗</div><div class="vs-name">Indigo</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹2,400</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Swift Dzire',2600,1)" id="t1_Swift_Dzire"><div class="vs-icon">🚗</div><div class="vs-name">Swift Dzire</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹2,600</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Etios',2800,1)" id="t1_Etios"><div class="vs-icon">🚙</div><div class="vs-name">Etios</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹2,800</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Innova',3700,1)" id="t1_Innova"><div class="vs-icon">🚕</div><div class="vs-name">Innova</div><div class="vs-seats">7 Seats</div><div class="vs-price">₹3,700</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Tempo',5000,1)" id="t1_Tempo"><div class="vs-icon">🚌</div><div class="vs-name">Tempo</div><div class="vs-seats">12 Seats</div><div class="vs-price">₹5,000</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Mini Bus',5700,1)" id="t1_Mini_Bus"><div class="vs-icon">🚍</div><div class="vs-name">Mini Bus</div><div class="vs-seats">20 Seats</div><div class="vs-price">₹5,700</div></div>
         </div>
-
         <div class="selected-display" id="t1_display">
           <span>Selected: <strong id="t1_vname">Indigo</strong></span>
           <span>Total: <strong id="t1_vprice">₹2,400</strong></span>
         </div>
-
         <div class="book-row">
           <a href="tel:+918056598036" class="book-call">📞 Call to Book</a>
           <a href="#" onclick="bookWA(1); return false;" class="book-wa">💬 Book via WhatsApp</a>
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- TOUR 2 -->
+  <!-- TOUR 2 — VILLAGE -->
   <div id="pkg2" style="display:none;">
     <div class="pkg-box">
       <div class="pkg-header">
         <div class="pkg-label">Package 2</div>
         <div class="pkg-title">KODAIKANAL SIGHT SEEING – TOUR 2 — VILLAGE TOUR</div>
-        <p class="pkg-desc">A day long trip covering all the scenic and cinema shooting spots in Kodaikanal. The tour starts at <strong>10 AM</strong> and goes on till <strong>3 PM</strong>. We will drop you at the hotel if it's within 2 kms from the Kodaikanal lake. All parking and toll charges are included.</p>
+        <p class="pkg-desc">A day long trip covering all the scenic village spots in Kodaikanal. The tour starts at <strong>10 AM</strong> and goes on till <strong>3 PM</strong>. We will drop you at the hotel if it's within 2 kms from the Kodaikanal lake. All parking and toll charges are included.</p>
       </div>
       <div class="pkg-body">
         <span class="sub-label">Tariff : Tour 2 – Village Tour</span>
         <div class="tariff-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Duration</th>
-                <th>Indigo</th>
-                <th>Swift Dzire</th>
-                <th>Etios</th>
-                <th>Innova</th>
-                <th>Tempo</th>
-                <th>Mini Bus (20)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>10 AM – 3 PM</td>
-                <td class="price">₹3,500</td>
-                <td class="price">₹3,600</td>
-                <td class="price">₹3,700</td>
-                <td class="price">₹4,600</td>
-                <td class="price">₹5,800</td>
-                <td class="price">₹6,700</td>
-              </tr>
-            </tbody>
+            <thead><tr><th>Duration</th><th>Indigo</th><th>Swift Dzire</th><th>Etios</th><th>Innova</th><th>Tempo</th><th>Mini Bus (20)</th></tr></thead>
+            <tbody><tr><td>10 AM – 3 PM</td><td class="price">₹3,500</td><td class="price">₹3,600</td><td class="price">₹3,700</td><td class="price">₹4,600</td><td class="price">₹5,800</td><td class="price">₹6,700</td></tr></tbody>
           </table>
         </div>
         <div class="notes-box">
@@ -335,61 +237,28 @@
           <div class="stop"><div class="stop-num">8</div><div class="stop-name">Mannavanur Lake</div></div>
           <div class="stop"><div class="stop-num">9</div><div class="stop-name">Kodai Lake / City Drop</div></div>
         </div>
-
         <span class="vs-label">🚗 Select Your Vehicle</span>
         <div class="vs-grid">
-          <div class="vs-card" onclick="selectVehicle(this, 'Indigo', 3500, 4)" id="t4_Indigo">
-            <div class="vs-icon">🚗</div>
-            <div class="vs-name">Indigo</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹3,500</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Swift Dzire', 3600, 4)" id="t4_Swift_Dzire">
-            <div class="vs-icon">🚗</div>
-            <div class="vs-name">Swift Dzire</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹3,600</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Etios', 3700, 4)" id="t4_Etios">
-            <div class="vs-icon">🚙</div>
-            <div class="vs-name">Etios</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹3,700</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Innova', 4600, 4)" id="t4_Innova">
-            <div class="vs-icon">🚕</div>
-            <div class="vs-name">Innova</div>
-            <div class="vs-seats">7 Seats</div>
-            <div class="vs-price">₹4,600</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Tempo', 5800, 4)" id="t4_Tempo">
-            <div class="vs-icon">🚌</div>
-            <div class="vs-name">Tempo</div>
-            <div class="vs-seats">12 Seats</div>
-            <div class="vs-price">₹5,800</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Mini Bus', 6700, 4)" id="t4_Mini_Bus">
-            <div class="vs-icon">🚍</div>
-            <div class="vs-name">Mini Bus</div>
-            <div class="vs-seats">20 Seats</div>
-            <div class="vs-price">₹6,700</div>
-          </div>
+          <div class="vs-card" onclick="selectVehicle(this,'Indigo',3500,2)" id="t2_Indigo"><div class="vs-icon">🚗</div><div class="vs-name">Indigo</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹3,500</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Swift Dzire',3600,2)" id="t2_Swift_Dzire"><div class="vs-icon">🚗</div><div class="vs-name">Swift Dzire</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹3,600</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Etios',3700,2)" id="t2_Etios"><div class="vs-icon">🚙</div><div class="vs-name">Etios</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹3,700</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Innova',4600,2)" id="t2_Innova"><div class="vs-icon">🚕</div><div class="vs-name">Innova</div><div class="vs-seats">7 Seats</div><div class="vs-price">₹4,600</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Tempo',5800,2)" id="t2_Tempo"><div class="vs-icon">🚌</div><div class="vs-name">Tempo</div><div class="vs-seats">12 Seats</div><div class="vs-price">₹5,800</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Mini Bus',6700,2)" id="t2_Mini_Bus"><div class="vs-icon">🚍</div><div class="vs-name">Mini Bus</div><div class="vs-seats">20 Seats</div><div class="vs-price">₹6,700</div></div>
         </div>
-
-        <div class="selected-display" id="t4_display">
-          <span>Selected: <strong id="t4_vname">Indigo</strong></span>
-          <span>Total: <strong id="t4_vprice">₹3,500</strong></span>
+        <div class="selected-display" id="t2_display">
+          <span>Selected: <strong id="t2_vname">Indigo</strong></span>
+          <span>Total: <strong id="t2_vprice">₹3,500</strong></span>
         </div>
-
         <div class="book-row">
           <a href="tel:+918056598036" class="book-call">📞 Call to Book</a>
-          <a href="#" onclick="bookWA(4); return false;" class="book-wa">💬 Book via WhatsApp</a>
+          <a href="#" onclick="bookWA(2); return false;" class="book-wa">💬 Book via WhatsApp</a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- TOUR 3 -->
+  <!-- TOUR 3 — FOREST -->
   <div id="pkg3" style="display:none;">
     <div class="pkg-box">
       <div class="pkg-header">
@@ -401,28 +270,8 @@
         <span class="sub-label">Tariff : Tour 3 – Forest</span>
         <div class="tariff-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Duration</th>
-                <th>Indigo</th>
-                <th>Swift Dzire</th>
-                <th>Etios</th>
-                <th>Innova</th>
-                <th>Tempo</th>
-                <th>Mini Bus (20)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>10 AM – 4 PM</td>
-                <td class="price">₹3,000</td>
-                <td class="price">₹3,100</td>
-                <td class="price">₹3,200</td>
-                <td class="price">₹4,000</td>
-                <td class="price">₹5,000</td>
-                <td class="price">₹6,000</td>
-              </tr>
-            </tbody>
+            <thead><tr><th>Duration</th><th>Indigo</th><th>Swift Dzire</th><th>Etios</th><th>Innova</th><th>Tempo</th><th>Mini Bus (20)</th></tr></thead>
+            <tbody><tr><td>10 AM – 4 PM</td><td class="price">₹3,000</td><td class="price">₹3,100</td><td class="price">₹3,200</td><td class="price">₹4,000</td><td class="price">₹5,000</td><td class="price">₹6,000</td></tr></tbody>
           </table>
         </div>
         <div class="notes-box">
@@ -443,42 +292,12 @@
         </div>
         <span class="vs-label">🚗 Select Your Vehicle</span>
         <div class="vs-grid">
-          <div class="vs-card" onclick="selectVehicle(this, 'Indigo', 3000, 3)" id="t3_Indigo">
-            <div class="vs-icon">🚗</div>
-            <div class="vs-name">Indigo</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹3,000</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Swift Dzire', 3100, 3)" id="t3_Swift_Dzire">
-            <div class="vs-icon">🚗</div>
-            <div class="vs-name">Swift Dzire</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹3,100</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Etios', 3200, 3)" id="t3_Etios">
-            <div class="vs-icon">🚙</div>
-            <div class="vs-name">Etios</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹3,200</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Innova', 4000, 3)" id="t3_Innova">
-            <div class="vs-icon">🚕</div>
-            <div class="vs-name">Innova</div>
-            <div class="vs-seats">7 Seats</div>
-            <div class="vs-price">₹4,000</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Tempo', 5000, 3)" id="t3_Tempo">
-            <div class="vs-icon">🚌</div>
-            <div class="vs-name">Tempo</div>
-            <div class="vs-seats">12 Seats</div>
-            <div class="vs-price">₹5,000</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Mini Bus', 6000, 3)" id="t3_Mini_Bus">
-            <div class="vs-icon">🚍</div>
-            <div class="vs-name">Mini Bus</div>
-            <div class="vs-seats">20 Seats</div>
-            <div class="vs-price">₹6,000</div>
-          </div>
+          <div class="vs-card" onclick="selectVehicle(this,'Indigo',3000,3)" id="t3_Indigo"><div class="vs-icon">🚗</div><div class="vs-name">Indigo</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹3,000</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Swift Dzire',3100,3)" id="t3_Swift_Dzire"><div class="vs-icon">🚗</div><div class="vs-name">Swift Dzire</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹3,100</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Etios',3200,3)" id="t3_Etios"><div class="vs-icon">🚙</div><div class="vs-name">Etios</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹3,200</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Innova',4000,3)" id="t3_Innova"><div class="vs-icon">🚕</div><div class="vs-name">Innova</div><div class="vs-seats">7 Seats</div><div class="vs-price">₹4,000</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Tempo',5000,3)" id="t3_Tempo"><div class="vs-icon">🚌</div><div class="vs-name">Tempo</div><div class="vs-seats">12 Seats</div><div class="vs-price">₹5,000</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Mini Bus',6000,3)" id="t3_Mini_Bus"><div class="vs-icon">🚍</div><div class="vs-name">Mini Bus</div><div class="vs-seats">20 Seats</div><div class="vs-price">₹6,000</div></div>
         </div>
         <div class="selected-display" id="t3_display">
           <span>Selected: <strong id="t3_vname">Indigo</strong></span>
@@ -492,7 +311,7 @@
     </div>
   </div>
 
-  <!-- TOUR 4 -->
+  <!-- TOUR 4 — TREKKING -->
   <div id="pkg4" style="display:none;">
     <div class="pkg-box">
       <div class="pkg-header">
@@ -504,28 +323,8 @@
         <span class="sub-label">Tariff : Tour 4 – Trekking</span>
         <div class="tariff-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Duration</th>
-                <th>Indigo</th>
-                <th>Swift Dzire</th>
-                <th>Etios</th>
-                <th>Innova</th>
-                <th>Tempo</th>
-                <th>Mini Bus (20)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>10 AM – 3 PM</td>
-                <td class="price">₹2,150</td>
-                <td class="price">₹2,300</td>
-                <td class="price">₹2,400</td>
-                <td class="price">₹3,700</td>
-                <td class="price">₹4,400</td>
-                <td class="price">₹5,000</td>
-              </tr>
-            </tbody>
+            <thead><tr><th>Duration</th><th>Indigo</th><th>Swift Dzire</th><th>Etios</th><th>Innova</th><th>Tempo</th><th>Mini Bus (20)</th></tr></thead>
+            <tbody><tr><td>10 AM – 3 PM</td><td class="price">₹2,150</td><td class="price">₹2,300</td><td class="price">₹2,400</td><td class="price">₹3,700</td><td class="price">₹4,400</td><td class="price">₹5,000</td></tr></tbody>
           </table>
         </div>
         <div class="notes-box">
@@ -545,42 +344,12 @@
         </div>
         <span class="vs-label">🚗 Select Your Vehicle</span>
         <div class="vs-grid">
-          <div class="vs-card" onclick="selectVehicle(this, 'Indigo', 2150, 4)" id="t4_Indigo">
-            <div class="vs-icon">🚗</div>
-            <div class="vs-name">Indigo</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹2,150</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Swift Dzire', 2300, 4)" id="t4_Swift_Dzire">
-            <div class="vs-icon">🚗</div>
-            <div class="vs-name">Swift Dzire</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹2,300</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Etios', 2400, 4)" id="t4_Etios">
-            <div class="vs-icon">🚙</div>
-            <div class="vs-name">Etios</div>
-            <div class="vs-seats">4 Seats</div>
-            <div class="vs-price">₹2,400</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Innova', 3700, 4)" id="t4_Innova">
-            <div class="vs-icon">🚕</div>
-            <div class="vs-name">Innova</div>
-            <div class="vs-seats">7 Seats</div>
-            <div class="vs-price">₹3,700</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Tempo', 4400, 4)" id="t4_Tempo">
-            <div class="vs-icon">🚌</div>
-            <div class="vs-name">Tempo</div>
-            <div class="vs-seats">12 Seats</div>
-            <div class="vs-price">₹4,400</div>
-          </div>
-          <div class="vs-card" onclick="selectVehicle(this, 'Mini Bus', 5000, 4)" id="t4_Mini_Bus">
-            <div class="vs-icon">🚍</div>
-            <div class="vs-name">Mini Bus</div>
-            <div class="vs-seats">20 Seats</div>
-            <div class="vs-price">₹5,000</div>
-          </div>
+          <div class="vs-card" onclick="selectVehicle(this,'Indigo',2150,4)" id="t4_Indigo"><div class="vs-icon">🚗</div><div class="vs-name">Indigo</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹2,150</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Swift Dzire',2300,4)" id="t4_Swift_Dzire"><div class="vs-icon">🚗</div><div class="vs-name">Swift Dzire</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹2,300</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Etios',2400,4)" id="t4_Etios"><div class="vs-icon">🚙</div><div class="vs-name">Etios</div><div class="vs-seats">4 Seats</div><div class="vs-price">₹2,400</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Innova',3700,4)" id="t4_Innova"><div class="vs-icon">🚕</div><div class="vs-name">Innova</div><div class="vs-seats">7 Seats</div><div class="vs-price">₹3,700</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Tempo',4400,4)" id="t4_Tempo"><div class="vs-icon">🚌</div><div class="vs-name">Tempo</div><div class="vs-seats">12 Seats</div><div class="vs-price">₹4,400</div></div>
+          <div class="vs-card" onclick="selectVehicle(this,'Mini Bus',5000,4)" id="t4_Mini_Bus"><div class="vs-icon">🚍</div><div class="vs-name">Mini Bus</div><div class="vs-seats">20 Seats</div><div class="vs-price">₹5,000</div></div>
         </div>
         <div class="selected-display" id="t4_display">
           <span>Selected: <strong id="t4_vname">Indigo</strong></span>
@@ -594,7 +363,7 @@
     </div>
   </div>
 
-</div><!-- end pkg-content -->
+</div>
 
 <footer>
   <p>© 2025 KodaikanalTaxi. All Rights Reserved.</p>
@@ -612,7 +381,6 @@
     4:{name:'Indigo', price:2150}
   };
 
-  // Pre-select first card on load
   window.addEventListener('DOMContentLoaded', function(){
     ['t1_Indigo','t2_Indigo','t3_Indigo','t4_Indigo'].forEach(function(id){
       var el = document.getElementById(id);
@@ -621,13 +389,10 @@
   });
 
   function selectVehicle(el, name, price, tourNum) {
-    // Remove selected from all cards in this tour
     var grid = el.parentElement;
     grid.querySelectorAll('.vs-card').forEach(function(c){ c.classList.remove('selected'); });
     el.classList.add('selected');
-    // Update selected data
     selected[tourNum] = {name: name, price: price};
-    // Update display
     document.getElementById('t'+tourNum+'_vname').textContent = name;
     document.getElementById('t'+tourNum+'_vprice').textContent = '₹' + price.toLocaleString('en-IN');
   }
