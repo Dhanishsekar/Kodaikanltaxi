@@ -5,7 +5,11 @@ const HERO_SLIDES = [
 ];
 
 const VEHICLE_IMAGES = {
-  INNOVA: "img/INNOVA.webp",
+  INNOVA:          "img/INNOVA.webp",
+  INDIGO:          "img/indigo.avif",
+  ETIOS:           "img/etios.jpg",
+  TAVERA:          "img/tavera.avif",
+  TEMPO_TRAVELLER: "img/tempo traveller.jpg",
 };
 
 const ROUTE_IMAGES = {
