@@ -606,6 +606,15 @@
     .hero-btns a, .hero-btns button { width: 100%; justify-content: center; }
     /* On mobile: make hero compact since carousel already shows the image */
     .hero { min-height: auto; padding: 40px 5% !important; }
+    /* Fix: show full image on mobile instead of cropping */
+    .cslide {
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-position: center center !important;
+    }
+    #carousel {
+      background-color: #0d0d0d;
+    }
   }
 
 
