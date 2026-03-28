@@ -618,6 +618,22 @@
       background-repeat: no-repeat !important;
       background-position: center center !important;
     }
+    /* Mobile: shrink the text overlay so it doesn't cover the image */
+    #carousel .journey-overlay {
+      padding: 16px 5% 28px !important;
+    }
+    #carousel .journey-overlay h2 {
+      font-size: 16px !important;
+      margin-bottom: 4px !important;
+    }
+    #carousel .journey-overlay p {
+      font-size: 11px !important;
+      margin-bottom: 10px !important;
+    }
+    #carousel .journey-overlay a {
+      padding: 8px 20px !important;
+      font-size: 12px !important;
+    }
   }
 
 
@@ -664,13 +680,13 @@
   <div class="cslide" data-slide="2" style="position:absolute;inset:0;background:url('images/hero-slide-3.jpg') center/cover no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:0;z-index:1;"></div>
 
   <!-- Journey overlay -->
-  <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;
+  <div class="journey-overlay" style="position:absolute;bottom:0;left:0;right:0;z-index:10;
     background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
     text-align:center;padding:60px 5% 60px;pointer-events:none;">
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,58px);
+    <h2 class="journey-overlay" style="font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,58px);
       font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;
       text-shadow:0 2px 20px rgba(0,0,0,0.6);">Your Journey Begins Here</h2>
-    <p style="font-size:16px;color:rgba(255,255,255,0.88);margin-bottom:28px;
+    <p class="journey-overlay" style="font-size:16px;color:rgba(255,255,255,0.88);margin-bottom:28px;
       font-weight:500;letter-spacing:0.5px;text-shadow:0 1px 8px rgba(0,0,0,0.5);">
       Safe &middot; Comfortable &middot; Affordable Cab Service</p>
     <a href="#explore-packages" style="pointer-events:auto;
