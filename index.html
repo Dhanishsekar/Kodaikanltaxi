@@ -447,17 +447,6 @@
     background: var(--card); border: 1px solid var(--border); border-radius: 20px;
     padding: 28px; transition: all 0.3s; position: relative; overflow: hidden;
   }
-  @media (max-width: 680px) {
-    .vehicles-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .vehicle-card { padding: 0; border-radius: 14px; }
-    .vehicle-card > div { padding: 12px; }
-    .vehicle-name { font-size: 14px; margin-bottom: 4px; }
-    .vehicle-capacity { font-size: 11px; margin-bottom: 6px; }
-    .vehicle-desc { font-size: 12px; line-height: 1.5; }
-    .vehicle-features { gap: 5px; margin-top: 10px; }
-    .feature-tag { font-size: 10px; padding: 3px 8px; }
-    .vehicles-grid img { height: 110px; border-radius: 14px 14px 0 0; }
-  }
   .vehicle-card::before {
     content: ''; position: absolute; top: 0; left: 0; width: 0; height: 3px;
     background: var(--gradient); transition: width 0.4s;
