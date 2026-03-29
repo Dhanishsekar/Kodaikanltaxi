@@ -62,9 +62,11 @@
   .notes-box div:last-child{margin-bottom:0;}
   .notes-box span.tick{color:var(--gold);font-weight:700;flex-shrink:0;}
   .stops-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:28px;}
-  .stop{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
-  .stop-num{background:var(--gradient);color:var(--night);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;}
-  .stop-name{font-size:13px;color:var(--text);font-weight:500;}
+  .stop{background:var(--dark);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
+  .stop-thumb{width:100%;height:100px;object-fit:cover;display:block;flex-shrink:0;}
+  .stop-bottom{display:flex;align-items:center;gap:10px;padding:10px 12px;}
+  .stop-num{background:var(--gradient);color:var(--night);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex-shrink:0;}
+  .stop-name{font-size:13px;color:var(--text);font-weight:500;line-height:1.3;}
   .book-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;}
   .book-call{flex:1;min-width:150px;background:var(--gradient);color:var(--night);border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform 0.2s;}
   .book-call:hover{transform:translateY(-2px);}
@@ -171,17 +173,17 @@
         </div>
         <span class="sub-label" style="margin-top:28px;">🗺️ Tour 1 Itinerary — Valley Tour</span>
         <div class="stops-grid">
-          <div class="stop"><div class="stop-num">1</div><div class="stop-name">Coaker's Walk</div></div>
-          <div class="stop"><div class="stop-num">2</div><div class="stop-name">Upper Lake View</div></div>
-          <div class="stop"><div class="stop-num">3</div><div class="stop-name">Pambar Falls</div></div>
-          <div class="stop"><div class="stop-num">4</div><div class="stop-name">Green Valley View</div></div>
-          <div class="stop"><div class="stop-num">5</div><div class="stop-name">Golf Course</div></div>
-          <div class="stop"><div class="stop-num">6</div><div class="stop-name">Pillar Rocks</div></div>
-          <div class="stop"><div class="stop-num">7</div><div class="stop-name">Devil's Kitchen (Guna Cave)</div></div>
-          <div class="stop"><div class="stop-num">8</div><div class="stop-name">Pine Forest (Shooting Spot)</div></div>
-          <div class="stop"><div class="stop-num">9</div><div class="stop-name">Moier Point</div></div>
-          <div class="stop"><div class="stop-num">10</div><div class="stop-name">Bryant Park</div></div>
-          <div class="stop"><div class="stop-num">11</div><div class="stop-name">Kodai Lake Drop</div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Coaker's Walk.jpg" alt="Coaker's Walk Kodaikanal"><div class="stop-bottom"><div class="stop-num">1</div><div class="stop-name">Coaker's Walk</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Upper Lake View.jpg" alt="Upper Lake View Kodaikanal"><div class="stop-bottom"><div class="stop-num">2</div><div class="stop-name">Upper Lake View</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Pambar Falls.jpg" alt="Pambar Falls Kodaikanal"><div class="stop-bottom"><div class="stop-num">3</div><div class="stop-name">Pambar Falls</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Green Valley View.jpg" alt="Green Valley View Kodaikanal"><div class="stop-bottom"><div class="stop-num">4</div><div class="stop-name">Green Valley View</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Golf Course.jpg" alt="Golf Course Kodaikanal"><div class="stop-bottom"><div class="stop-num">5</div><div class="stop-name">Golf Course</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Pillar Rocks.jpg" alt="Pillar Rocks Kodaikanal"><div class="stop-bottom"><div class="stop-num">6</div><div class="stop-name">Pillar Rocks</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Devil's Kitchen.jpg" alt="Devil's Kitchen Guna Cave Kodaikanal"><div class="stop-bottom"><div class="stop-num">7</div><div class="stop-name">Devil's Kitchen (Guna Cave)</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Pine Forest.jpg" alt="Pine Forest Kodaikanal"><div class="stop-bottom"><div class="stop-num">8</div><div class="stop-name">Pine Forest (Shooting Spot)</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Moier Point.jpg" alt="Moier Point Kodaikanal"><div class="stop-bottom"><div class="stop-num">9</div><div class="stop-name">Moier Point</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Bryant Park.jpg" alt="Bryant Park Kodaikanal"><div class="stop-bottom"><div class="stop-num">10</div><div class="stop-name">Bryant Park</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Kodai Lake Drop.jpg" alt="Kodai Lake Drop Kodaikanal"><div class="stop-bottom"><div class="stop-num">11</div><div class="stop-name">Kodai Lake Drop</div></div></div>
         </div>
         <span class="vs-label">🚗 Select Your Vehicle</span>
         <div class="vs-grid">
@@ -227,14 +229,14 @@
         </div>
         <span class="sub-label" style="margin-top:28px;">🗺️ Tour 2 Itinerary — Village Tour</span>
         <div class="stops-grid">
-          <div class="stop"><div class="stop-num">1</div><div class="stop-name">Gundar Falls</div></div>
-          <div class="stop"><div class="stop-num">2</div><div class="stop-name">Palani Hills View</div></div>
-          <div class="stop"><div class="stop-num">3</div><div class="stop-name">Mahalakshmi Temple</div></div>
-          <div class="stop"><div class="stop-num">4</div><div class="stop-name">Poomparai Village View</div></div>
-          <div class="stop"><div class="stop-num">5</div><div class="stop-name">Poombarai Village Murugan Temple</div></div>
-          <div class="stop"><div class="stop-num">6</div><div class="stop-name">Mannavanur Sheep Farm</div></div>
-          <div class="stop"><div class="stop-num">7</div><div class="stop-name">Mannavanur Lake</div></div>
-          <div class="stop"><div class="stop-num">8</div><div class="stop-name">Kodai Lake / City Drop</div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Gundar Falls.jpg" alt="Gundar Falls Kodaikanal"><div class="stop-bottom"><div class="stop-num">1</div><div class="stop-name">Gundar Falls</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Palani Hills View.jpg" alt="Palani Hills View Kodaikanal"><div class="stop-bottom"><div class="stop-num">2</div><div class="stop-name">Palani Hills View</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Mahalakshmi Temple.jpg" alt="Mahalakshmi Temple Kodaikanal"><div class="stop-bottom"><div class="stop-num">3</div><div class="stop-name">Mahalakshmi Temple</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Poomparai Village View.jpg" alt="Poomparai Village View Kodaikanal"><div class="stop-bottom"><div class="stop-num">4</div><div class="stop-name">Poomparai Village View</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Poombarai Village Murugan Temple.jpg" alt="Poombarai Village Murugan Temple Kodaikanal"><div class="stop-bottom"><div class="stop-num">5</div><div class="stop-name">Poombarai Village Murugan Temple</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Mannavanur Sheep Farm.jpg" alt="Mannavanur Sheep Farm Kodaikanal"><div class="stop-bottom"><div class="stop-num">6</div><div class="stop-name">Mannavanur Sheep Farm</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Mannavanur Lake.jpg" alt="Mannavanur Lake Kodaikanal"><div class="stop-bottom"><div class="stop-num">7</div><div class="stop-name">Mannavanur Lake</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Kodai Lake Drop.jpg" alt="Kodai Lake Drop Kodaikanal"><div class="stop-bottom"><div class="stop-num">8</div><div class="stop-name">Kodai Lake / City Drop</div></div></div>
         </div>
         <span class="vs-label">🚗 Select Your Vehicle</span>
         <div class="vs-grid">
@@ -280,12 +282,12 @@
         </div>
         <span class="sub-label" style="margin-top:28px;">🗺️ Tour 3 Itinerary — Forest Tour</span>
         <div class="stops-grid">
-          <div class="stop"><div class="stop-num">1</div><div class="stop-name">Silent Valley View</div></div>
-          <div class="stop"><div class="stop-num">2</div><div class="stop-name">Berijam Lake View</div></div>
-          <div class="stop"><div class="stop-num">3</div><div class="stop-name">Cap's Fly Valley</div></div>
-          <div class="stop"><div class="stop-num">4</div><div class="stop-name">Berijam Lake</div></div>
-          <div class="stop"><div class="stop-num">5</div><div class="stop-name">Mathi Kettan Sola (Medicine Forest)</div></div>
-          <div class="stop"><div class="stop-num">6</div><div class="stop-name">Kodai Lake / City Drop</div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Silent Valley View.jpg" alt="Silent Valley View Kodaikanal"><div class="stop-bottom"><div class="stop-num">1</div><div class="stop-name">Silent Valley View</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Berijam Lake View.webp" alt="Berijam Lake View Kodaikanal"><div class="stop-bottom"><div class="stop-num">2</div><div class="stop-name">Berijam Lake View</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Cap's Fly Valley.jpg" alt="Cap's Fly Valley Kodaikanal"><div class="stop-bottom"><div class="stop-num">3</div><div class="stop-name">Cap's Fly Valley</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Berijam Lake.jpg" alt="Berijam Lake Kodaikanal"><div class="stop-bottom"><div class="stop-num">4</div><div class="stop-name">Berijam Lake</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Mathi Kettan Sola.jpg" alt="Mathi Kettan Sola Medicine Forest Kodaikanal"><div class="stop-bottom"><div class="stop-num">5</div><div class="stop-name">Mathi Kettan Sola (Medicine Forest)</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Kodai Lake Drop.jpg" alt="Kodai Lake Drop Kodaikanal"><div class="stop-bottom"><div class="stop-num">6</div><div class="stop-name">Kodai Lake / City Drop</div></div></div>
         </div>
         <span class="vs-label">🚗 Select Your Vehicle</span>
         <div class="vs-grid">
@@ -331,13 +333,13 @@
         </div>
         <span class="sub-label" style="margin-top:28px;">🗺️ Tour 4 Itinerary — Trekking Tour</span>
         <div class="stops-grid">
-          <div class="stop"><div class="stop-num">1</div><div class="stop-name">La Salette Church</div></div>
-          <div class="stop"><div class="stop-num">2</div><div class="stop-name">500 Year Old Tree</div></div>
-          <div class="stop"><div class="stop-num">3</div><div class="stop-name">Mountain Beauty</div></div>
-          <div class="stop"><div class="stop-num">4</div><div class="stop-name">Dolphins Nose</div></div>
-          <div class="stop"><div class="stop-num">5</div><div class="stop-name">Vattakanal Falls</div></div>
-          <div class="stop"><div class="stop-num">6</div><div class="stop-name">Echo Rocks</div></div>
-          <div class="stop"><div class="stop-num">7</div><div class="stop-name">Kodai Lake / City Drop</div></div>
+          <div class="stop"><img class="stop-thumb" src="img/La Salette Church.jpg" alt="La Salette Church Kodaikanal"><div class="stop-bottom"><div class="stop-num">1</div><div class="stop-name">La Salette Church</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/500 Year Old Tree.jpg" alt="500 Year Old Tree Kodaikanal"><div class="stop-bottom"><div class="stop-num">2</div><div class="stop-name">500 Year Old Tree</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Mountain Beauty.jpg" alt="Mountain Beauty Kodaikanal"><div class="stop-bottom"><div class="stop-num">3</div><div class="stop-name">Mountain Beauty</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Dolphins Nose.jpg" alt="Dolphins Nose Kodaikanal"><div class="stop-bottom"><div class="stop-num">4</div><div class="stop-name">Dolphins Nose</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Vattakanal Falls.jpg" alt="Vattakanal Falls Kodaikanal"><div class="stop-bottom"><div class="stop-num">5</div><div class="stop-name">Vattakanal Falls</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Echo Rocks.jpg" alt="Echo Rocks Kodaikanal"><div class="stop-bottom"><div class="stop-num">6</div><div class="stop-name">Echo Rocks</div></div></div>
+          <div class="stop"><img class="stop-thumb" src="img/Kodai Lake Drop.jpg" alt="Kodai Lake Drop Kodaikanal"><div class="stop-bottom"><div class="stop-num">7</div><div class="stop-name">Kodai Lake / City Drop</div></div></div>
         </div>
         <span class="vs-label">🚗 Select Your Vehicle</span>
         <div class="vs-grid">
