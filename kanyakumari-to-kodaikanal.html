@@ -71,10 +71,12 @@
   .v-price { font-size: 18px; font-weight: 900; color: var(--gold); }
   .v-price span { font-size: 11px; color: var(--muted); font-weight: 400; }
   .notes-box { background: rgba(245,166,35,0.06); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 28px; }
-  .notes-box h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin-bottom: 12px; }
-  .notes-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .notes-box ul li { font-size: 14px; color: var(--muted); display: flex; gap: 8px; }
-  .notes-box ul li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+  .notes-box h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin-bottom: 14px; }
+  .notes-box ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .notes-box ul li { font-size: 14px; color: var(--muted); line-height: 1.6; padding-left: 22px; position: relative; }
+  .notes-box ul li::before { content: '✓'; color: var(--gold); font-weight: 700; position: absolute; left: 0; top: 0; }
+  .notes-box ul li.warn-item { color: var(--text); font-weight: 500; padding-left: 0; }
+  .notes-box ul li.warn-item::before { display: none; }
   .booking-sidebar { position: sticky; top: 90px; }
   .booking-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
   .booking-card-header { background: var(--gradient); padding: 20px 24px; }
@@ -240,7 +242,7 @@
     <div class="notes-box">
       <h4>📋 Fare Details</h4>
       <ul>
-        <li>⚠️ Toll &amp; parking charges are <strong>NOT included</strong> — paid separately at toll booths</li>
+        <li class="warn-item">⚠️ Toll &amp; parking charges are <strong>NOT included</strong> — paid separately at toll booths</li>
         <li>Driver Tip & Fuel — no hidden fees</li>
         <li>Drop/Pickup at any Hotel within 2 KM of Kodaikanal Lake</li>
         <li>No extra charges beyond the displayed fare</li>
