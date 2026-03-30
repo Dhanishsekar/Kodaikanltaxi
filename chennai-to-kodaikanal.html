@@ -71,12 +71,12 @@
   .v-price { font-size: 18px; font-weight: 900; color: var(--gold); }
   .v-price span { font-size: 11px; color: var(--muted); font-weight: 400; }
   .notes-box { background: rgba(245,166,35,0.06); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 28px; }
-  .notes-box h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin-bottom: 12px; }
-  .notes-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .notes-box ul li { font-size: 14px; color: var(--muted); display: flex; gap: 8px; align-items: flex-start; line-height: 1.6; }
-  .notes-box ul li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .notes-box h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin-bottom: 14px; }
+  .notes-box ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .notes-box ul li { font-size: 14px; color: var(--muted); line-height: 1.6; padding-left: 22px; position: relative; }
+  .notes-box ul li::before { content: '✓'; color: var(--gold); font-weight: 700; position: absolute; left: 0; top: 0; }
+  .notes-box ul li.warn-item { color: var(--text); font-weight: 500; padding-left: 0; }
   .notes-box ul li.warn-item::before { display: none; }
-  .notes-box ul li.warn-item { color: var(--text); font-weight: 500; }
   .booking-sidebar { position: sticky; top: 90px; }
   .booking-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
   .booking-card-header { background: var(--gradient); padding: 20px 24px; }
@@ -145,7 +145,7 @@
     .section-title { font-size: 20px !important; }
     .section-desc { font-size: 14px !important; }
     .notes-box { padding: 14px !important; width: 100% !important; }
-    .notes-box ul li { font-size: 13px !important; align-items: flex-start !important; line-height: 1.6 !important; } .notes-box ul li::before { margin-top: 2px !important; flex-shrink: 0 !important; }
+    .notes-box ul li { font-size: 13px !important; }
 
     .contact-box { width: 100% !important; }
     .sidebar-note { font-size: 11px !important; }
