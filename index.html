@@ -108,15 +108,8 @@
 
 <title>Kodaikanal Taxi | Best Cab Service & Car Rental in Kodaikanal | Kodai Call Taxi +91 8056598036</title>
 <meta name="description" content="Best cab service in Kodaikanal. Kodaikanal car rental, Kodai call taxi, car hire & sightseeing tours. Safest & most affordable travels in Kodaikanal. Routes from Madurai, Chennai, Coimbatore & more. Call +91 8056598036.">
-<!-- Preload hero images so carousel shows instantly -->
-<link rel="preload" as="image" href="images/hero-slide-1.jpg" fetchpriority="high">
-<link rel="preload" as="image" href="images/hero-slide-2.jpg">
-<link rel="preload" as="image" href="images/hero-slide-3.jpg">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold: #F5A623;
@@ -155,9 +148,27 @@
     overflow: hidden;
   }
   .topbar a { color: var(--night); text-decoration: none; font-weight: 700; }
+  /* ── Mobile topbar: smaller, tighter ── */
   @media (max-width: 680px) {
-    .topbar { padding: 5px 0; font-size: 10.5px; letter-spacing: 0px; font-weight: 500; }
+    .topbar {
+      padding: 5px 0;
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0px;
+    }
     .topbar a { font-size: 10.5px; font-weight: 600; }
+    .topbar-inner { animation-duration: 18s !important; }
+  }
+
+  /* ── Topbar marquee ── */
+  .topbar-inner {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marqueeScroll 28s linear infinite;
+  }
+  @keyframes marqueeScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   /* ── NAV ── */
@@ -330,220 +341,6 @@
   .book-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(245,166,35,0.4); }
 
   @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
-
-  /* ══════════════════════════════════════
-     UI/UX ANIMATION LAYER
-  ══════════════════════════════════════ */
-
-  /* ── Scroll Reveal Base ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(36px);
-    transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-left {
-    opacity: 0;
-    transform: translateX(-40px);
-    transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
-  }
-  .reveal-left.visible { opacity: 1; transform: translateX(0); }
-  .reveal-right {
-    opacity: 0;
-    transform: translateX(40px);
-    transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
-  }
-  .reveal-right.visible { opacity: 1; transform: translateX(0); }
-
-  /* ── Stagger delays ── */
-  .stagger-1 { transition-delay: 0.05s !important; }
-  .stagger-2 { transition-delay: 0.13s !important; }
-  .stagger-3 { transition-delay: 0.21s !important; }
-  .stagger-4 { transition-delay: 0.29s !important; }
-  .stagger-5 { transition-delay: 0.37s !important; }
-  .stagger-6 { transition-delay: 0.45s !important; }
-
-  /* ── Shimmer on pkg-card images ── */
-  .pkg-img-inner {
-    transition: transform 0.5s cubic-bezier(.22,1,.36,1);
-  }
-  .pkg-card:hover .pkg-img-inner {
-    transform: scale(1.07);
-  }
-  .pkg-card { overflow: hidden; }
-
-  /* ── Gold shimmer sweep on cards ── */
-  .pkg-card::after, .vehicle-card::after, .why-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%; width: 60%; height: 100%;
-    background: linear-gradient(120deg, transparent 0%, rgba(245,166,35,0.07) 50%, transparent 100%);
-    transition: left 0.55s ease;
-    pointer-events: none;
-  }
-  .pkg-card:hover::after, .vehicle-card:hover::after, .why-card:hover::after {
-    left: 140%;
-  }
-  .pkg-card, .vehicle-card, .why-card { position: relative; overflow: hidden; }
-
-  /* ── Why-card icon bounce ── */
-  .why-card:hover .why-icon {
-    animation: iconBounce 0.5s cubic-bezier(.36,.07,.19,.97);
-  }
-  @keyframes iconBounce {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    30%      { transform: translateY(-10px) rotate(-5deg); }
-    60%      { transform: translateY(-4px) rotate(3deg); }
-  }
-
-  /* ── Review card lift + glow ── */
-  .review-card {
-    transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s, border-color 0.3s;
-  }
-  .review-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(245,166,35,0.4);
-    box-shadow: 0 18px 48px rgba(245,166,35,0.1);
-  }
-
-  /* ── Animated counter numbers ── */
-  .stat-num { display: inline-block; }
-
-  /* ── Topbar marquee ── */
-  .topbar-inner {
-    display: inline-block;
-    white-space: nowrap;
-    animation: marqueeScroll 28s linear infinite;
-    padding: 0 4px;
-  }
-  @keyframes marqueeScroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  .topbar { overflow: hidden; }
-  @media (max-width: 680px) {
-    .topbar-inner {
-      animation-duration: 18s;
-      font-size: 10.5px;
-      letter-spacing: 0px;
-    }
-  }
-
-  /* ── Nav scroll shrink ── */
-  nav.scrolled {
-    height: 54px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
-  }
-  nav { transition: height 0.3s ease, box-shadow 0.3s ease; }
-
-  /* ── Page load curtain ── */
-  #page-loader {
-    position: fixed; inset: 0; z-index: 99999;
-    background: var(--night);
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 20px;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
-  }
-  #page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-  .loader-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px; font-weight: 900;
-    color: var(--gold); letter-spacing: -0.5px;
-  }
-  .loader-logo span { color: var(--white); }
-  .loader-bar {
-    width: 160px; height: 3px;
-    background: rgba(245,166,35,0.2);
-    border-radius: 3px; overflow: hidden;
-  }
-  .loader-bar-fill {
-    height: 100%;
-    background: var(--gradient);
-    border-radius: 3px;
-    animation: loaderFill 1.1s cubic-bezier(.22,1,.36,1) forwards;
-  }
-  @keyframes loaderFill {
-    from { width: 0; }
-    to   { width: 100%; }
-  }
-
-  /* ── WhatsApp button pulse ring ── */
-  .whatsapp-float::after {
-    content: '';
-    position: absolute; inset: -6px;
-    border: 2px solid rgba(37,211,102,0.45);
-    border-radius: 50%;
-    animation: waPulseRing 2.2s ease-out infinite;
-  }
-  @keyframes waPulseRing {
-    0%   { transform: scale(1); opacity: 0.8; }
-    70%  { transform: scale(1.35); opacity: 0; }
-    100% { transform: scale(1.35); opacity: 0; }
-  }
-
-  /* ── Section label slide-in ── */
-  .section-label {
-    display: inline-block;
-    opacity: 0;
-    transform: translateX(-16px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .section-label.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  /* ── Contact item hover icon wiggle ── */
-  .contact-item:hover .contact-icon {
-    animation: iconWiggle 0.4s ease;
-  }
-  @keyframes iconWiggle {
-    0%,100% { transform: rotate(0deg); }
-    25%      { transform: rotate(-12deg); }
-    75%      { transform: rotate(12deg); }
-  }
-
-  /* ── Input focus glow ── */
-  .form-group input:focus, .form-group select:focus {
-    box-shadow: 0 0 0 3px rgba(245,166,35,0.15);
-  }
-  .modal-form-group input:focus, .modal-form-group select:focus {
-    box-shadow: 0 0 0 3px rgba(245,166,35,0.15);
-  }
-
-  /* ── Hero floating particles ── */
-  .hero-particle {
-    position: absolute;
-    border-radius: 50%;
-    background: var(--gold);
-    opacity: 0;
-    animation: particleFloat linear infinite;
-    pointer-events: none;
-  }
-  @keyframes particleFloat {
-    0%   { opacity: 0; transform: translateY(0) scale(0); }
-    10%  { opacity: 0.35; }
-    90%  { opacity: 0.15; }
-    100% { opacity: 0; transform: translateY(-120px) scale(1.5); }
-  }
-
-  /* ── Keyword tag hover pop ── */
-  [style*="border-radius:50px"][style*="padding:8px 18px"]:hover {
-    background: rgba(245,166,35,0.18) !important;
-    border-color: var(--gold) !important;
-    transform: translateY(-2px);
-    transition: all 0.2s;
-    cursor: default;
-  }
-  [style*="border-radius:50px"][style*="padding:8px 18px"] {
-    transition: all 0.2s;
-  }
-
-  /* ── Smooth banner strip text fade ── */
-  .banner-strip h2, .banner-strip p { will-change: transform; }
 
   /* ── SECTIONS ── */
   section { padding: 90px 5%; }
@@ -842,35 +639,12 @@
     /* Mobile: hide overlay ON the image, show text block BELOW instead */
     .desktop-overlay { display: none !important; }
     .mobile-hero-text { display: block !important; }
-    /* On mobile, img-based slides still fill correctly */
-    .cslide img { object-position: center center; }
   }
 
-  /* ── CAROUSEL img-based slides ── */
-  .cslide {
-    position: absolute; inset: 0;
-    overflow: hidden;
-    will-change: transform;
-  }
-  .cslide img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    background-color: #0d0d0d;
-    /* Smooth appearance once loaded */
-    animation: imgFadeIn 0.4s ease both;
-  }
-  @keyframes imgFadeIn { from { opacity: 0.4; } to { opacity: 1; } }
 
 </style>
 </head>
 <body>
-
-<!-- Page Loader -->
-<div id="page-loader">
-  <div class="loader-logo">Kodaikanal<span>Taxi</span></div>
-  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-</div>
 
 <div class="topbar">
   <span class="topbar-inner">
@@ -908,35 +682,10 @@
 </nav>
 
 <!-- IMAGE CAROUSEL BANNER -->
-<!-- Skeleton shimmer shown instantly before first image loads -->
-<div id="hero-skeleton" style="position:fixed;top:0;left:0;width:100%;height:100vh;z-index:9990;background:#0d0d0d;pointer-events:none;transition:opacity 0.5s ease;">
-  <div style="position:absolute;inset:0;background:linear-gradient(90deg,#0d0d0d 0%,#1a1a22 40%,#0d0d0d 80%);background-size:200% 100%;animation:skeletonShimmer 1.4s ease-in-out infinite;"></div>
-  <div style="position:absolute;bottom:40%;left:50%;transform:translateX(-50%);text-align:center;">
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(18px,3vw,32px);color:rgba(245,166,35,0.3);font-weight:900;letter-spacing:1px;">KodaikanalTaxi</div>
-    <div style="width:60px;height:3px;background:linear-gradient(90deg,#F5A623,#FF6B35);border-radius:3px;margin:12px auto 0;animation:loadingPulse 1s ease-in-out infinite;"></div>
-  </div>
-</div>
-<style>
-  @keyframes skeletonShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-  @keyframes loadingPulse { 0%,100%{opacity:0.4;transform:scaleX(0.6)} 50%{opacity:1;transform:scaleX(1)} }
-</style>
-
-<div id="carousel" style="position:relative;width:100%;height:100vh;overflow:hidden;background:#0d0d0d;">
-  <!-- Slide 0: img tag with fetchpriority=high for fastest first paint -->
-  <div class="cslide" data-slide="0" style="position:absolute;inset:0;background-color:#0d0d0d;z-index:2;">
-    <img src="images/hero-slide-1.jpg" alt="Kodaikanal Taxi Service" fetchpriority="high" decoding="sync"
-      style="width:100%;height:100%;object-fit:cover;display:block;"
-      onload="document.getElementById('hero-skeleton').style.opacity='0';setTimeout(function(){document.getElementById('hero-skeleton').style.display='none';},500);">
-  </div>
-  <!-- Slides 1 & 2: lazy-loaded, still use background for non-LCP slides -->
-  <div class="cslide" data-slide="1" style="position:absolute;inset:0;background-color:#0d0d0d;z-index:1;">
-    <img src="images/hero-slide-2.jpg" alt="Kodaikanal Cab Booking" loading="lazy" decoding="async"
-      style="width:100%;height:100%;object-fit:cover;display:block;">
-  </div>
-  <div class="cslide" data-slide="2" style="position:absolute;inset:0;background-color:#0d0d0d;z-index:1;">
-    <img src="images/hero-slide-3.jpg" alt="Kodaikanal Car Rental" loading="lazy" decoding="async"
-      style="width:100%;height:100%;object-fit:cover;display:block;">
-  </div>
+<div id="carousel" style="position:relative;width:100%;height:100vh;overflow:hidden;">
+  <div class="cslide" data-slide="0" style="position:absolute;inset:0;background:url('images/hero-slide-1.jpg') center/cover no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:1;z-index:2;"></div>
+  <div class="cslide" data-slide="1" style="position:absolute;inset:0;background:url('images/hero-slide-2.jpg') center/cover no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:0;z-index:1;"></div>
+  <div class="cslide" data-slide="2" style="position:absolute;inset:0;background:url('images/hero-slide-3.jpg') center/cover no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:0;z-index:1;"></div>
 
   <!-- Journey overlay — hidden on mobile, shown on desktop -->
   <div class="journey-overlay desktop-overlay" style="position:absolute;bottom:0;left:0;right:0;z-index:10;
@@ -1690,7 +1439,7 @@
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
 
 </script>
-<script src="images.js" defer></script><script>
+<script src="images.js"></script><script>
   function toggleMenu() {
     var m = document.getElementById('mobileMenu');
     if (m.classList.contains('open')) {
@@ -1718,189 +1467,218 @@
     window.open('https://wa.me/918056598036?text=' + encodeURIComponent(m), '_blank');
   }
 
-  // Smooth reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.style.opacity = 1; });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.pkg-card, .vehicle-card, .why-card, .review-card').forEach(el => {
-    observer.observe(el);
-  });
+  function submitBooking() {
+    const phone = document.querySelector('.hero-card input[type="tel"]').value;
+    const pickup = document.querySelector('.hero-card input[placeholder*="Kodaikanal"]').value;
+    const drop = document.querySelector('.hero-card input[placeholder*="Madurai"]').value;
+    const msg = `Hi KodaikanalTaxi! I want to book a cab.\nPickup: ${pickup || 'Not specified'}\nDrop: ${drop || 'Not specified'}\nMy number: ${phone || 'Not specified'}`;
+    window.open('https://wa.me/918056598036?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  function sendMessage() {
+    const name = document.querySelector('.contact-form input[placeholder="Enter your name"]').value;
+    const phone = document.querySelector('.contact-form input[type="tel"]').value;
+    const msg2 = document.querySelector('.contact-form input[placeholder*="Trip"]').value;
+    const m = `Hi! I'm ${name || 'a customer'}.\nPhone: ${phone}\nMessage: ${msg2}`;
+    window.open('https://wa.me/918056598036?text=' + encodeURIComponent(m), '_blank');
+  }
 </script>
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════════
+     UI/UX ANIMATION CSS
+═══════════════════════════════════ -->
+<style>
+  /* Scroll Reveal */
+  .reveal { opacity:0; transform:translateY(36px); transition:opacity 0.7s cubic-bezier(.22,1,.36,1),transform 0.7s cubic-bezier(.22,1,.36,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .stagger-1{transition-delay:0.05s!important} .stagger-2{transition-delay:0.13s!important}
+  .stagger-3{transition-delay:0.21s!important} .stagger-4{transition-delay:0.29s!important}
+  .stagger-5{transition-delay:0.37s!important} .stagger-6{transition-delay:0.45s!important}
+
+  /* Card shimmer sweep */
+  .pkg-card::after,.vehicle-card::after,.why-card::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(120deg,transparent 0%,rgba(245,166,35,0.07) 50%,transparent 100%);transition:left 0.55s ease;pointer-events:none;}
+  .pkg-card:hover::after,.vehicle-card:hover::after,.why-card:hover::after{left:140%;}
+  .pkg-card,.vehicle-card,.why-card{position:relative;overflow:hidden;}
+
+  /* Image zoom on pkg cards */
+  .pkg-img-inner{transition:transform 0.5s cubic-bezier(.22,1,.36,1);}
+  .pkg-card:hover .pkg-img-inner{transform:scale(1.07);}
+
+  /* Why-card icon bounce */
+  @keyframes iconBounce{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-10px) rotate(-5deg)}60%{transform:translateY(-4px) rotate(3deg)}}
+
+  /* Review card lift */
+  .review-card{transition:transform 0.35s cubic-bezier(.22,1,.36,1),box-shadow 0.35s,border-color 0.3s;}
+  .review-card:hover{transform:translateY(-6px);border-color:rgba(245,166,35,0.4);box-shadow:0 18px 48px rgba(245,166,35,0.1);}
+
+  /* Page loader */
+  #page-loader{position:fixed;inset:0;z-index:99999;background:var(--night);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;transition:opacity 0.6s ease,visibility 0.6s ease;}
+  #page-loader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+  .loader-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--gold);}
+  .loader-logo span{color:var(--white);}
+  .loader-bar{width:160px;height:3px;background:rgba(245,166,35,0.2);border-radius:3px;overflow:hidden;}
+  .loader-bar-fill{height:100%;background:var(--gradient);border-radius:3px;animation:loaderFill 1.1s cubic-bezier(.22,1,.36,1) forwards;}
+  @keyframes loaderFill{from{width:0}to{width:100%}}
+
+  /* WhatsApp pulse ring */
+  .whatsapp-float::after{content:'';position:absolute;inset:-6px;border:2px solid rgba(37,211,102,0.45);border-radius:50%;animation:waPulseRing 2.2s ease-out infinite;}
+  @keyframes waPulseRing{0%{transform:scale(1);opacity:0.8}70%{transform:scale(1.35);opacity:0}100%{transform:scale(1.35);opacity:0}}
+
+  /* Input focus glow */
+  .form-group input:focus,.form-group select:focus{box-shadow:0 0 0 3px rgba(245,166,35,0.15);}
+
+  /* Hero particles */
+  .hero-particle{position:absolute;border-radius:50%;background:var(--gold);opacity:0;animation:particleFloat linear infinite;pointer-events:none;}
+  @keyframes particleFloat{0%{opacity:0;transform:translateY(0) scale(0)}10%{opacity:0.35}90%{opacity:0.15}100%{opacity:0;transform:translateY(-120px) scale(1.5)}}
+
+  /* Nav shrink */
+  nav{transition:height 0.3s ease,box-shadow 0.3s ease;}
+  nav.scrolled{height:54px;box-shadow:0 4px 24px rgba(0,0,0,0.5);}
+
+  /* Section label */
+  .section-label{opacity:0;transform:translateX(-16px);transition:opacity 0.5s ease,transform 0.5s ease;}
+  .section-label.visible{opacity:1;transform:translateX(0);}
+
+  /* Contact icon wiggle */
+  @keyframes iconWiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}
+  .contact-item:hover .contact-icon{animation:iconWiggle 0.4s ease;}
+
+  /* Keyword tag hover */
+  [style*="border-radius:50px"][style*="padding:8px 18px"]{transition:all 0.2s;}
+  [style*="border-radius:50px"][style*="padding:8px 18px"]:hover{background:rgba(245,166,35,0.18)!important;border-color:var(--gold)!important;transform:translateY(-2px);cursor:default;}
+
+  /* Banner strip */
+  .banner-strip h2,.banner-strip p{will-change:transform;}
+</style>
+
+<!-- Page Loader HTML -->
+<div id="page-loader">
+  <div class="loader-logo">Kodaikanal<span>Taxi</span></div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- ═══════════════════════════════════
      UI/UX ANIMATION JAVASCRIPT
-══════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <script>
 (function() {
   'use strict';
 
-  /* ── 1. Page Loader ── */
-  window.addEventListener('load', function () {
-    setTimeout(function () {
+  /* 1. Page Loader */
+  window.addEventListener('load', function() {
+    setTimeout(function() {
       var loader = document.getElementById('page-loader');
       if (loader) loader.classList.add('hidden');
     }, 1200);
   });
 
-  /* ── 2. Nav shrink on scroll ── */
+  /* 2. Nav shrink on scroll */
   var nav = document.querySelector('nav');
-  window.addEventListener('scroll', function () {
-    if (window.scrollY > 60) {
-      nav && nav.classList.add('scrolled');
-    } else {
-      nav && nav.classList.remove('scrolled');
-    }
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 60) { nav && nav.classList.add('scrolled'); }
+    else { nav && nav.classList.remove('scrolled'); }
   }, { passive: true });
 
-  /* ── 3. Scroll-reveal: add .reveal classes programmatically ── */
-  function addReveal(selector, className, delayStart) {
-    var els = document.querySelectorAll(selector);
-    els.forEach(function (el, i) {
-      el.classList.add(className || 'reveal');
+  /* 3. Scroll reveal */
+  function addReveal(selector) {
+    document.querySelectorAll(selector).forEach(function(el, i) {
+      el.classList.add('reveal');
       el.classList.add('stagger-' + Math.min(i % 6 + 1, 6));
     });
   }
+  addReveal('.pkg-card'); addReveal('.vehicle-card'); addReveal('.why-card');
+  addReveal('.review-card'); addReveal('.contact-item'); addReveal('.section-header');
+  addReveal('.footer-col'); addReveal('.banner-strip h2'); addReveal('.banner-strip p');
 
-  addReveal('.pkg-card', 'reveal');
-  addReveal('.vehicle-card', 'reveal');
-  addReveal('.why-card', 'reveal');
-  addReveal('.review-card', 'reveal');
-  addReveal('.contact-item', 'reveal');
-  addReveal('.section-header', 'reveal');
-  addReveal('.footer-col', 'reveal');
-  addReveal('.section-label', 'reveal');
-  addReveal('.banner-strip h2', 'reveal');
-  addReveal('.banner-strip p', 'reveal');
-
-  var revealObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
     });
   }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .section-label').forEach(function(el) { revealObs.observe(el); });
 
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .section-label').forEach(function (el) {
-    revealObserver.observe(el);
-  });
-
-  /* ── 4. Animated counter for hero stats ── */
+  /* 4. Animated counters */
   function animateCounter(el, target, suffix, duration) {
-    var start = 0;
     var startTime = null;
-    var isDecimal = target % 1 !== 0;
-
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      var progress = Math.min((timestamp - startTime) / duration, 1);
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
       var eased = 1 - Math.pow(1 - progress, 3);
-      var current = Math.round(eased * target * 10) / 10;
-      el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+      el.textContent = Math.floor(eased * target) + suffix;
       if (progress < 1) requestAnimationFrame(step);
       else el.textContent = target + suffix;
     }
     requestAnimationFrame(step);
   }
-
   var countersDone = false;
-  var statsObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting && !countersDone) {
+  var statsObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting && !countersDone) {
         countersDone = true;
-        var statNums = document.querySelectorAll('.stat-num');
-        var targets = [
-          { val: 5,    suffix: '+' },
-          { val: 2000, suffix: '+' },
-          { val: 24,   suffix: '/7' }
-        ];
-        statNums.forEach(function (el, i) {
-          if (targets[i]) {
-            setTimeout(function () {
-              animateCounter(el, targets[i].val, targets[i].suffix, 1800);
-            }, i * 200);
-          }
+        var nums = document.querySelectorAll('.stat-num');
+        var targets = [{val:5,s:'+'},{val:2000,s:'+'},{val:24,s:'/7'}];
+        nums.forEach(function(el, i) {
+          if (targets[i]) setTimeout(function(){ animateCounter(el, targets[i].val, targets[i].s, 1800); }, i * 200);
         });
       }
     });
   }, { threshold: 0.5 });
-
   var heroStats = document.querySelector('.hero-stats');
-  if (heroStats) statsObserver.observe(heroStats);
+  if (heroStats) statsObs.observe(heroStats);
 
-  /* ── 5. Floating hero particles ── */
+  /* 5. Hero particles */
   var heroEl = document.querySelector('.hero') || document.querySelector('#carousel');
   if (heroEl) {
     for (var p = 0; p < 12; p++) {
-      (function (idx) {
+      (function(idx) {
         var dot = document.createElement('div');
         dot.className = 'hero-particle';
         var size = Math.random() * 4 + 2;
-        var left = Math.random() * 90 + 5;
-        var delay = Math.random() * 6;
-        var dur   = Math.random() * 6 + 6;
-        dot.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + left + '%;bottom:' + (Math.random() * 30 + 5) + '%;animation-duration:' + dur + 's;animation-delay:' + delay + 's;';
+        dot.style.cssText = 'width:'+size+'px;height:'+size+'px;left:'+(Math.random()*90+5)+'%;bottom:'+(Math.random()*30+5)+'%;animation-duration:'+(Math.random()*6+6)+'s;animation-delay:'+(Math.random()*6)+'s;';
         heroEl.appendChild(dot);
       })(p);
     }
   }
 
-  /* ── 6. Why-card icon auto-bounce on reveal ── */
-  document.querySelectorAll('.why-card').forEach(function (card) {
-    card.addEventListener('mouseenter', function () {
+  /* 6. Why-card icon bounce */
+  document.querySelectorAll('.why-card').forEach(function(card) {
+    card.addEventListener('mouseenter', function() {
       var icon = card.querySelector('.why-icon');
-      if (icon) {
-        icon.style.animation = 'none';
-        void icon.offsetWidth; // reflow
-        icon.style.animation = 'iconBounce 0.5s cubic-bezier(.36,.07,.19,.97)';
-      }
+      if (icon) { icon.style.animation='none'; void icon.offsetWidth; icon.style.animation='iconBounce 0.5s cubic-bezier(.36,.07,.19,.97)'; }
     });
   });
 
-  /* ── 7. Smooth scroll for anchor links ── */
-  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+  /* 7. Smooth anchor scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
     });
   });
 
-  /* ── 8. Book button micro-animation (ripple) ── */
+  /* 8. Button ripple */
   function addRipple(btn) {
-    btn.style.position = 'relative';
-    btn.style.overflow = 'hidden';
-    btn.addEventListener('click', function (e) {
+    btn.style.position = 'relative'; btn.style.overflow = 'hidden';
+    btn.addEventListener('click', function(e) {
       var rect = btn.getBoundingClientRect();
-      var ripple = document.createElement('span');
-      var size = Math.max(rect.width, rect.height) * 2;
-      ripple.style.cssText = 'position:absolute;border-radius:50%;background:rgba(255,255,255,0.25);width:' + size + 'px;height:' + size + 'px;top:' + (e.clientY - rect.top - size/2) + 'px;left:' + (e.clientX - rect.left - size/2) + 'px;animation:rippleAnim 0.55s ease forwards;pointer-events:none;';
-      btn.appendChild(ripple);
-      setTimeout(function () { ripple.remove(); }, 600);
+      var r = document.createElement('span');
+      var sz = Math.max(rect.width, rect.height) * 2;
+      r.style.cssText = 'position:absolute;border-radius:50%;background:rgba(255,255,255,0.25);width:'+sz+'px;height:'+sz+'px;top:'+(e.clientY-rect.top-sz/2)+'px;left:'+(e.clientX-rect.left-sz/2)+'px;animation:rippleAnim 0.55s ease forwards;pointer-events:none;';
+      btn.appendChild(r); setTimeout(function(){ r.remove(); }, 600);
     });
   }
+  var rs = document.createElement('style');
+  rs.textContent = '@keyframes rippleAnim{from{transform:scale(0);opacity:1}to{transform:scale(1);opacity:0}}';
+  document.head.appendChild(rs);
+  document.querySelectorAll('.btn-primary,.btn-whatsapp,.book-submit,.nav-cta,.pkg-cta').forEach(addRipple);
 
-  /* Inject ripple keyframe */
-  var rippleStyle = document.createElement('style');
-  rippleStyle.textContent = '@keyframes rippleAnim{from{transform:scale(0);opacity:1}to{transform:scale(1);opacity:0}}';
-  document.head.appendChild(rippleStyle);
-
-  document.querySelectorAll('.btn-primary, .btn-whatsapp, .book-submit, .nav-cta, .pkg-cta, .modal-btn-call, .modal-btn-wa').forEach(addRipple);
-
-  /* ── 9. Hero heading typewriter shimmer ── */
+  /* 9. Gold shimmer on hero h1 em */
   var heroH1 = document.querySelector('.hero h1 em');
   if (heroH1) {
-    heroH1.style.backgroundImage = 'linear-gradient(90deg,#F5A623 0%,#FFD580 40%,#FF6B35 60%,#F5A623 100%)';
-    heroH1.style.backgroundSize = '200% auto';
-    heroH1.style.webkitBackgroundClip = 'text';
-    heroH1.style.webkitTextFillColor = 'transparent';
-    heroH1.style.backgroundClip = 'text';
-    heroH1.style.animation = 'goldShimmer 3s linear infinite';
-    var shimmerStyle = document.createElement('style');
-    shimmerStyle.textContent = '@keyframes goldShimmer{0%{background-position:0% center}100%{background-position:200% center}}';
-    document.head.appendChild(shimmerStyle);
+    heroH1.style.cssText += 'background-image:linear-gradient(90deg,#F5A623 0%,#FFD580 40%,#FF6B35 60%,#F5A623 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:goldShimmer 3s linear infinite;';
+    var ss = document.createElement('style');
+    ss.textContent = '@keyframes goldShimmer{0%{background-position:0% center}100%{background-position:200% center}}';
+    document.head.appendChild(ss);
   }
 
 })();
