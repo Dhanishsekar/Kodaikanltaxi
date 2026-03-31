@@ -839,14 +839,175 @@
 
 
 <!-- ── EXPLORE PACKAGES BUTTON ── -->
-<section id="explore-packages" style="background:var(--night);padding:60px 5%;text-align:center;">
-  <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Sightseeing Tours</span>
-  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,40px);font-weight:900;color:var(--white);margin-bottom:12px;">Explore Kodaikanal</h2>
-  <p style="font-size:15px;color:var(--muted);max-width:520px;margin:0 auto 36px;">Discover the Queen of Hills with our handpicked sightseeing packages.</p>
-  <a href="kodaikanal-packages.html" style="display:inline-block;background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%);color:#0A0A0F;border-radius:14px;padding:20px 52px;font-family:'Playfair Display',serif;font-size:22px;font-weight:900;text-decoration:none;text-transform:uppercase;letter-spacing:1px;box-shadow:0 8px 32px rgba(245,166,35,0.4);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 40px rgba(245,166,35,0.55)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 32px rgba(245,166,35,0.4)'">
-    🏔️ EXPLORE KODAIKANAL PACKAGES
-  </a>
+<section id="explore-packages" style="background:var(--night);padding:60px 5%;text-align:center;position:relative;overflow:hidden;">
+
+  <!-- Animated background rays -->
+  <div class="pkg-btn-rays"></div>
+
+  <span class="pkg-section-label">Sightseeing Tours</span>
+  <h2 class="pkg-section-title">Explore Kodaikanal</h2>
+  <p class="pkg-section-sub">Discover the Queen of Hills with our handpicked sightseeing packages.</p>
+
+  <!-- Animated big button -->
+  <div class="pkg-btn-wrap">
+    <a href="kodaikanal-packages.html" class="pkg-big-btn" id="explorePkgBtn">
+      <span class="pkg-btn-icon">🏔️</span>
+      <span class="pkg-btn-text">EXPLORE KODAIKANAL PACKAGES</span>
+      <span class="pkg-btn-arrow">→</span>
+      <!-- shimmer layer -->
+      <span class="pkg-btn-shimmer"></span>
+    </a>
+    <!-- orbiting sparkle dots -->
+    <span class="pkg-orbit pkg-orbit-1">✦</span>
+    <span class="pkg-orbit pkg-orbit-2">✦</span>
+    <span class="pkg-orbit pkg-orbit-3">✦</span>
+  </div>
+
 </section>
+
+<style>
+  /* ── Section background pulse ── */
+  .pkg-btn-rays {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(245,166,35,0.07) 0%, transparent 70%);
+    animation: pkgRaysPulse 3s ease-in-out infinite;
+  }
+  @keyframes pkgRaysPulse {
+    0%,100% { transform: scale(1);   opacity: 0.6; }
+    50%      { transform: scale(1.15); opacity: 1;   }
+  }
+
+  /* ── Section label & heading reveal ── */
+  .pkg-section-label {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 14px; opacity: 0; transform: translateY(16px);
+    animation: pkgFadeUp 0.6s cubic-bezier(.22,1,.36,1) 0.1s forwards;
+  }
+  .pkg-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px,3.5vw,40px); font-weight: 900;
+    color: var(--white); margin-bottom: 12px; display: block;
+    opacity: 0; transform: translateY(20px);
+    animation: pkgFadeUp 0.6s cubic-bezier(.22,1,.36,1) 0.22s forwards;
+  }
+  .pkg-section-sub {
+    font-size: 15px; color: var(--muted);
+    max-width: 520px; margin: 0 auto 36px; display: block;
+    opacity: 0; transform: translateY(20px);
+    animation: pkgFadeUp 0.6s cubic-bezier(.22,1,.36,1) 0.34s forwards;
+  }
+  @keyframes pkgFadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Button wrapper ── */
+  .pkg-btn-wrap {
+    position: relative; display: inline-block;
+    opacity: 0; transform: scale(0.88);
+    animation: pkgBtnPop 0.7s cubic-bezier(.34,1.56,.64,1) 0.5s forwards;
+  }
+  @keyframes pkgBtnPop {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── Big button base ── */
+  .pkg-big-btn {
+    position: relative; display: inline-flex; align-items: center; gap: 14px;
+    background: linear-gradient(135deg, #F5A623 0%, #FF6B35 100%);
+    color: #0A0A0F; border-radius: 14px; padding: 22px 52px;
+    font-family: 'Playfair Display', serif; font-size: 22px;
+    font-weight: 900; text-decoration: none; text-transform: uppercase;
+    letter-spacing: 1px; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(245,166,35,0.45),
+                0 0 0 0 rgba(245,166,35,0.3);
+    transition: transform 0.3s cubic-bezier(.22,1,.36,1),
+                box-shadow 0.3s ease;
+    animation: pkgBtnGlow 2.5s ease-in-out infinite;
+  }
+  @keyframes pkgBtnGlow {
+    0%,100% { box-shadow: 0 8px 32px rgba(245,166,35,0.45), 0 0 0 0 rgba(245,166,35,0.25); }
+    50%      { box-shadow: 0 12px 48px rgba(245,166,35,0.65), 0 0 0 12px rgba(245,166,35,0); }
+  }
+  .pkg-big-btn:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 20px 60px rgba(245,166,35,0.6),
+                0 0 0 0 rgba(245,166,35,0);
+    animation: none;
+  }
+
+  /* ── Shimmer sweep ── */
+  .pkg-btn-shimmer {
+    position: absolute; top: 0; left: -100%; width: 55%; height: 100%;
+    background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%);
+    animation: pkgShimmer 2.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pkgShimmer {
+    0%   { left: -100%; }
+    60%  { left: 140%; }
+    100% { left: 140%; }
+  }
+
+  /* ── Bouncing icon ── */
+  .pkg-btn-icon {
+    display: inline-block;
+    animation: pkgIconBounce 1.8s ease-in-out infinite;
+  }
+  @keyframes pkgIconBounce {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    30%     { transform: translateY(-6px) rotate(-8deg); }
+    60%     { transform: translateY(-2px) rotate(4deg); }
+  }
+
+  /* ── Animated arrow ── */
+  .pkg-btn-arrow {
+    display: inline-block; font-size: 20px;
+    animation: pkgArrowSlide 1.4s ease-in-out infinite;
+  }
+  @keyframes pkgArrowSlide {
+    0%,100% { transform: translateX(0);   opacity: 1; }
+    50%     { transform: translateX(6px); opacity: 0.6; }
+  }
+
+  /* ── Orbiting sparkle dots ── */
+  .pkg-orbit {
+    position: absolute; color: #FFD580;
+    font-size: 14px; pointer-events: none;
+    animation: pkgOrbit linear infinite;
+    transform-origin: center;
+  }
+  .pkg-orbit-1 {
+    top: 50%; left: 50%;
+    animation-duration: 3s;
+    animation-name: pkgOrbit1;
+  }
+  .pkg-orbit-2 {
+    top: 50%; left: 50%;
+    animation-duration: 3s;
+    animation-delay: -1s;
+    animation-name: pkgOrbit1;
+  }
+  .pkg-orbit-3 {
+    top: 50%; left: 50%;
+    animation-duration: 3s;
+    animation-delay: -2s;
+    animation-name: pkgOrbit1;
+  }
+  @keyframes pkgOrbit1 {
+    0%   { transform: rotate(0deg)   translateX(105%) scale(0.8); opacity: 0.9; }
+    50%  { transform: rotate(180deg) translateX(105%) scale(1.2); opacity: 0.5; }
+    100% { transform: rotate(360deg) translateX(105%) scale(0.8); opacity: 0.9; }
+  }
+
+  /* ── Mobile responsive ── */
+  @media (max-width: 680px) {
+    .pkg-big-btn {
+      font-size: 16px; padding: 16px 28px; gap: 10px; border-radius: 12px;
+    }
+    .pkg-btn-arrow { font-size: 16px; }
+  }
+</style>
 
 <!-- Packages -->
 <section id="packages" style="background:var(--dark);">
@@ -1657,6 +1818,424 @@
     ss.textContent = '@keyframes goldShimmer{0%{background-position:0% center}100%{background-position:200% center}}';
     document.head.appendChild(ss);
   }
+
+})();
+</script>
+
+
+<!-- ═══════════════════════════════════
+     ADVANCED ANIMATIONS CSS
+═══════════════════════════════════ -->
+<style>
+
+  /* ── 1. Scroll progress bar ── */
+  #scroll-bar {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, #F5A623, #FF6B35, #FFD580);
+    z-index: 99999;
+    box-shadow: 0 0 10px rgba(245,166,35,0.8), 0 0 20px rgba(245,166,35,0.4);
+    transition: width 0.1s linear;
+  }
+
+  /* ── 2. Cursor glow spotlight ── */
+  #cursor-glow {
+    position: fixed; width: 320px; height: 320px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,166,35,0.06) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+    transform: translate(-50%,-50%);
+    transition: opacity 0.3s;
+  }
+
+  /* ── 3. 3D tilt shine layer ── */
+  .tilt-shine {
+    position: absolute; inset: 0; border-radius: inherit;
+    pointer-events: none; z-index: 2;
+    transition: background 0.15s;
+  }
+
+  /* ── 4. Topbar pulse dot ── */
+  .topbar-dot {
+    display: inline-block; width: 7px; height: 7px;
+    background: var(--night); border-radius: 50%;
+    margin-right: 6px; vertical-align: middle;
+    animation: topbarDotPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes topbarDotPulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(0.6); }
+  }
+
+  /* ── 5. Hero heading word-by-word reveal ── */
+  .hero-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: wordReveal 0.6s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes wordReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── 6. Typewriter badge ── */
+  .type-cursor {
+    display: inline-block; width: 2px; height: 0.9em;
+    background: var(--gold); margin-left: 2px;
+    vertical-align: middle;
+    animation: cursorBlink 1s step-end infinite;
+  }
+  @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── 7. Package card border glow on hover ── */
+  .pkg-card {
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1),
+                box-shadow 0.35s, border-color 0.3s !important;
+  }
+  .pkg-card:hover {
+    box-shadow: 0 0 0 1px rgba(245,166,35,0.5),
+                0 24px 60px rgba(245,166,35,0.18),
+                inset 0 0 30px rgba(245,166,35,0.03) !important;
+  }
+
+  /* ── 8. Price count-up on hover ── */
+  .pkg-price { transition: transform 0.3s, color 0.3s; }
+  .pkg-card:hover .pkg-price { transform: scale(1.1); color: #FFD580; }
+
+  /* ── 9. Route badge dash slide-in ── */
+  .pkg-route::before {
+    content: '';
+    display: inline-block; width: 0; height: 2px;
+    background: var(--gold); vertical-align: middle;
+    margin-right: 0;
+    transition: width 0.3s ease, margin-right 0.3s ease;
+  }
+  .pkg-card:hover .pkg-route::before { width: 14px; margin-right: 6px; }
+
+  /* ── 10. Vehicle icon ride animation ── */
+  @keyframes vehicleRide {
+    0%   { transform: translateX(-6px) rotate(-4deg); }
+    40%  { transform: translateX(4px) rotate(2deg) scaleX(1.08); }
+    70%  { transform: translateX(-2px) rotate(-1deg); }
+    100% { transform: translateX(0) rotate(0deg); }
+  }
+  .vehicle-card:hover .vehicle-icon { animation: vehicleRide 0.55s ease; }
+
+  /* ── 11. Why-card glow box-shadow ── */
+  .why-card:hover {
+    box-shadow: 0 0 0 1px rgba(245,166,35,0.45),
+                0 20px 60px rgba(245,166,35,0.12),
+                inset 0 0 28px rgba(245,166,35,0.03) !important;
+  }
+
+  /* ── 12. Why icon glow on hover ── */
+  .why-icon { transition: transform 0.4s, filter 0.4s; display: inline-block; }
+  .why-card:hover .why-icon {
+    filter: drop-shadow(0 0 10px rgba(245,166,35,0.8));
+    transform: scale(1.3) rotate(-8deg);
+  }
+
+  /* ── 13. Banner beam sweep ── */
+  .banner-strip { position: relative; overflow: hidden; }
+  .banner-strip::before {
+    content: '';
+    position: absolute; top: -50%; left: -40%;
+    width: 50%; height: 200%;
+    background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.12) 50%, transparent 65%);
+    animation: bannerBeam 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes bannerBeam {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(500%); }
+  }
+
+  /* ── 14. Floating ambient blobs ── */
+  .ambient-blob {
+    position: fixed; border-radius: 50%;
+    filter: blur(90px); pointer-events: none;
+    z-index: 0; animation: blobDrift ease-in-out infinite alternate;
+  }
+  @keyframes blobDrift {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(-40px, 30px) scale(1.1); }
+    100% { transform: translate(20px,-40px) scale(0.95); }
+  }
+
+  /* ── 15. Section title glow on enter ── */
+  .section-title { transition: text-shadow 1.5s ease; }
+  .section-title.glow {
+    text-shadow: 0 0 30px rgba(245,166,35,0.35), 0 0 60px rgba(245,166,35,0.12);
+  }
+
+  /* ── 16. Star burst particles ── */
+  .starburst-el {
+    position: fixed; pointer-events: none; z-index: 99998;
+    font-size: 16px; animation: none;
+  }
+
+  /* ── 17. Footer link underline ── */
+  .footer-col ul a { position: relative; }
+  .footer-col ul a::after {
+    content: ''; position: absolute; bottom: -2px; left: 0;
+    width: 0; height: 1px; background: var(--gold);
+    transition: width 0.25s ease;
+  }
+  .footer-col ul a:hover::after { width: 100%; }
+
+  /* ── 18. Stat underline slide ── */
+  .stat-num { position: relative; }
+  .stat-num::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+    height: 2px; background: var(--gradient);
+    border-radius: 2px; transform: scaleX(0); transform-origin: left;
+    transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+  }
+  .stat:hover .stat-num::after { transform: scaleX(1); }
+
+  /* ── 19. WhatsApp second ring ── */
+  .whatsapp-float::before {
+    content: ''; position: absolute; inset: -12px;
+    border: 2px solid rgba(37,211,102,0.2);
+    border-radius: 50%;
+    animation: waPulseRing2 2.2s ease-out infinite 1.1s;
+  }
+  @keyframes waPulseRing2 {
+    0%   { transform: scale(1); opacity: 0.6; }
+    70%  { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  /* ── 20. Contact item border light sweep ── */
+  .contact-item {
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s !important;
+  }
+  .contact-item:hover { transform: translateX(4px); }
+  .contact-item::after {
+    content: ''; position: absolute; top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(245,166,35,0.06), transparent);
+    transition: left 0.5s ease;
+  }
+  .contact-item:hover::after { left: 140%; }
+
+</style>
+
+
+<!-- ═══════════════════════════════════
+     ADVANCED ANIMATIONS JS
+═══════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ── 1. Scroll progress bar ── */
+  var bar = document.createElement('div');
+  bar.id = 'scroll-bar';
+  document.body.prepend(bar);
+  window.addEventListener('scroll', function() {
+    var pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = Math.min(pct, 100) + '%';
+  }, { passive: true });
+
+  /* ── 2. Cursor spotlight ── */
+  var glow = document.createElement('div');
+  glow.id = 'cursor-glow';
+  document.body.appendChild(glow);
+  var gx = 0, gy = 0, cx = 0, cy = 0;
+  document.addEventListener('mousemove', function(e){ gx = e.clientX; gy = e.clientY; });
+  document.addEventListener('mouseleave', function(){ glow.style.opacity='0'; });
+  document.addEventListener('mouseenter', function(){ glow.style.opacity='1'; });
+  (function tick(){
+    cx += (gx - cx) * 0.08; cy += (gy - cy) * 0.08;
+    glow.style.transform = 'translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';
+    requestAnimationFrame(tick);
+  })();
+
+  /* ── 3. Ambient floating blobs ── */
+  [{c:'rgba(245,166,35,0.045)',w:500,h:500,t:'8%',r:'-80px',d:'13s'},
+   {c:'rgba(255,107,53,0.04)', w:380,h:380,b:'15%',l:'-60px',d:'17s',delay:'7s'}
+  ].forEach(function(b) {
+    var el = document.createElement('div');
+    el.className = 'ambient-blob';
+    el.style.cssText = 'background:'+b.c+';width:'+b.w+'px;height:'+b.h+'px;'
+      +(b.t?'top:'+b.t+';':'')+(b.b?'bottom:'+b.b+';':'')
+      +(b.r?'right:'+b.r+';':'')+(b.l?'left:'+b.l+';':'')
+      +'animation-duration:'+b.d+';'+(b.delay?'animation-delay:'+b.delay+';':'');
+    document.body.appendChild(el);
+  });
+
+  /* ── 4. Topbar live dot ── */
+  var tb = document.querySelector('.topbar');
+  if (tb) {
+    var dot = document.createElement('span');
+    dot.className = 'topbar-dot';
+    tb.prepend(dot);
+  }
+
+  /* ── 5. Hero h1 word-by-word reveal ── */
+  var h1 = document.querySelector('.hero h1');
+  if (h1) {
+    var rawHTML = h1.innerHTML;
+    var parts = rawHTML.split('<br>');
+    var delay = 0;
+    h1.innerHTML = parts.map(function(part) {
+      if (part.indexOf('<em') !== -1) { return part; }
+      return part.trim().split(' ').filter(function(w){ return w.length > 0; }).map(function(word) {
+        delay += 0.08;
+        return '<span class="hero-word" style="animation-delay:' + delay + 's">' + word + '</span>';
+      }).join(' ');
+    }).join('<br>');
+  }
+
+  /* ── 6. Typewriter on hero badge ── */
+  var badge = document.querySelector('.hero-badge');
+  if (badge) {
+    var texts = ['Kodaikanal #1 Taxi 🏆','Safe Hill Drivers 🛡️','24/7 Available 🕐','Best Price Guarantee 💰'];
+    var ti = 0, ci = 0, deleting = false;
+    var span = document.createElement('span'); span.id = 'type-t';
+    var cursor = document.createElement('span'); cursor.className = 'type-cursor';
+    badge.innerHTML = '';
+    badge.appendChild(span); badge.appendChild(cursor);
+    function type() {
+      var cur = texts[ti];
+      if (!deleting) {
+        span.textContent = cur.slice(0, ++ci);
+        if (ci === cur.length) { deleting = true; setTimeout(type, 1800); return; }
+      } else {
+        span.textContent = cur.slice(0, --ci);
+        if (ci === 0) { deleting = false; ti = (ti+1) % texts.length; }
+      }
+      setTimeout(type, deleting ? 45 : 85);
+    }
+    setTimeout(type, 600);
+  }
+
+  /* ── 7. 3D card tilt ── */
+  function addTilt(sel, intensity) {
+    document.querySelectorAll(sel).forEach(function(card) {
+      // add shine layer
+      if (!card.querySelector('.tilt-shine')) {
+        var s = document.createElement('div'); s.className = 'tilt-shine';
+        card.appendChild(s);
+      }
+      card.addEventListener('mousemove', function(e) {
+        var r = card.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        var rx = (y - r.height/2) / r.height * -(intensity||7);
+        var ry = (x - r.width/2)  / r.width  *  (intensity||7);
+        card.style.transform = 'perspective(700px) rotateX('+rx+'deg) rotateY('+ry+'deg) translateY(-5px) scale(1.015)';
+        card.style.transition = 'transform 0.1s ease';
+        var sh = card.querySelector('.tilt-shine');
+        if (sh) sh.style.background = 'radial-gradient(circle at '+(x/r.width*100)+'% '+(y/r.height*100)+'%, rgba(245,166,35,0.1) 0%, transparent 55%)';
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.5s cubic-bezier(.22,1,.36,1)';
+        var sh = card.querySelector('.tilt-shine');
+        if (sh) sh.style.background = '';
+      });
+    });
+  }
+  addTilt('.pkg-card', 6);
+  addTilt('.vehicle-card', 5);
+  addTilt('.why-card', 5);
+  addTilt('.review-card', 4);
+
+  /* ── 8. Magnetic buttons ── */
+  document.querySelectorAll('.btn-primary,.btn-whatsapp,.book-submit,.nav-cta').forEach(function(btn) {
+    btn.addEventListener('mousemove', function(e) {
+      var r = btn.getBoundingClientRect();
+      var x = (e.clientX - r.left - r.width/2)  * 0.22;
+      var y = (e.clientY - r.top  - r.height/2) * 0.3;
+      btn.style.transform = 'translate('+x+'px,'+y+'px) translateY(-2px)';
+      btn.style.transition = 'transform 0.15s ease';
+    });
+    btn.addEventListener('mouseleave', function() {
+      btn.style.transform = '';
+      btn.style.transition = 'transform 0.45s cubic-bezier(.22,1,.36,1)';
+    });
+  });
+
+  /* ── 9. Star burst on CTA click ── */
+  var emojis = ['⭐','✨','🌟','💫','🔥','🏔️','🚖'];
+  function burst(e) {
+    for (var i = 0; i < 8; i++) {
+      (function(idx) {
+        var el = document.createElement('div');
+        el.className = 'starburst-el';
+        el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        el.style.left = e.clientX + 'px'; el.style.top = e.clientY + 'px';
+        document.body.appendChild(el);
+        var angle = (idx/8)*360 + Math.random()*20;
+        var dist  = 55 + Math.random()*55;
+        var rad   = angle * Math.PI / 180;
+        el.animate([
+          {transform:'translate(-50%,-50%) scale(0)',opacity:1},
+          {transform:'translate(calc(-50% + '+Math.cos(rad)*dist+'px), calc(-50% + '+Math.sin(rad)*dist+'px)) scale(1.2)',opacity:0.9,offset:0.55},
+          {transform:'translate(calc(-50% + '+Math.cos(rad)*dist*1.7+'px), calc(-50% + '+Math.sin(rad)*dist*1.7+'px)) scale(0)',opacity:0}
+        ],{duration:700+idx*40, easing:'cubic-bezier(.22,1,.36,1)', fill:'forwards'})
+        .onfinish = function(){ el.remove(); };
+      })(i);
+    }
+  }
+  document.querySelectorAll('.btn-primary,.btn-whatsapp,.book-submit,.pkg-cta,.modal-btn-call,.modal-btn-wa').forEach(function(b){
+    b.addEventListener('click', burst);
+  });
+
+  /* ── 10. Price roll-up on pkg card hover ── */
+  document.querySelectorAll('.pkg-card').forEach(function(card) {
+    var priceEl = card.querySelector('.pkg-price');
+    if (!priceEl) return;
+    var orig = priceEl.childNodes[0] && priceEl.childNodes[0].textContent;
+    if (!orig) return;
+    var numVal = parseInt(orig.replace(/[^\d]/g,''), 10);
+    if (!numVal) return;
+    card.addEventListener('mouseenter', function() {
+      var start = Math.max(numVal - 400, 0), t0 = null;
+      function roll(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts-t0)/450, 1);
+        var v = Math.round(start + (numVal-start)*(1-Math.pow(1-p,3)));
+        if (priceEl.childNodes[0]) priceEl.childNodes[0].textContent = '₹'+v.toLocaleString('en-IN');
+        if (p < 1) requestAnimationFrame(roll);
+        else if (priceEl.childNodes[0]) priceEl.childNodes[0].textContent = orig;
+      }
+      requestAnimationFrame(roll);
+    });
+  });
+
+  /* ── 11. Section title neon glow on scroll ── */
+  var titleObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('glow');
+        setTimeout(function(){ e.target.classList.remove('glow'); }, 1600);
+        titleObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.section-title').forEach(function(t){ titleObs.observe(t); });
+
+  /* ── 12. Grid bounce-in entrance ── */
+  var gridObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.pkg-card,.vehicle-card,.why-card,.review-card').forEach(function(c,i) {
+          c.animate([
+            {opacity:0, transform:'translateY(50px) scale(0.93)'},
+            {opacity:1, transform:'translateY(-6px) scale(1.02)', offset:0.72},
+            {opacity:1, transform:'translateY(0) scale(1)'}
+          ],{duration:600, delay:i*75, easing:'cubic-bezier(.22,1,.36,1)', fill:'both'});
+        });
+        gridObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.packages-grid,.vehicles-grid,.why-grid,.reviews-grid').forEach(function(g){
+    gridObs.observe(g);
+  });
+
+
 
 })();
 </script>
