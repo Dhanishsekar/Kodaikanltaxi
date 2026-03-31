@@ -139,36 +139,35 @@
   /* ── TOP BAR ── */
   .topbar {
     background: var(--gold);
-    padding: 7px 0;
-    text-align: center;
+    padding: 8px 5%;
     font-size: 13px;
     font-weight: 600;
     color: var(--night);
-    letter-spacing: 0.5px;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
   }
-  .topbar a { color: var(--night); text-decoration: none; font-weight: 700; }
-  /* ── Mobile topbar: smaller, tighter ── */
+  .topbar a {
+    color: var(--night);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .topbar a:hover {
+    text-decoration: underline;
+  }
   @media (max-width: 680px) {
     .topbar {
-      padding: 5px 0;
+      padding: 6px 3%;
       font-size: 10.5px;
-      font-weight: 500;
       letter-spacing: 0px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .topbar a { font-size: 10.5px; font-weight: 600; }
-    .topbar-inner { animation-duration: 18s !important; }
-  }
-
-  /* ── Topbar marquee ── */
-  .topbar-inner {
-    display: inline-block;
-    white-space: nowrap;
-    animation: marqueeScroll 28s linear infinite;
-  }
-  @keyframes marqueeScroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
   }
 
   /* ── NAV ── */
@@ -647,10 +646,7 @@
 <body>
 
 <div class="topbar">
-  <span class="topbar-inner">
-    📞 <a href="tel:+918056598036">+91 8056598036</a> &nbsp;|&nbsp; 24/7 Available &nbsp;|&nbsp; Best Cab in Kodaikanal &nbsp;|&nbsp; From ₹1,800 &nbsp;|&nbsp; No Hidden Charges &nbsp;|&nbsp; Safe Hill Drivers &nbsp;&nbsp;&nbsp;
-    📞 <a href="tel:+918056598036">+91 8056598036</a> &nbsp;|&nbsp; 24/7 Available &nbsp;|&nbsp; Best Cab in Kodaikanal &nbsp;|&nbsp; From ₹1,800 &nbsp;|&nbsp; No Hidden Charges &nbsp;|&nbsp; Safe Hill Drivers &nbsp;&nbsp;&nbsp;
-  </span>
+  📞 Call Now: <a href="tel:+918056598036">+91 8056598036</a> &nbsp;&nbsp;|&nbsp;&nbsp; 24/7 Available &nbsp;&nbsp;|&nbsp;&nbsp; Best Cab Service in Kodaikanal
 </div>
 
 <!-- Nav -->
@@ -1512,13 +1508,6 @@
   .review-card:hover{transform:translateY(-6px);border-color:rgba(245,166,35,0.4);box-shadow:0 18px 48px rgba(245,166,35,0.1);}
 
   /* Page loader */
-  #page-loader{position:fixed;inset:0;z-index:99999;background:var(--night);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;transition:opacity 0.6s ease,visibility 0.6s ease;}
-  #page-loader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
-  .loader-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--gold);}
-  .loader-logo span{color:var(--white);}
-  .loader-bar{width:160px;height:3px;background:rgba(245,166,35,0.2);border-radius:3px;overflow:hidden;}
-  .loader-bar-fill{height:100%;background:var(--gradient);border-radius:3px;animation:loaderFill 1.1s cubic-bezier(.22,1,.36,1) forwards;}
-  @keyframes loaderFill{from{width:0}to{width:100%}}
 
   /* WhatsApp pulse ring */
   .whatsapp-float::after{content:'';position:absolute;inset:-6px;border:2px solid rgba(37,211,102,0.45);border-radius:50%;animation:waPulseRing 2.2s ease-out infinite;}
@@ -1551,11 +1540,6 @@
   .banner-strip h2,.banner-strip p{will-change:transform;}
 </style>
 
-<!-- Page Loader HTML -->
-<div id="page-loader">
-  <div class="loader-logo">Kodaikanal<span>Taxi</span></div>
-  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-</div>
 
 <!-- ═══════════════════════════════════
      UI/UX ANIMATION JAVASCRIPT
@@ -1564,13 +1548,6 @@
 (function() {
   'use strict';
 
-  /* 1. Page Loader */
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      var loader = document.getElementById('page-loader');
-      if (loader) loader.classList.add('hidden');
-    }, 1200);
-  });
 
   /* 2. Nav shrink on scroll */
   var nav = document.querySelector('nav');
