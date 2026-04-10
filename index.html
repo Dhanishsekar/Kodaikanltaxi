@@ -658,7 +658,7 @@
 
 <!-- Nav -->
 <nav>
-  <a href="index.html" class="logo">Kodaikanal<span>Taxis</span></a>
+  <a href="index.html" class="logo-img-link" style="display:flex;align-items:center;text-decoration:none;"><img src="img/logo.png" alt="KodaikanalTaxis" style="height:48px;width:auto;display:block;"></a>
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#explore-packages">Packages</a></li>
@@ -1567,7 +1567,7 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="index.html" class="logo">Kodaikanal<span>Taxis</span></a>
+      <a href="index.html" class="logo-img-link" style="display:flex;align-items:center;text-decoration:none;"><img src="img/logo.png" alt="KodaikanalTaxis" style="height:48px;width:auto;display:block;"></a>
       <p class="footer-desc">Your trusted travel partner in the Queen of Hills. Safe, affordable, and comfortable cab service across Tamil Nadu.</p>
       <div class="footer-social">
         <a href="https://wa.me/918248983815" target="_blank" class="social-btn">💬</a>
@@ -2294,9 +2294,9 @@
   var counts = [];
 
   // Seed different starting counts for each card
-  var bases = [2,1,3,2,1,2,1,2,3];
+  var bases = [5,3,7,4,6,3,5,4,6];
   cards.forEach(function(card, i){
-    counts[i] = bases[i] || Math.floor(Math.random()*3)+1;
+    counts[i] = bases[i] || Math.floor(Math.random()*6)+3;
 
     // Insert badge after pkg-route
     var route = card.querySelector('.pkg-route');
@@ -2314,8 +2314,8 @@
     function update(){
       var prev = counts[i];
       var options = [];
-      // Generate possible next values — between 1 and 5, never same as previous
-      for(var v = 1; v <= 5; v++){
+      // Generate possible next values — between 3 and 8, never same as previous
+      for(var v = 3; v <= 8; v++){
         if(v !== prev) options.push(v);
       }
       // Bias toward realistic numbers (1-3 more likely)
@@ -2331,11 +2331,11 @@
           el.style.opacity = '1';
         }, 300);
       }
-      // Next update: random 8-15 seconds
-      setTimeout(update, 8000 + Math.random()*7000);
+      // Next update: random 45-90 seconds
+      setTimeout(update, 45000 + Math.random()*45000);
     }
     // Stagger first update so all cards don't change at same time
-    setTimeout(update, 4000 + i * 1300 + Math.random()*2000);
+    setTimeout(update, 20000 + i * 5000 + Math.random()*10000);
   });
 })();
 </script>
