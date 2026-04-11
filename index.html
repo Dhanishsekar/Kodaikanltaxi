@@ -935,32 +935,48 @@
     color: #0A0A0F; border-radius: 14px; padding: 22px 52px;
     font-family: 'Playfair Display', serif; font-size: 22px;
     font-weight: 900; text-decoration: none; text-transform: uppercase;
-    letter-spacing: 1px; overflow: hidden;
-    box-shadow: 0 8px 32px rgba(245,166,35,0.45),
-                0 0 0 0 rgba(245,166,35,0.3);
-    transition: transform 0.3s cubic-bezier(.22,1,.36,1),
-                box-shadow 0.3s ease;
-    animation: pkgBtnGlow 2.5s ease-in-out infinite;
-    will-change: box-shadow;
+    letter-spacing: 1px; overflow: visible;
+    transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease;
+    animation: pkgBtnAttention 1.8s ease-in-out infinite;
+    will-change: transform, box-shadow;
   }
-  @keyframes pkgBtnGlow {
-    0%,100% { box-shadow: 0 8px 32px rgba(245,166,35,0.45), 0 0 0 0 rgba(245,166,35,0.25); }
-    50%      { box-shadow: 0 12px 48px rgba(245,166,35,0.65), 0 0 0 12px rgba(245,166,35,0); }
+  @keyframes pkgBtnAttention {
+    0%,100% { transform: scale(1);    box-shadow: 0 8px 32px rgba(245,166,35,0.5),  0 0 0 0   rgba(245,166,35,0.4); }
+    40%     { transform: scale(1.04); box-shadow: 0 16px 56px rgba(245,166,35,0.8), 0 0 0 18px rgba(245,166,35,0); }
+    70%     { transform: scale(0.98); box-shadow: 0 6px 24px rgba(245,166,35,0.4),  0 0 0 0   rgba(245,166,35,0); }
   }
   .pkg-big-btn:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 20px 60px rgba(245,166,35,0.6),
-                0 0 0 0 rgba(245,166,35,0);
-    animation: none;
+    transform: translateY(-6px) scale(1.05) !important;
+    box-shadow: 0 24px 64px rgba(245,166,35,0.75), 0 0 0 0 rgba(245,166,35,0) !important;
+    animation: none !important;
   }
 
-  /* ── Shimmer sweep ── */
+  /* ── Pulse rings behind button ── */
+  .pkg-btn-wrap::before,
+  .pkg-btn-wrap::after {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 18px;
+    border: 2.5px solid rgba(245,166,35,0.6);
+    animation: pkgRingPulse 1.8s ease-out infinite;
+    pointer-events: none;
+  }
+  .pkg-btn-wrap::after {
+    animation-delay: 0.9s;
+  }
+  @keyframes pkgRingPulse {
+    0%   { transform: scale(1);    opacity: 0.8; }
+    100% { transform: scale(1.18); opacity: 0; }
+  }
+
+  /* ── Shimmer sweep — faster ── */
   .pkg-btn-shimmer {
     position: absolute; top: 0; left: -100%; width: 55%; height: 100%;
-    background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%);
-    animation: pkgShimmer 2.2s ease-in-out infinite;
+    border-radius: 14px;
+    background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.38) 50%, transparent 70%);
+    animation: pkgShimmer 1.4s ease-in-out infinite;
     pointer-events: none;
-    will-change: transform, left;
+    will-change: left;
   }
   @keyframes pkgShimmer {
     0%   { left: -100%; }
@@ -971,24 +987,24 @@
   /* ── Bouncing icon ── */
   .pkg-btn-icon {
     display: inline-block;
-    animation: pkgIconBounce 1.8s ease-in-out infinite;
+    animation: pkgIconBounce 1.2s ease-in-out infinite;
     will-change: transform;
   }
   @keyframes pkgIconBounce {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    30%     { transform: translateY(-6px) rotate(-8deg); }
-    60%     { transform: translateY(-2px) rotate(4deg); }
+    0%,100% { transform: translateY(0)   rotate(0deg); }
+    25%     { transform: translateY(-9px) rotate(-10deg); }
+    60%     { transform: translateY(-3px) rotate(5deg); }
   }
 
-  /* ── Animated arrow ── */
+  /* ── Animated arrow — stronger slide ── */
   .pkg-btn-arrow {
-    display: inline-block; font-size: 20px;
-    animation: pkgArrowSlide 1.4s ease-in-out infinite;
+    display: inline-block; font-size: 24px; font-weight: 900;
+    animation: pkgArrowSlide 0.9s ease-in-out infinite;
     will-change: transform, opacity;
   }
   @keyframes pkgArrowSlide {
-    0%,100% { transform: translateX(0);   opacity: 1; }
-    50%     { transform: translateX(6px); opacity: 0.6; }
+    0%,100% { transform: translateX(0);    opacity: 1; }
+    50%     { transform: translateX(10px); opacity: 0.5; }
   }
 
   /* ── Orbiting sparkle dots ── */
