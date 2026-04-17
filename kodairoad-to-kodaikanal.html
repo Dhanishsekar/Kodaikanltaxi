@@ -350,9 +350,12 @@
     window.open('https://wa.me/918248983815?text=' + encodeURIComponent(msg), '_blank');
   }
   function bookWhatsApp() {
-    const name = document.getElementById('bName').value;
-    const date = document.getElementById('bDate').value;
-    const msg = 'Hi KodaikanalTaxis! I want to book a cab.\nRoute: Kodai Road → Kodaikanal\nVehicle: ' + selectedVehicle + ' (₹' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nDate: ' + (date||'Not specified');
+    const name   = document.getElementById('bName').value;
+    const phone  = document.getElementById('bPhone').value;
+    const date   = document.getElementById('bDate').value;
+    const pickup = document.getElementById('bPickup').value;
+    const drop   = document.getElementById('bDrop').value;
+    const msg = 'Hi KodaikanalTaxis!\n\nBooking Request:\nRoute: Kodai Road → Kodaikanal\nVehicle: ' + selectedVehicle + ' (\u20b9' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nPhone: ' + (phone||'Not given') + '\nDate: ' + (date||'Not specified') + '\nPickup: ' + (pickup||'Kodai Road') + '\nDrop: ' + (drop||'Kodaikanal');
     window.open('https://wa.me/918248983815?text=' + encodeURIComponent(msg), '_blank');
   }
 
