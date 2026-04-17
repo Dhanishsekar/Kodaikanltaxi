@@ -658,13 +658,21 @@
   }
   .banner-strip .btn-dark:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .hero-content { grid-template-columns: 1fr; }
     .hero-card { display: block; width: 100%; margin-top: 32px; }
     .contact-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .hero-stats { gap: 20px; }
+  }
+  @media (max-width: 680px) {
+    .hero-card { margin-top: 20px; padding: 18px !important; }
+    .hero-card h3 { font-size: 16px !important; margin-bottom: 14px !important; }
+    .hero-card .form-group { margin-bottom: 10px !important; }
+    .hero-card .form-group label { font-size: 10px !important; margin-bottom: 4px !important; }
+    .hero-card .form-group input,
+    .hero-card .form-group select { padding: 9px 12px !important; font-size: 13px !important; }
+    .hero-card .book-submit { padding: 12px !important; font-size: 14px !important; margin-top: 4px !important; }
   }
   @media (max-width: 680px) {
     .nav-links { display: none !important; }
