@@ -158,7 +158,7 @@
 }
 </script>
 
-<title>Kodaikanal Taxi | Best Cab Service & Car Rental in Kodaikanal | Kodai Call Taxi +91 8248983815</title>
+<title>Kodaikanal Taxi | Best Cab & Car Rental | Kodai Call Taxi</title>
 <meta name="description" content="Best cab service in Kodaikanal. Kodaikanal car rental, Kodai call taxi, car hire & sightseeing tours. Safest & most affordable travels in Kodaikanal. Routes from Madurai, Chennai, Coimbatore & more. Call +91 8248983815.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -1711,7 +1711,7 @@
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
 
 </script>
-<script src="images.js"></script><script>
+<script>
   function toggleMenu() {
     var m = document.getElementById('mobileMenu');
     if (m.classList.contains('open')) {
@@ -1724,18 +1724,44 @@
   }
 
   function submitBooking() {
-    const phone = document.querySelector('.hero-card input[type="tel"]').value;
-    const pickup = document.querySelector('.hero-card input[placeholder*="Kodaikanal"]').value;
-    const drop = document.querySelector('.hero-card input[placeholder*="Madurai"]').value;
-    const msg = `Hi KodaikanalTaxis! I want to book a cab.\nPickup: ${pickup || 'Not specified'}\nDrop: ${drop || 'Not specified'}\nMy number: ${phone || 'Not specified'}`;
+    const phoneEl = document.querySelector('.hero-card input[type="tel"]');
+    const pickupEl = document.querySelector('.hero-card input[placeholder*="Kodaikanal"]');
+    const dropEl = document.querySelector('.hero-card input[placeholder*="Madurai"]');
+    const phone = phoneEl ? phoneEl.value.trim() : '';
+    const pickup = pickupEl ? pickupEl.value.trim() : '';
+    const drop = dropEl ? dropEl.value.trim() : '';
+    if (!phone) {
+      alert('Please enter your phone number before submitting.');
+      if (phoneEl) phoneEl.focus();
+      return;
+    }
+    if (!pickup) {
+      alert('Please enter your pickup location.');
+      if (pickupEl) pickupEl.focus();
+      return;
+    }
+    if (!drop) {
+      alert('Please enter your drop location.');
+      if (dropEl) dropEl.focus();
+      return;
+    }
+    const msg = `Hi KodaikanalTaxis! I want to book a cab.\nPickup: ${pickup}\nDrop: ${drop}\nMy number: ${phone}`;
     window.open('https://wa.me/918248983815?text=' + encodeURIComponent(msg), '_blank');
   }
 
   function sendMessage() {
-    const name = document.querySelector('.contact-form input[placeholder="Enter your name"]').value;
-    const phone = document.querySelector('.contact-form input[type="tel"]').value;
-    const msg2 = document.querySelector('.contact-form input[placeholder*="Trip"]').value;
-    const m = `Hi! I'm ${name || 'a customer'}.\nPhone: ${phone}\nMessage: ${msg2}`;
+    const nameEl = document.querySelector('.contact-form input[placeholder="Enter your name"]');
+    const phoneEl = document.querySelector('.contact-form input[type="tel"]');
+    const msgEl = document.querySelector('.contact-form input[placeholder*="Trip"]');
+    const name = nameEl ? nameEl.value.trim() : '';
+    const phone = phoneEl ? phoneEl.value.trim() : '';
+    const msg2 = msgEl ? msgEl.value.trim() : '';
+    if (!phone) {
+      alert('Please enter your phone number.');
+      if (phoneEl) phoneEl.focus();
+      return;
+    }
+    const m = `Hi! I'm ${name || 'a customer'}.\nPhone: ${phone}\nMessage: ${msg2 || 'No message'}`;
     window.open('https://wa.me/918248983815?text=' + encodeURIComponent(m), '_blank');
   }
 </script>
