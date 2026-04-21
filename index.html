@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="keywords" content="cab service in Kodaikanal, Kodaikanal cab service, car rental hire in Kodaikanal, Kodai cab, best travels in Kodaikanal, Kodai cab service, Kodai call taxi, Kodaikanal car hire, Kodaikanal car rental, Kodaikanal best cab, Kodai best call taxi, cheap taxi Kodaikanal, budget cab Kodaikanal, affordable taxi Kodaikanal, cheapest cab in Kodaikanal, safest cab Kodaikanal, Kodaikanal taxi, lowest fare taxi Kodaikanal, taxi near me Kodaikanal, Kodaikanal sightseeing taxi, Madurai to Kodaikanal taxi, Chennai to Kodaikanal cab, Coimbatore to Kodaikanal, Kodaikanal tour packages, best taxi in Kodaikanal, outstation taxi Kodaikanal, airport transfer Kodaikanal">
 <meta name="robots" content="index, follow">
 <meta name="author" content="KodaikanalTaxis">
@@ -159,7 +159,7 @@
 </script>
 
 <title>Kodaikanal Taxi | Best Cab & Car Rental | Kodai Call Taxi</title>
-<meta name="description" content="Best cab service in Kodaikanal. Kodaikanal car rental, Kodai call taxi, car hire & sightseeing tours. Safest & most affordable travels in Kodaikanal. Routes from Madurai, Chennai, Coimbatore & more. Call +91 8248983815.">
+<meta name="description" content="Best cab service in Kodaikanal. Car rental, Kodai call taxi & sightseeing tours. Routes from Madurai, Chennai, Coimbatore & more. Call +91 8248983815.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -200,13 +200,8 @@
     font-size: 13px;
     font-weight: 600;
     color: var(--night);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
     text-align: center;
-    white-space: nowrap;
-    letter-spacing: 0.3px;
+    line-height: 1.6;
   }
   .topbar a {
     color: var(--night);
@@ -218,13 +213,16 @@
   }
   @media (max-width: 680px) {
     .topbar {
-      padding: 6px 3%;
-      font-size: 10.5px;
+      padding: 6px 4%;
+      font-size: 11px;
       letter-spacing: 0px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
+  }
+
+
+  .topbar-hide-mobile { display: inline; }
+  @media (max-width: 480px) {
+    .topbar-hide-mobile { display: none; }
   }
 
   /* ── NAV ── */
@@ -381,7 +379,7 @@
     width: 100%; background: rgba(255,255,255,0.04);
     border: 1px solid var(--border); border-radius: 12px;
     padding: 13px 16px; color: var(--white);
-    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    font-family: 'DM Sans', sans-serif; font-size: 16px;
     outline: none; transition: border-color 0.2s;
   }
   .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
@@ -504,7 +502,7 @@
   .modal-form-group { display: flex; flex-direction: column; gap: 6px; }
   .modal-form-group.full { grid-column: 1 / -1; }
   .modal-form-group label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); }
-  .modal-form-group input, .modal-form-group select { background: rgba(255,255,255,0.04); border: 1px solid rgba(245,166,35,0.2); border-radius: 10px; padding: 12px 14px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; }
+  .modal-form-group input, .modal-form-group select { background: rgba(255,255,255,0.04); border: 1px solid rgba(245,166,35,0.2); border-radius: 10px; padding: 12px 14px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 16px; outline: none; transition: border-color 0.2s; }
   .modal-form-group input:focus, .modal-form-group select:focus { border-color: var(--gold); }
   .modal-form-group input::placeholder { color: var(--muted); }
   .modal-form-group select option { background: #13131C; }
@@ -671,7 +669,7 @@
     .hero-card .form-group { margin-bottom: 10px !important; }
     .hero-card .form-group label { font-size: 10px !important; margin-bottom: 4px !important; }
     .hero-card .form-group input,
-    .hero-card .form-group select { padding: 9px 12px !important; font-size: 13px !important; }
+    .hero-card .form-group select { padding: 9px 12px !important; font-size: 16px !important; }
     .hero-card .book-submit { padding: 12px !important; font-size: 14px !important; margin-top: 4px !important; }
   }
   @media (max-width: 680px) {
@@ -712,7 +710,7 @@
 </head>
 <body>
 
-<div class="topbar">📞 Call Now: <a href="tel:+918248983815">+91 82489 83815</a> &nbsp;|&nbsp; <a href="tel:+918056598036">+91 80565 98036</a> &nbsp;|&nbsp; 24/7 Available &nbsp;|&nbsp; Best Cab Service in Kodaikanal</div>
+<div class="topbar">📞 Call Now: <a href="tel:+918248983815">+91 82489 83815</a><span class="topbar-sep"> &nbsp;|&nbsp; </span><a href="tel:+918056598036" class="topbar-hide-mobile">+91 80565 98036</a><span class="topbar-sep topbar-hide-mobile"> &nbsp;|&nbsp; </span><span class="topbar-hide-mobile">24/7 Available &nbsp;|&nbsp; </span>Best Cab Service in Kodaikanal</div>
 
 <!-- Nav -->
 <nav>
@@ -751,9 +749,9 @@
 
 <!-- IMAGE CAROUSEL BANNER -->
 <div id="carousel" style="position:relative;width:100%;height:100vh;overflow:hidden;background:#0d0d0d;">
-  <div class="cslide" data-slide="0" style="position:absolute;inset:0;background:url('img/hero1.JPEG') center/cover no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:1;z-index:2;"></div>
-  <div class="cslide" data-slide="1" style="position:absolute;inset:0;background:url('img/hero2.JPEG') center/cover no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:0;z-index:1;"></div>
-  <div class="cslide" data-slide="2" style="position:absolute;inset:0;background:url('img/hero3.PNG') center/cover no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:0;z-index:1;"></div>
+  <div class="cslide" data-slide="0" style="position:absolute;inset:0;background:url('images/hero-slide-1.jpg') center/contain no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:1;z-index:2;"></div>
+  <div class="cslide" data-slide="1" style="position:absolute;inset:0;background:url('images/hero-slide-2.jpg') center/contain no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:0;z-index:1;"></div>
+  <div class="cslide" data-slide="2" style="position:absolute;inset:0;background:url('images/hero-slide-3.jpg') center/contain no-repeat;background-color:#0d0d0d;transition:opacity 1s ease;opacity:0;z-index:1;"></div>
 
   <!-- Journey overlay — hidden on mobile, shown on desktop -->
   <div class="journey-overlay desktop-overlay" style="position:absolute;bottom:0;left:0;right:0;z-index:10;
@@ -1711,7 +1709,7 @@
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
 
 </script>
-<script>
+<script src="images.js"></script><script>
   function toggleMenu() {
     var m = document.getElementById('mobileMenu');
     if (m.classList.contains('open')) {
@@ -1724,44 +1722,18 @@
   }
 
   function submitBooking() {
-    const phoneEl = document.querySelector('.hero-card input[type="tel"]');
-    const pickupEl = document.querySelector('.hero-card input[placeholder*="Kodaikanal"]');
-    const dropEl = document.querySelector('.hero-card input[placeholder*="Madurai"]');
-    const phone = phoneEl ? phoneEl.value.trim() : '';
-    const pickup = pickupEl ? pickupEl.value.trim() : '';
-    const drop = dropEl ? dropEl.value.trim() : '';
-    if (!phone) {
-      alert('Please enter your phone number before submitting.');
-      if (phoneEl) phoneEl.focus();
-      return;
-    }
-    if (!pickup) {
-      alert('Please enter your pickup location.');
-      if (pickupEl) pickupEl.focus();
-      return;
-    }
-    if (!drop) {
-      alert('Please enter your drop location.');
-      if (dropEl) dropEl.focus();
-      return;
-    }
-    const msg = `Hi KodaikanalTaxis! I want to book a cab.\nPickup: ${pickup}\nDrop: ${drop}\nMy number: ${phone}`;
+    const phone = document.querySelector('.hero-card input[type="tel"]').value;
+    const pickup = document.querySelector('.hero-card input[placeholder*="Kodaikanal"]').value;
+    const drop = document.querySelector('.hero-card input[placeholder*="Madurai"]').value;
+    const msg = `Hi KodaikanalTaxis! I want to book a cab.\nPickup: ${pickup || 'Not specified'}\nDrop: ${drop || 'Not specified'}\nMy number: ${phone || 'Not specified'}`;
     window.open('https://wa.me/918248983815?text=' + encodeURIComponent(msg), '_blank');
   }
 
   function sendMessage() {
-    const nameEl = document.querySelector('.contact-form input[placeholder="Enter your name"]');
-    const phoneEl = document.querySelector('.contact-form input[type="tel"]');
-    const msgEl = document.querySelector('.contact-form input[placeholder*="Trip"]');
-    const name = nameEl ? nameEl.value.trim() : '';
-    const phone = phoneEl ? phoneEl.value.trim() : '';
-    const msg2 = msgEl ? msgEl.value.trim() : '';
-    if (!phone) {
-      alert('Please enter your phone number.');
-      if (phoneEl) phoneEl.focus();
-      return;
-    }
-    const m = `Hi! I'm ${name || 'a customer'}.\nPhone: ${phone}\nMessage: ${msg2 || 'No message'}`;
+    const name = document.querySelector('.contact-form input[placeholder="Enter your name"]').value;
+    const phone = document.querySelector('.contact-form input[type="tel"]').value;
+    const msg2 = document.querySelector('.contact-form input[placeholder*="Trip"]').value;
+    const m = `Hi! I'm ${name || 'a customer'}.\nPhone: ${phone}\nMessage: ${msg2}`;
     window.open('https://wa.me/918248983815?text=' + encodeURIComponent(m), '_blank');
   }
 </script>
