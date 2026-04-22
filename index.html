@@ -196,19 +196,33 @@
   /* ── TOP BAR ── */
   .topbar {
     background: var(--gold);
-    padding: 8px 0;
+    padding: 8px 12px;
     font-size: 13px;
     font-weight: 600;
     color: var(--night);
     text-align: center;
-    line-height: 1.6;
+    line-height: 1.8;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0 6px;
   }
   .topbar a {
     color: var(--night);
     text-decoration: none;
     font-weight: 700;
+    white-space: nowrap;
   }
   .topbar a:hover { text-decoration: underline; }
+  @media (max-width: 560px) {
+    .topbar {
+      font-size: 12px;
+      padding: 8px 8px;
+      gap: 2px 6px;
+      line-height: 1.9;
+    }
+  }
 
 
 
@@ -698,7 +712,7 @@
 </head>
 <body>
 
-<div class="topbar">📞 <a href="tel:+918248983815">+91 82489 83815</a> &nbsp;&nbsp; <a href="tel:+918056598036">+91 80565 98036</a> &nbsp;&nbsp; 24/7 Available &nbsp;&nbsp; Best Cab Service in Kodaikanal</div>
+<div class="topbar">📞 <a href="tel:+918248983815">+91 82489 83815</a> <span style="opacity:0.5;">|</span> <a href="tel:+918056598036">+91 80565 98036</a> <span style="opacity:0.5;">|</span> <span style="white-space:nowrap;">24/7 Available</span> <span style="opacity:0.5;">|</span> <span style="white-space:nowrap;">Best Cab Service in Kodaikanal</span></div>
 
 <!-- Nav -->
 <nav>
