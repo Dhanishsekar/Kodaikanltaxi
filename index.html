@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="cab service in Kodaikanal, Kodaikanal cab service, car rental hire in Kodaikanal, Kodai cab, best travels in Kodaikanal, Kodai cab service, Kodai call taxi, Kodaikanal car hire, Kodaikanal car rental, Kodaikanal best cab, Kodai best call taxi, cheap taxi Kodaikanal, budget cab Kodaikanal, affordable taxi Kodaikanal, cheapest cab in Kodaikanal, safest cab Kodaikanal, Kodaikanal taxi, lowest fare taxi Kodaikanal, taxi near me Kodaikanal, Kodaikanal sightseeing taxi, Madurai to Kodaikanal taxi, Chennai to Kodaikanal cab, Coimbatore to Kodaikanal, Kodaikanal tour packages, best taxi in Kodaikanal, outstation taxi Kodaikanal, airport transfer Kodaikanal">
 <meta name="robots" content="index, follow">
 <meta name="author" content="KodaikanalTaxis">
@@ -196,34 +196,29 @@
   /* ── TOP BAR ── */
   .topbar {
     background: var(--gold);
-    padding: 8px 12px;
+    padding: 8px 0;
     font-size: 13px;
     font-weight: 600;
     color: var(--night);
     text-align: center;
-    line-height: 1.8;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0 6px;
+    line-height: 1.6;
   }
   .topbar a {
     color: var(--night);
     text-decoration: none;
     font-weight: 700;
-    white-space: nowrap;
   }
   .topbar a:hover { text-decoration: underline; }
+  .topbar-line { display: inline; white-space: nowrap; }
+  .topbar-divider { display: inline; }
   @media (max-width: 560px) {
     .topbar {
-      font-size: 12px;
-      padding: 8px 8px;
-      gap: 2px 6px;
-      line-height: 1.9;
+      text-align: left;
+      padding: 8px 4%;
     }
+    .topbar-divider { display: none; }
+    .topbar-line { display: block; }
   }
-
 
 
 
@@ -712,7 +707,7 @@
 </head>
 <body>
 
-<div class="topbar">📞 <a href="tel:+918248983815">+91 82489 83815</a> <span style="opacity:0.5;">|</span> <a href="tel:+918056598036">+91 80565 98036</a> <span style="opacity:0.5;">|</span> <span style="white-space:nowrap;">24/7 Available</span> <span style="opacity:0.5;">|</span> <span style="white-space:nowrap;">Best Cab Service in Kodaikanal</span></div>
+<div class="topbar"><span class="topbar-line">📞 <a href="tel:+918248983815">+91 82489 83815</a> &nbsp;|&nbsp; <a href="tel:+918056598036">+91 80565 98036</a></span><span class="topbar-divider"> &nbsp;|&nbsp; </span><span class="topbar-line">24/7 Available &nbsp;|&nbsp; Best Cab Service in Kodaikanal</span></div>
 
 <!-- Nav -->
 <nav>
