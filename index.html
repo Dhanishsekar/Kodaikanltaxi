@@ -196,12 +196,22 @@
   /* ── TOP BAR ── */
   .topbar {
     background: var(--gold);
-    padding: 8px 0;
-    font-size: 13px;
-    font-weight: 600;
+    padding: 5px 20px;
     color: var(--night);
     text-align: center;
-    line-height: 1.6;
+    font-size: 12.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .topbar-inner {
+    display: inline;
+  }
+  .topbar-sep {
+    margin: 0 8px;
+    opacity: 0.45;
+    font-weight: 400;
   }
   .topbar a {
     color: var(--night);
@@ -209,11 +219,16 @@
     font-weight: 700;
   }
   .topbar a:hover { text-decoration: underline; }
-  @media (max-width: 560px) {
+  @media (max-width: 600px) {
     .topbar {
-      text-align: left;
-      padding: 8px 4%;
+      white-space: normal;
+      padding: 6px 12px;
+      font-size: 13px;
+      line-height: 1.65;
     }
+    .topbar-line1 { display: block; text-align: center; }
+    .topbar-line2 { display: block; text-align: center; }
+    .topbar-desktop-sep { display: none; }
   }
 
 
@@ -703,7 +718,9 @@
 </head>
 <body>
 
-<div class="topbar">Call Now <a href="tel:918248983815">+91 82489 83815</a> &nbsp;&nbsp; <a href="tel:918056598036">+91 80565 98036</a> &nbsp;&nbsp; 24/7 Available &nbsp;|&nbsp; Best Cab Service in Kodaikanal</div>
+<div class="topbar">
+  <span class="topbar-line1">📞 Call Now: <a href="tel:+918248983815">+91 82489 83815</a><span class="topbar-sep">|</span><a href="tel:+918056598036">+91 80565 98036</a><span class="topbar-sep">|</span>24/7 Available<span class="topbar-sep topbar-desktop-sep">|</span></span><span class="topbar-line2">Best Cab Service in Kodaikanal</span>
+</div>
 
 <!-- Nav -->
 <nav>
