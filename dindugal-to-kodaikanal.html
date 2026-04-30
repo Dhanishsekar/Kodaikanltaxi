@@ -6,7 +6,7 @@
 <title>Affordable Dindigul to Kodaikanal Taxi | Cab Service ₹2,800</title>
 <meta name="description" content="Book affordable Dindigul to Kodaikanal taxi from ₹2,800. Cheap cab service — 75 KM, 2 hrs. Toll & fuel included. Call +91 82489 83815.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -163,27 +163,23 @@
   }
 
 
-  /* ── Map Modal ────────────────────────────────────────────── */
+  /* Map Modal */
   .map-modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:10000; align-items:center; justify-content:center; padding:16px; }
   .map-modal-overlay.open { display:flex; }
-  .map-modal { background:var(--card); border:1px solid var(--border); border-radius:20px; width:100%; max-width:680px; overflow:hidden; display:flex; flex-direction:column; max-height:90vh; }
-  .map-modal-header { background:var(--gradient); padding:16px 20px; display:flex; align-items:center; justify-content:space-between; }
-  .map-modal-header h3 { font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--night); margin:0; }
-  .map-modal-close { background:rgba(0,0,0,0.18); border:none; color:var(--night); width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; font-weight:700; transition:background 0.2s; }
-  .map-modal-close:hover { background:rgba(0,0,0,0.32); }
-  .map-tip { font-size:12px; color:var(--muted); padding:10px 16px; background:rgba(245,166,35,0.07); border-bottom:1px solid var(--border); text-align:center; }
-  #pickup-map { height:340px; width:100%; flex-shrink:0; }
-  .map-address-row { padding:12px 16px; display:flex; align-items:center; gap:10px; border-top:1px solid var(--border); background:var(--dark); }
-  .map-address-text { flex:1; font-size:13px; color:var(--text); line-height:1.4; min-height:36px; }
-  .map-address-text span { color:var(--muted); font-style:italic; }
-  .map-confirm-btn { background:var(--gradient); color:var(--night); border:none; border-radius:10px; padding:11px 20px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; font-family:'DM Sans',sans-serif; transition:transform 0.2s,box-shadow 0.2s; }
-  .map-confirm-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(245,166,35,0.4); }
-  .map-wa-btn { background:#25D366; color:#fff; border:none; border-radius:10px; padding:11px 16px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; font-family:'DM Sans',sans-serif; transition:transform 0.2s; display:none; }
-  .map-wa-btn.visible { display:inline-flex; align-items:center; gap:6px; }
-  .map-wa-btn:hover { transform:translateY(-1px); }
-  .map-pin-btn { width:100%; margin-top:6px; background:rgba(245,166,35,0.1); border:1px solid var(--border); border-radius:10px; padding:10px 14px; color:var(--gold); font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; transition:background 0.2s,border-color 0.2s; }
-  .map-pin-btn:hover { background:rgba(245,166,35,0.18); border-color:var(--gold); }
-  .map-pin-btn svg { flex-shrink:0; }
+  .map-modal { background:#16161F; border:1px solid rgba(245,166,35,0.18); border-radius:20px; width:100%; max-width:680px; display:flex; flex-direction:column; max-height:90vh; }
+  .map-modal-header { background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%); padding:16px 20px; display:flex; align-items:center; justify-content:space-between; border-radius:20px 20px 0 0; }
+  .map-modal-header h3 { font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:#0A0A0F; margin:0; }
+  .map-modal-close { background:rgba(0,0,0,0.18); border:none; color:#0A0A0F; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:16px; font-weight:700; }
+  .map-tip { font-size:12px; color:#9A9490; padding:10px 16px; background:rgba(245,166,35,0.07); border-bottom:1px solid rgba(245,166,35,0.18); text-align:center; }
+  #pickup-map { height:340px; width:100%; flex-shrink:0; background:#1a1a2e; }
+  .map-address-row { padding:12px 16px; display:flex; align-items:center; gap:10px; border-top:1px solid rgba(245,166,35,0.18); background:#111118; border-radius:0 0 20px 20px; flex-wrap:wrap; }
+  .map-address-text { flex:1; font-size:13px; color:#F0EDE8; line-height:1.4; min-height:36px; min-width:120px; }
+  .map-address-text span { color:#9A9490; font-style:italic; }
+  .map-confirm-btn { background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%); color:#0A0A0F; border:none; border-radius:10px; padding:11px 20px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; font-family:'DM Sans',sans-serif; }
+  .map-wa-btn { background:#25D366; color:#fff; border:none; border-radius:10px; padding:11px 16px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; font-family:'DM Sans',sans-serif; display:none; }
+  .map-wa-btn.visible { display:inline-block; }
+  .map-pin-btn { width:100%; margin-top:6px; background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.18); border-radius:10px; padding:10px 14px; color:#F5A623; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; }
+  .map-pin-btn:hover { background:rgba(245,166,35,0.18); border-color:#F5A623; }
 
 </style>
 <meta name="keywords" content="Dindigul to Kodaikanal taxi, Dindugal Kodaikanal cab, taxi from Dindigul to Kodaikanal, Dindigul to Kodaikanal cab price, Dindigul Kodai taxi, cheap taxi Dindigul to Kodaikanal, budget cab Dindigul Kodaikanal, affordable Dindigul Kodaikanal taxi, lowest fare Dindigul Kodaikanal, cheap cab Dindigul to Kodaikanal">
@@ -341,8 +337,7 @@
           <label>Pickup Point in Dindigul</label>
           <input type="text" id="bPickup" placeholder="e.g. Dindigul Bus Stand">
           <button type="button" class="map-pin-btn" onclick="openPickupMap()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-            📍 Pin My Exact Pickup on Map
+            &#128205; Pin My Exact Pickup on Map
           </button>
         </div>
         <div class="form-group"><label>Drop Point in Kodaikanal</label><input type="text" id="bDrop" placeholder="e.g. Hotel / Lake area"></div>
@@ -485,13 +480,7 @@
     const date   = document.getElementById('bDate').value;
     const pickup = document.getElementById('bPickup').value;
     const drop   = document.getElementById('bDrop').value;
-    // Include Google Maps link if user pinned location
-    var locationLine = '';
-    if (window._pickupCoords) {
-      var mapsLink = 'https://maps.google.com/?q=' + window._pickupCoords.lat + ',' + window._pickupCoords.lng;
-      locationLine = '\n🗺️ Pickup Map Link: ' + mapsLink;
-    }
-    const msg = 'Hi KodaikanalTaxis! 🚖\n\nBooking Request:\nRoute: Dindigul → Kodaikanal\nVehicle: ' + selectedVehicle + ' (\u20b9' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nPhone: ' + (phone||'Not given') + '\nDate: ' + (date||'Not specified') + '\n📍 Pickup: ' + (pickup||'Dindigul') + locationLine + '\nDrop: ' + (drop||'Kodaikanal');
+    const msg = 'Hi KodaikanalTaxis!\n\nBooking Request:\nRoute: Dindigul → Kodaikanal\nVehicle: ' + selectedVehicle + ' (\u20b9' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nPhone: ' + (phone||'Not given') + '\nDate: ' + (date||'Not specified') + '\nPickup: ' + (pickup||'Dindigul') + '\nDrop: ' + (drop||'Kodaikanal');
     window.open('https://wa.me/918248983815?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -523,128 +512,111 @@
 
 </script>
 
-<!-- ── Pickup Location Map Modal ──────────────────────────────── -->
 <div class="map-modal-overlay" id="mapModalOverlay" onclick="closeMapOnOverlay(event)">
   <div class="map-modal">
     <div class="map-modal-header">
-      <h3>📍 Pin Your Pickup Location</h3>
-      <button class="map-modal-close" onclick="closePickupMap()" aria-label="Close map">✕</button>
+      <h3>&#128205; Pin Your Pickup Location</h3>
+      <button class="map-modal-close" onclick="closePickupMap()">X</button>
     </div>
-    <div class="map-tip">Tap or drag the pin to your exact pickup spot in Dindigul</div>
+    <div class="map-tip">Tap anywhere or drag the pin to your exact pickup spot in Dindigul</div>
     <div id="pickup-map"></div>
     <div class="map-address-row">
-      <div class="map-address-text" id="mapAddressText"><span>Move the pin to see address…</span></div>
-      <button class="map-confirm-btn" onclick="confirmPickupLocation()">✓ Use This Location</button>
-      <button class="map-wa-btn" id="mapShareWaBtn" onclick="shareLocationWhatsApp()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        Share on WhatsApp
-      </button>
+      <div class="map-address-text" id="mapAddressText"><span>Tap the map to see address...</span></div>
+      <button class="map-confirm-btn" onclick="confirmPickupLocation()">Use This Location</button>
+      <button class="map-wa-btn" id="mapShareWaBtn" onclick="shareLocationWhatsApp()">Share on WhatsApp</button>
     </div>
   </div>
 </div>
 
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLcE=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
-// ── Map Variables ────────────────────────────────────────────────
-var pickupMap = null;
-var pickupMarker = null;
+var pickupMap = null, pickupMarker = null;
 var pickedLat = null, pickedLng = null;
-var pickedAddress = '';
 
 function openPickupMap() {
-  document.getElementById('mapModalOverlay').classList.add('open');
+  var overlay = document.getElementById('mapModalOverlay');
+  overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  setTimeout(function() {
-    if (!pickupMap) {
-      // Center on Dindigul
-      pickupMap = L.map('pickup-map').setView([10.3673, 77.9803], 14);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
-        maxZoom: 19
-      }).addTo(pickupMap);
-
-      // Custom gold pin icon
-      var goldIcon = L.divIcon({
-        className: '',
-        html: '<div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:30px;filter:drop-shadow(0 3px 6px rgba(0,0,0,0.5));transform:translateY(-18px);">📍</div>',
-        iconSize: [36, 36],
-        iconAnchor: [18, 36]
-      });
-
-      pickupMarker = L.marker([10.3673, 77.9803], { icon: goldIcon, draggable: true }).addTo(pickupMap);
-
-      // Reverse geocode on drag end
-      pickupMarker.on('dragend', function(e) {
-        var pos = e.target.getLatLng();
-        pickedLat = pos.lat; pickedLng = pos.lng;
-        reverseGeocode(pos.lat, pos.lng);
-      });
-
-      // Click on map to move marker
-      pickupMap.on('click', function(e) {
-        pickedLat = e.latlng.lat; pickedLng = e.latlng.lng;
-        pickupMarker.setLatLng(e.latlng);
-        reverseGeocode(e.latlng.lat, e.latlng.lng);
-      });
-
-      // Check if bPickup already has text, try to geocode it
-      var existing = document.getElementById('bPickup').value;
-      if (existing) {
-        document.getElementById('mapAddressText').innerHTML = '<strong style="color:var(--gold)">📍</strong> ' + existing;
+  // Double requestAnimationFrame: guarantees browser painted modal before Leaflet measures size
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      if (!pickupMap) {
+        initLeafletMap();
+      } else {
+        pickupMap.invalidateSize(true);
       }
-    }
-    pickupMap.invalidateSize();
-  }, 200);
+    });
+  });
+}
+
+function initLeafletMap() {
+  var el = document.getElementById('pickup-map');
+  if (el._leaflet_id) { pickupMap.invalidateSize(true); return; }
+  pickupMap = L.map(el, {zoomControl:true, scrollWheelZoom:true}).setView([10.3673, 77.9803], 14);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19
+  }).addTo(pickupMap);
+  var goldIcon = L.divIcon({
+    className: '',
+    html: '<div style="font-size:32px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.7));">&#128205;</div>',
+    iconSize: [32,32], iconAnchor: [16,32]
+  });
+  pickupMarker = L.marker([10.3673, 77.9803], {icon:goldIcon, draggable:true}).addTo(pickupMap);
+  pickupMarker.bindPopup('<b style="color:#F5A623">Drag me to your pickup spot!</b>').openPopup();
+  pickupMarker.on('dragend', function(e) {
+    var p = e.target.getLatLng(); pickedLat = p.lat; pickedLng = p.lng;
+    reverseGeocode(p.lat, p.lng);
+  });
+  pickupMap.on('click', function(e) {
+    pickedLat = e.latlng.lat; pickedLng = e.latlng.lng;
+    pickupMarker.setLatLng(e.latlng); pickupMarker.closePopup();
+    reverseGeocode(e.latlng.lat, e.latlng.lng);
+  });
+  setTimeout(function() { pickupMap.invalidateSize(true); }, 400);
 }
 
 function closePickupMap() {
-  document.getElementById('mapModalOverlay').classList.remove('open');
+  document.getElementById('mapModalOverlay').style.display = 'none';
   document.body.style.overflow = '';
 }
-
 function closeMapOnOverlay(e) {
   if (e.target === document.getElementById('mapModalOverlay')) closePickupMap();
 }
 
 function reverseGeocode(lat, lng) {
-  document.getElementById('mapAddressText').innerHTML = '<span>Fetching address…</span>';
-  fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lng + '&zoom=17&addressdetails=1', {
-    headers: { 'Accept-Language': 'en', 'User-Agent': 'KodaikanalTaxis/1.0' }
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    pickedAddress = data.display_name || (lat.toFixed(5) + ', ' + lng.toFixed(5));
-    // Shorten: first 3 parts
-    var parts = pickedAddress.split(',');
-    var shortAddr = parts.slice(0, 4).join(',').trim();
-    document.getElementById('mapAddressText').innerHTML = '<strong style="color:var(--gold)">📍</strong> ' + shortAddr;
+  document.getElementById('mapAddressText').innerHTML = '<span>Fetching address...</span>';
+  fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lng + '&zoom=17', {
+    headers: {'Accept-Language':'en'}
+  }).then(function(r){return r.json();}).then(function(data){
+    var addr = data.display_name || (lat.toFixed(5)+', '+lng.toFixed(5));
+    var short = addr.split(',').slice(0,4).join(',').trim();
+    document.getElementById('mapAddressText').innerHTML = '<strong style="color:#F5A623">&#128205;</strong> ' + short;
     document.getElementById('mapShareWaBtn').classList.add('visible');
-  })
-  .catch(function() {
-    pickedAddress = lat.toFixed(5) + ', ' + lng.toFixed(5);
-    document.getElementById('mapAddressText').innerHTML = '<strong style="color:var(--gold)">📍</strong> ' + pickedAddress;
+    window._pickedAddr = short;
+  }).catch(function(){
+    var addr = lat.toFixed(5)+', '+lng.toFixed(5);
+    document.getElementById('mapAddressText').innerHTML = '<strong style="color:#F5A623">&#128205;</strong> ' + addr;
     document.getElementById('mapShareWaBtn').classList.add('visible');
+    window._pickedAddr = addr;
   });
 }
 
 function confirmPickupLocation() {
   if (!pickedLat) {
-    // Use current marker position (default center)
-    var pos = pickupMarker.getLatLng();
+    var pos = pickupMarker ? pickupMarker.getLatLng() : {lat:10.3673, lng:77.9803};
     pickedLat = pos.lat; pickedLng = pos.lng;
     reverseGeocode(pickedLat, pickedLng);
-    setTimeout(function() {
-      var addrText = document.getElementById('mapAddressText').textContent.replace('📍', '').trim();
-      document.getElementById('bPickup').value = addrText;
+    setTimeout(function(){
+      document.getElementById('bPickup').value = window._pickedAddr || '';
+      window._pickupCoords = {lat:pickedLat, lng:pickedLng};
       closePickupMap();
-    }, 1200);
+    }, 1600);
     return;
   }
-  var addrText = document.getElementById('mapAddressText').textContent.replace('📍', '').trim();
-  document.getElementById('bPickup').value = addrText;
-  // Store coords for WhatsApp
-  window._pickupCoords = { lat: pickedLat, lng: pickedLng, addr: addrText };
+  document.getElementById('bPickup').value = window._pickedAddr || '';
+  window._pickupCoords = {lat:pickedLat, lng:pickedLng};
   closePickupMap();
 }
 
@@ -654,15 +626,8 @@ function shareLocationWhatsApp() {
   var name = document.getElementById('bName').value || 'Customer';
   var phone = document.getElementById('bPhone').value || '';
   var date = document.getElementById('bDate').value || 'Not specified';
-  var addrText = document.getElementById('mapAddressText').textContent.replace('📍','').trim();
-  var msg = 'Hi KodaikanalTaxis! 🚖\n\n'
-    + 'My Pickup Location (Dindigul → Kodaikanal):\n'
-    + '📍 ' + addrText + '\n'
-    + '🗺️ Google Maps: ' + mapsLink + '\n\n'
-    + 'Vehicle: ' + selectedVehicle + ' (₹' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\n'
-    + 'Name: ' + name + '\n'
-    + (phone ? 'Phone: ' + phone + '\n' : '')
-    + 'Date: ' + date;
+  var addr = window._pickedAddr || (pickedLat + ',' + pickedLng);
+  var msg = 'Hi KodaikanalTaxis!\n\nPickup Location:\n' + addr + '\nMaps Link: ' + mapsLink + '\n\nVehicle: ' + selectedVehicle + '\nFare: Rs.' + parseInt(selectedPrice).toLocaleString('en-IN') + '\nName: ' + name + (phone ? '\nPhone: ' + phone : '') + '\nDate: ' + date;
   window.open('https://wa.me/918248983815?text=' + encodeURIComponent(msg), '_blank');
 }
 </script>
