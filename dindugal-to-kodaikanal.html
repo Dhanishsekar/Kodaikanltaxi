@@ -705,30 +705,69 @@ document.addEventListener('click', function(e) {
 
 // ── Current Location ──────────────────────────────────────────────────────────
 function useCurrentLocation() {
-  if (!navigator.geolocation) {
-    alert('Geolocation is not supported by your browser.');
+  var btn = document.getElementById('mapLocBtn');
+
+  // Must be HTTPS or localhost for geolocation to work
+  if (location.protocol === 'http:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+    showLocError('Location requires HTTPS. Please open the site over https://');
     return;
   }
-  var btn = document.getElementById('mapLocBtn');
+  if (!navigator.geolocation) {
+    showLocError('Your browser does not support location access.');
+    return;
+  }
+
   btn.classList.add('loading');
   btn.innerHTML = '&#9203; Locating...';
+
+  // Try without high accuracy first (faster, works on more devices)
   navigator.geolocation.getCurrentPosition(
-    function(pos) {
-      btn.classList.remove('loading');
-      btn.innerHTML = '&#9678; My Location';
-      pickedLat = pos.coords.latitude;
-      pickedLng = pos.coords.longitude;
-      pickupMap.setView([pickedLat, pickedLng], 16, {animate:true});
-      pickupMarker.setLatLng([pickedLat, pickedLng]);
-      reverseGeocode(pickedLat, pickedLng);
-    },
+    function(pos) { onLocSuccess(pos, btn); },
     function(err) {
-      btn.classList.remove('loading');
-      btn.innerHTML = '&#9678; My Location';
-      alert('Could not get your location. Please allow location access and try again.');
+      // On failure retry WITH high accuracy (some Android needs it)
+      navigator.geolocation.getCurrentPosition(
+        function(pos) { onLocSuccess(pos, btn); },
+        function(err2) { onLocError(err2, btn); },
+        {enableHighAccuracy:true, timeout:15000, maximumAge:0}
+      );
     },
-    {enableHighAccuracy:true, timeout:8000}
+    {enableHighAccuracy:false, timeout:10000, maximumAge:30000}
   );
+}
+
+function onLocSuccess(pos, btn) {
+  btn.classList.remove('loading');
+  btn.innerHTML = '&#9678; My Location';
+  pickedLat = pos.coords.latitude;
+  pickedLng = pos.coords.longitude;
+  pickupMap.setView([pickedLat, pickedLng], 16, {animate:true});
+  pickupMarker.setLatLng([pickedLat, pickedLng]);
+  reverseGeocode(pickedLat, pickedLng);
+}
+
+function onLocError(err, btn) {
+  btn.classList.remove('loading');
+  btn.innerHTML = '&#9678; My Location';
+  var msg = '';
+  if (err.code === 1) {
+    msg = 'Location permission denied.
+
+To fix:
+1. Tap the lock/info icon in your browser address bar
+2. Set Location to "Allow"
+3. Reload the page and try again.';
+  } else if (err.code === 2) {
+    msg = 'Location unavailable. Please turn on GPS/Location in your phone Settings and try again.';
+  } else if (err.code === 3) {
+    msg = 'Location request timed out. Make sure GPS is ON and you have a network connection, then try again.';
+  } else {
+    msg = 'Could not get your location. Please check GPS settings and try again.';
+  }
+  alert(msg);
+}
+
+function showLocError(msg) {
+  alert(msg);
 }
 
 // ── Reverse Geocode ───────────────────────────────────────────────────────────
