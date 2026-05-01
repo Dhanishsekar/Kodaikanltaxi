@@ -186,6 +186,28 @@
     .map-modal { border-radius:20px; max-width:700px; height:92vh; max-height:700px; }
   }
 
+
+  /* Map search bar */
+  .map-search-row { padding:10px 12px 0; background:#16161F; flex-shrink:0; position:relative; z-index:1000; }
+  .map-search-wrap { display:flex; align-items:center; background:rgba(255,255,255,0.06); border:1px solid rgba(245,166,35,0.3); border-radius:10px; padding:0 12px; gap:8px; }
+  .map-search-icon { color:#F5A623; font-size:15px; flex-shrink:0; }
+  .map-search-input { flex:1; background:transparent; border:none; outline:none; color:#F0EDE8; font-family:'DM Sans',sans-serif; font-size:15px; padding:11px 0; }
+  .map-search-input::placeholder { color:#6a6660; }
+  .map-search-clear { background:none; border:none; color:#9A9490; cursor:pointer; font-size:14px; padding:4px; flex-shrink:0; }
+  .map-suggestions { list-style:none; margin:6px 0 0; padding:0; background:#1e1e2a; border:1px solid rgba(245,166,35,0.2); border-radius:10px; max-height:180px; overflow-y:auto; display:none; }
+  .map-suggestions.open { display:block; }
+  .map-suggestions li { padding:11px 14px; font-size:13px; color:#F0EDE8; cursor:pointer; border-bottom:1px solid rgba(255,255,255,0.05); display:flex; align-items:flex-start; gap:8px; }
+  .map-suggestions li:last-child { border-bottom:none; }
+  .map-suggestions li:hover { background:rgba(245,166,35,0.1); color:#F5A623; }
+  .map-suggestions li .sug-icon { color:#F5A623; flex-shrink:0; margin-top:1px; }
+  .map-suggestions li .sug-name { font-weight:600; }
+  .map-suggestions li .sug-sub { font-size:11px; color:#9A9490; display:block; margin-top:2px; }
+  /* Current location button */
+  .map-loc-btn { background:rgba(245,166,35,0.12); border:1px solid rgba(245,166,35,0.3); color:#F5A623; border-radius:10px; padding:10px 13px; font-size:18px; cursor:pointer; flex-shrink:0; transition:background 0.2s; }
+  .map-loc-btn:hover { background:rgba(245,166,35,0.25); }
+  .map-loc-btn.loading { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
 </style>
 <meta name="keywords" content="Dindigul to Kodaikanal taxi, Dindugal Kodaikanal cab, taxi from Dindigul to Kodaikanal, Dindigul to Kodaikanal cab price, Dindigul Kodai taxi, cheap taxi Dindigul to Kodaikanal, budget cab Dindigul Kodaikanal, affordable Dindigul Kodaikanal taxi, lowest fare Dindigul Kodaikanal, cheap cab Dindigul to Kodaikanal">
 <meta name="robots" content="index, follow">
@@ -521,14 +543,22 @@
   <div class="map-modal">
     <div class="map-modal-header">
       <h3>&#128205; Pin Your Pickup Location</h3>
-      <button class="map-modal-close" onclick="closePickupMap()">X</button>
+      <button class="map-modal-close" onclick="closePickupMap()">&#10005;</button>
     </div>
-    <div class="map-tip">Tap anywhere or drag the pin to your exact pickup spot in Dindigul</div>
+    <!-- Search bar -->
+    <div class="map-search-row">
+      <div class="map-search-wrap">
+        <span class="map-search-icon">&#128269;</span>
+        <input type="text" id="mapSearchInput" class="map-search-input" placeholder="Search village or area in Dindigul..." oninput="onMapSearch(this.value)" autocomplete="off" />
+        <button class="map-search-clear" id="mapSearchClear" onclick="clearMapSearch()" style="display:none">&#10005;</button>
+      </div>
+      <ul class="map-suggestions" id="mapSuggestions"></ul>
+    </div>
     <div id="pickup-map"></div>
     <div class="map-address-row">
-      <div class="map-address-text" id="mapAddressText"><span>Tap the map to see address...</span></div>
-      <button class="map-confirm-btn" onclick="confirmPickupLocation()">Use This Location</button>
-
+      <div class="map-address-text" id="mapAddressText"><span>Search or tap map to pick location...</span></div>
+      <button class="map-loc-btn" onclick="useCurrentLocation()" title="Use my current location">&#127757;</button>
+      <button class="map-confirm-btn" onclick="confirmPickupLocation()">&#10003; Use This Location</button>
     </div>
   </div>
 </div>
@@ -538,62 +568,175 @@
 <script>
 var pickupMap = null, pickupMarker = null;
 var pickedLat = null, pickedLng = null;
+var searchTimer = null;
 
+// ── Open / Close ─────────────────────────────────────────────────────────────
 function openPickupMap() {
   var overlay = document.getElementById('mapModalOverlay');
   overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  // Double requestAnimationFrame: guarantees browser painted modal before Leaflet measures size
   requestAnimationFrame(function() {
     requestAnimationFrame(function() {
-      if (!pickupMap) {
-        initLeafletMap();
-      } else {
-        pickupMap.invalidateSize(true);
+      if (!pickupMap) { initLeafletMap(); }
+      else { pickupMap.invalidateSize(true); }
+      // Focus search input on desktop
+      if (window.innerWidth >= 640) {
+        setTimeout(function(){ document.getElementById('mapSearchInput').focus(); }, 300);
       }
     });
   });
 }
 
+function closePickupMap() {
+  document.getElementById('mapModalOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+  closeSuggestions();
+}
+function closeMapOnOverlay(e) {
+  if (e.target === document.getElementById('mapModalOverlay')) closePickupMap();
+}
+
+// ── Init Leaflet ──────────────────────────────────────────────────────────────
 function initLeafletMap() {
   var el = document.getElementById('pickup-map');
   if (el._leaflet_id) { pickupMap.invalidateSize(true); return; }
-  pickupMap = L.map(el, {zoomControl:true, scrollWheelZoom:true}).setView([10.3673, 77.9803], 14);
+  pickupMap = L.map(el, {zoomControl:true, scrollWheelZoom:true}).setView([10.3673, 77.9803], 12);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 19
   }).addTo(pickupMap);
   var goldIcon = L.divIcon({
     className: '',
-    html: '<div style="font-size:32px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.7));">&#128205;</div>',
-    iconSize: [32,32], iconAnchor: [16,32]
+    html: '<div style="font-size:34px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.7));">&#128205;</div>',
+    iconSize: [34,34], iconAnchor: [17,34]
   });
   pickupMarker = L.marker([10.3673, 77.9803], {icon:goldIcon, draggable:true}).addTo(pickupMap);
-  pickupMarker.bindPopup('<b style="color:#F5A623">Drag me to your pickup spot!</b>').openPopup();
+  pickupMarker.bindPopup('<b style="color:#F5A623">Drag to your pickup spot!</b>').openPopup();
   pickupMarker.on('dragend', function(e) {
     var p = e.target.getLatLng(); pickedLat = p.lat; pickedLng = p.lng;
     reverseGeocode(p.lat, p.lng);
   });
   pickupMap.on('click', function(e) {
     pickedLat = e.latlng.lat; pickedLng = e.latlng.lng;
-    pickupMarker.setLatLng(e.latlng); pickupMarker.closePopup();
+    pickupMarker.setLatLng(e.latlng);
+    pickupMarker.closePopup();
     reverseGeocode(e.latlng.lat, e.latlng.lng);
   });
   setTimeout(function() { pickupMap.invalidateSize(true); }, 400);
 }
 
-function closePickupMap() {
-  document.getElementById('mapModalOverlay').style.display = 'none';
-  document.body.style.overflow = '';
-}
-function closeMapOnOverlay(e) {
-  if (e.target === document.getElementById('mapModalOverlay')) closePickupMap();
+// ── Search (Nominatim restricted to Dindigul district) ───────────────────────
+function onMapSearch(val) {
+  var clearBtn = document.getElementById('mapSearchClear');
+  clearBtn.style.display = val ? 'block' : 'none';
+  clearTimeout(searchTimer);
+  if (val.length < 2) { closeSuggestions(); return; }
+  searchTimer = setTimeout(function() { fetchSuggestions(val); }, 400);
 }
 
+function fetchSuggestions(query) {
+  // Restrict search to Dindigul district bounding box
+  var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' +
+    encodeURIComponent(query + ', Dindigul') +
+    '&countrycodes=in&limit=6&addressdetails=1&viewbox=77.6,10.1,78.4,10.7&bounded=1';
+  fetch(url, {headers:{'Accept-Language':'en'}})
+    .then(function(r){return r.json();})
+    .then(function(results){
+      if (!results.length) {
+        // Fallback: search whole Tamil Nadu
+        return fetch('https://nominatim.openstreetmap.org/search?format=json&q=' +
+          encodeURIComponent(query + ', Dindigul, Tamil Nadu') +
+          '&countrycodes=in&limit=6&addressdetails=1', {headers:{'Accept-Language':'en'}})
+          .then(function(r){return r.json();});
+      }
+      return results;
+    })
+    .then(showSuggestions)
+    .catch(function(){});
+}
+
+function showSuggestions(results) {
+  var ul = document.getElementById('mapSuggestions');
+  ul.innerHTML = '';
+  if (!results || !results.length) {
+    ul.innerHTML = '<li style="color:#9A9490;cursor:default"><span class="sug-icon">&#128269;</span><span>No results found in Dindigul</span></li>';
+    ul.classList.add('open');
+    return;
+  }
+  results.forEach(function(r) {
+    var li = document.createElement('li');
+    var addr = r.address || {};
+    var name = r.name || addr.village || addr.town || addr.suburb || addr.hamlet || r.display_name.split(',')[0];
+    var sub = r.display_name.split(',').slice(1,3).join(',').trim();
+    li.innerHTML = '<span class="sug-icon">&#128205;</span><span><span class="sug-name">' + name + '</span><span class="sug-sub">' + sub + '</span></span>';
+    li.onclick = function() { selectSuggestion(parseFloat(r.lat), parseFloat(r.lon), name + ', ' + sub); };
+    ul.appendChild(li);
+  });
+  ul.classList.add('open');
+}
+
+function selectSuggestion(lat, lng, label) {
+  pickedLat = lat; pickedLng = lng;
+  pickupMap.setView([lat, lng], 15, {animate:true});
+  pickupMarker.setLatLng([lat, lng]);
+  pickupMarker.closePopup();
+  document.getElementById('mapSearchInput').value = label.split(',')[0];
+  document.getElementById('mapSearchClear').style.display = 'block';
+  closeSuggestions();
+  reverseGeocode(lat, lng);
+}
+
+function closeSuggestions() {
+  var ul = document.getElementById('mapSuggestions');
+  ul.classList.remove('open');
+  ul.innerHTML = '';
+}
+
+function clearMapSearch() {
+  document.getElementById('mapSearchInput').value = '';
+  document.getElementById('mapSearchClear').style.display = 'none';
+  closeSuggestions();
+  document.getElementById('mapSearchInput').focus();
+}
+
+// Close suggestions when tapping map
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.map-search-row')) closeSuggestions();
+});
+
+// ── Current Location ──────────────────────────────────────────────────────────
+function useCurrentLocation() {
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser.');
+    return;
+  }
+  var btn = document.querySelector('.map-loc-btn');
+  btn.classList.add('loading');
+  btn.textContent = '...';
+  navigator.geolocation.getCurrentPosition(
+    function(pos) {
+      btn.classList.remove('loading');
+      btn.innerHTML = '&#127757;';
+      pickedLat = pos.coords.latitude;
+      pickedLng = pos.coords.longitude;
+      pickupMap.setView([pickedLat, pickedLng], 16, {animate:true});
+      pickupMarker.setLatLng([pickedLat, pickedLng]);
+      reverseGeocode(pickedLat, pickedLng);
+    },
+    function(err) {
+      btn.classList.remove('loading');
+      btn.innerHTML = '&#127757;';
+      alert('Could not get your location. Please allow location access and try again.');
+    },
+    {enableHighAccuracy:true, timeout:8000}
+  );
+}
+
+// ── Reverse Geocode ───────────────────────────────────────────────────────────
 function reverseGeocode(lat, lng) {
   document.getElementById('mapAddressText').innerHTML = '<span>Fetching address...</span>';
   fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lng + '&zoom=17', {
-    headers: {'Accept-Language':'en'}
+    headers:{'Accept-Language':'en'}
   }).then(function(r){return r.json();}).then(function(data){
     var addr = data.display_name || (lat.toFixed(5)+', '+lng.toFixed(5));
     var short = addr.split(',').slice(0,4).join(',').trim();
@@ -606,6 +749,7 @@ function reverseGeocode(lat, lng) {
   });
 }
 
+// ── Confirm ───────────────────────────────────────────────────────────────────
 function confirmPickupLocation() {
   if (!pickedLat) {
     var pos = pickupMarker ? pickupMarker.getLatLng() : {lat:10.3673, lng:77.9803};
@@ -622,7 +766,6 @@ function confirmPickupLocation() {
   window._pickupCoords = {lat:pickedLat, lng:pickedLng};
   closePickupMap();
 }
-
 </script>
 
 </body>
