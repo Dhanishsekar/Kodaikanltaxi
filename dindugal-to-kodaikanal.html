@@ -192,7 +192,7 @@
   .map-search-wrap { display:flex; align-items:center; background:rgba(255,255,255,0.06); border:1px solid rgba(245,166,35,0.3); border-radius:10px; padding:0 12px; gap:8px; }
   .map-search-icon { color:#F5A623; font-size:15px; flex-shrink:0; }
   .map-search-input { flex:1; background:transparent; border:none; outline:none; color:#F0EDE8; font-family:'DM Sans',sans-serif; font-size:15px; padding:11px 0; }
-  .map-search-input::placeholder { color:#6a6660; }
+  .map-search-input::placeholder { color:rgba(255,255,255,0.55); }
   .map-search-clear { background:none; border:none; color:#9A9490; cursor:pointer; font-size:14px; padding:4px; flex-shrink:0; }
   .map-suggestions { list-style:none; margin:6px 0 0; padding:0; background:#1e1e2a; border:1px solid rgba(245,166,35,0.2); border-radius:10px; max-height:180px; overflow-y:auto; display:none; }
   .map-suggestions.open { display:block; }
@@ -203,9 +203,9 @@
   .map-suggestions li .sug-name { font-weight:600; }
   .map-suggestions li .sug-sub { font-size:11px; color:#9A9490; display:block; margin-top:2px; }
   /* Current location button */
-  .map-loc-btn { background:rgba(245,166,35,0.12); border:1px solid rgba(245,166,35,0.3); color:#F5A623; border-radius:10px; padding:10px 13px; font-size:18px; cursor:pointer; flex-shrink:0; transition:background 0.2s; }
+  .map-loc-btn { background:rgba(245,166,35,0.12); border:1px solid rgba(245,166,35,0.3); color:#F5A623; border-radius:10px; padding:10px 14px; font-size:12px; font-weight:700; font-family:'DM Sans',sans-serif; cursor:pointer; flex-shrink:0; transition:background 0.2s; white-space:nowrap; display:flex; align-items:center; gap:5px; }
   .map-loc-btn:hover { background:rgba(245,166,35,0.25); }
-  .map-loc-btn.loading { animation: spin 1s linear infinite; }
+  .map-loc-btn.loading { opacity:0.7; pointer-events:none; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
 </style>
@@ -557,7 +557,7 @@
     <div id="pickup-map"></div>
     <div class="map-address-row">
       <div class="map-address-text" id="mapAddressText"><span>Search or tap map to pick location...</span></div>
-      <button class="map-loc-btn" onclick="useCurrentLocation()" title="Use my current location">&#127757;</button>
+      <button class="map-loc-btn" onclick="useCurrentLocation()" id="mapLocBtn">&#9678; My Location</button>
       <button class="map-confirm-btn" onclick="confirmPickupLocation()">&#10003; Use This Location</button>
     </div>
   </div>
@@ -635,18 +635,17 @@ function onMapSearch(val) {
 }
 
 function fetchSuggestions(query) {
-  // Restrict search to Dindigul district bounding box
-  var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' +
-    encodeURIComponent(query + ', Dindigul') +
-    '&countrycodes=in&limit=6&addressdetails=1&viewbox=77.6,10.1,78.4,10.7&bounded=1';
-  fetch(url, {headers:{'Accept-Language':'en'}})
+  // Step 1: Search within wider Dindigul + nearby viewbox (unbounded so Palani shows)
+  var baseUrl = 'https://nominatim.openstreetmap.org/search?format=json&countrycodes=in&limit=7&addressdetails=1&Accept-Language=en';
+  var wideBox = '&viewbox=77.4,9.9,78.6,10.9'; // wider box covers Palani, Kodaikanal area
+
+  var url1 = baseUrl + '&q=' + encodeURIComponent(query + ', Tamil Nadu') + wideBox;
+  fetch(url1, {headers:{'Accept-Language':'en'}})
     .then(function(r){return r.json();})
     .then(function(results){
-      if (!results.length) {
-        // Fallback: search whole Tamil Nadu
-        return fetch('https://nominatim.openstreetmap.org/search?format=json&q=' +
-          encodeURIComponent(query + ', Dindigul, Tamil Nadu') +
-          '&countrycodes=in&limit=6&addressdetails=1', {headers:{'Accept-Language':'en'}})
+      if (!results || !results.length) {
+        // Final fallback: no restriction
+        return fetch(baseUrl + '&q=' + encodeURIComponent(query + ', Tamil Nadu'), {headers:{'Accept-Language':'en'}})
           .then(function(r){return r.json();});
       }
       return results;
@@ -710,13 +709,13 @@ function useCurrentLocation() {
     alert('Geolocation is not supported by your browser.');
     return;
   }
-  var btn = document.querySelector('.map-loc-btn');
+  var btn = document.getElementById('mapLocBtn');
   btn.classList.add('loading');
-  btn.textContent = '...';
+  btn.innerHTML = '&#9203; Locating...';
   navigator.geolocation.getCurrentPosition(
     function(pos) {
       btn.classList.remove('loading');
-      btn.innerHTML = '&#127757;';
+      btn.innerHTML = '&#9678; My Location';
       pickedLat = pos.coords.latitude;
       pickedLng = pos.coords.longitude;
       pickupMap.setView([pickedLat, pickedLng], 16, {animate:true});
@@ -725,7 +724,7 @@ function useCurrentLocation() {
     },
     function(err) {
       btn.classList.remove('loading');
-      btn.innerHTML = '&#127757;';
+      btn.innerHTML = '&#9678; My Location';
       alert('Could not get your location. Please allow location access and try again.');
     },
     {enableHighAccuracy:true, timeout:8000}
