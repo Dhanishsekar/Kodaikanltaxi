@@ -177,8 +177,7 @@
   .map-address-text { flex:1; font-size:13px; color:#F0EDE8; line-height:1.4; min-width:100px; }
   .map-address-text span { color:#9A9490; font-style:italic; }
   .map-confirm-btn { background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%); color:#0A0A0F; border:none; border-radius:10px; padding:12px 18px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; font-family:'DM Sans',sans-serif; }
-  .map-wa-btn { background:#25D366; color:#fff; border:none; border-radius:10px; padding:12px 14px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; font-family:'DM Sans',sans-serif; display:none; }
-  .map-wa-btn.visible { display:inline-block; }
+
   .map-pin-btn { width:100%; margin-top:6px; background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.18); border-radius:10px; padding:10px 14px; color:#F5A623; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; }
   .map-pin-btn:hover { background:rgba(245,166,35,0.18); border-color:#F5A623; }
   /* Desktop: centre card with max-width */
@@ -529,7 +528,7 @@
     <div class="map-address-row">
       <div class="map-address-text" id="mapAddressText"><span>Tap the map to see address...</span></div>
       <button class="map-confirm-btn" onclick="confirmPickupLocation()">Use This Location</button>
-      <button class="map-wa-btn" id="mapShareWaBtn" onclick="shareLocationWhatsApp()">Share on WhatsApp</button>
+
     </div>
   </div>
 </div>
@@ -599,12 +598,10 @@ function reverseGeocode(lat, lng) {
     var addr = data.display_name || (lat.toFixed(5)+', '+lng.toFixed(5));
     var short = addr.split(',').slice(0,4).join(',').trim();
     document.getElementById('mapAddressText').innerHTML = '<strong style="color:#F5A623">&#128205;</strong> ' + short;
-    document.getElementById('mapShareWaBtn').classList.add('visible');
     window._pickedAddr = short;
   }).catch(function(){
     var addr = lat.toFixed(5)+', '+lng.toFixed(5);
     document.getElementById('mapAddressText').innerHTML = '<strong style="color:#F5A623">&#128205;</strong> ' + addr;
-    document.getElementById('mapShareWaBtn').classList.add('visible');
     window._pickedAddr = addr;
   });
 }
@@ -626,16 +623,6 @@ function confirmPickupLocation() {
   closePickupMap();
 }
 
-function shareLocationWhatsApp() {
-  if (!pickedLat) return;
-  var mapsLink = 'https://maps.google.com/?q=' + pickedLat + ',' + pickedLng;
-  var name = document.getElementById('bName').value || 'Customer';
-  var phone = document.getElementById('bPhone').value || '';
-  var date = document.getElementById('bDate').value || 'Not specified';
-  var addr = window._pickedAddr || (pickedLat + ',' + pickedLng);
-  var msg = 'Hi KodaikanalTaxis!\n\nPickup Location:\n' + addr + '\nMaps Link: ' + mapsLink + '\n\nVehicle: ' + selectedVehicle + '\nFare: Rs.' + parseInt(selectedPrice).toLocaleString('en-IN') + '\nName: ' + name + (phone ? '\nPhone: ' + phone : '') + '\nDate: ' + date;
-  window.open('https://wa.me/918248983815?text=' + encodeURIComponent(msg), '_blank');
-}
 </script>
 
 </body>
