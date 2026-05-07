@@ -160,6 +160,10 @@
 
 <title>Kodaikanal Taxi | Best Cab & Car Rental | Kodai Call Taxi</title>
 <meta name="description" content="Best cab service in Kodaikanal. Car rental, Kodai call taxi & sightseeing tours. Routes from Madurai, Chennai, Coimbatore & more. Call +91 8248983815.">
+<!-- Gemini AI SDK -->
+<script type="importmap">
+  { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -2651,15 +2655,12 @@
   <div class="kk-footer-note">Powered by AI · KodaikanalTaxis</div>
 </div>
 
-<script>
-(function(){
-  var GEMINI_KEY = 'AIzaSyB_XVC3hfiwN7vVgDmYi7fLeFJLWzpwxtk'; // paste your key from aistudio.google.com
+<script type="module">
+  import { GoogleGenerativeAI } from "@google/generative-ai";
 
-  var isOpen = false;
-  var chatHistory = [];
-  var isLoading = false;
+  const GEMINI_KEY = 'AIzaSyB_XVC3hfiwN7vVgDmYi7fLeFJLWzpwxtk'; // ← paste your key from aistudio.google.com
 
-  var SYSTEM_PROMPT = `You are Kodai Assistant, the friendly and knowledgeable AI booking helper for KodaikanalTaxis — a trusted taxi and cab service based in Kodaikanal, Tamil Nadu, India. You help customers with route pricing, vehicle selection, tour packages, bookings, and general enquiries. Keep replies concise, warm, and helpful. Use ₹ for prices. Always end by offering to connect via call or WhatsApp: +91 8248983815.
+  const SYSTEM_PROMPT = `You are Kodai Assistant, the friendly and knowledgeable AI booking helper for KodaikanalTaxis — a trusted taxi and cab service based in Kodaikanal, Tamil Nadu, India. You help customers with route pricing, vehicle selection, tour packages, bookings, and general enquiries. Keep replies concise, warm, and helpful. Use ₹ for prices. Always end by offering to connect via call or WhatsApp: +91 8248983815.
 
 === ROUTES & ONE-WAY FARES (Sedan / Innova / Innova Crysta / Tempo Traveller) ===
 - Kodai Road → Kodaikanal: ₹2,200 / ₹3,500 / ₹4,200 / ₹5,500 | 35 KM ~1 hr
@@ -2695,9 +2696,20 @@ Tour 4 — Trekking & Waterfalls (Half Day ~4 hrs): La Salette Church, 500-Year 
 - Return trips: Available on all routes. Same transparent pricing.
 - Waiting charges: First 30 minutes free, then ₹50 per 30 minutes.
 
-Always be enthusiastic about Kodaikanal. Mention that it is the "Queen of Hills" when relevant. If the customer seems ready to book, encourage them to call or WhatsApp immediately.`;
+Always be enthusiastic about Kodaikanal. Mention it is the "Queen of Hills" when relevant. If the customer seems ready to book, encourage them to call or WhatsApp immediately.`;
 
-  // ── Init on page load ──
+  // ── Init Gemini ──
+  const genAI = new GoogleGenerativeAI(GEMINI_KEY);
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+    systemInstruction: SYSTEM_PROMPT
+  });
+
+  let chat = model.startChat({ history: [] });
+  let isOpen = false;
+  let isLoading = false;
+
+  // ── Greet on load ──
   window.addEventListener('load', function(){
     setTimeout(function(){
       addBotMsg("👋 Hi! I'm your Kodai Assistant.\n\nI can help you with *cab fares*, *route info*, *vehicle options*, *sightseeing tours*, and *instant booking*.\n\nWhat would you like to know? 🏔️");
@@ -2707,13 +2719,12 @@ Always be enthusiastic about Kodaikanal. Mention that it is the "Queen of Hills"
   // ── Toggle open/close ──
   window.kkToggle = function(){
     isOpen = !isOpen;
-    var win = document.getElementById('kk-chat-window');
-    var icon = document.getElementById('kk-launcher-icon');
-    var notif = document.getElementById('kk-notif');
+    const win = document.getElementById('kk-chat-window');
+    const icon = document.getElementById('kk-launcher-icon');
+    const notif = document.getElementById('kk-notif');
     win.classList.toggle('open', isOpen);
     icon.textContent = isOpen ? '✕' : '💬';
     if(isOpen){ notif.style.display='none'; scrollToBottom(); }
-    else { icon.textContent = '💬'; }
   };
 
   // ── Quick chips ──
@@ -2723,49 +2734,31 @@ Always be enthusiastic about Kodaikanal. Mention that it is the "Queen of Hills"
   };
 
   // ── Send message ──
-  window.kkSend = function(){
+  window.kkSend = async function(){
     if(isLoading) return;
-    var inp = document.getElementById('kk-input');
-    var text = inp.value.trim();
+    const inp = document.getElementById('kk-input');
+    const text = inp.value.trim();
     if(!text) return;
     inp.value = '';
     kkAutoResize(inp);
     addUserMsg(text);
-    chatHistory.push({role:'user', content:text});
     showTyping();
     isLoading = true;
     document.getElementById('kk-send').disabled = true;
 
-    // Build Gemini conversation history
-    var geminiContents = chatHistory.map(function(m){
-      return { role: m.role === 'assistant' ? 'model' : 'user', parts:[{text: m.content}] };
-    });
-
-    fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        system_instruction: { parts:[{text: SYSTEM_PROMPT}] },
-        contents: geminiContents,
-        generationConfig: { maxOutputTokens:800, temperature:0.7 }
-      })
-    })
-    .then(function(r){ return r.json(); })
-    .then(function(data){
+    try {
+      const result = await chat.sendMessage(text);
+      const reply = result.response.text();
       hideTyping();
-      isLoading = false;
-      document.getElementById('kk-send').disabled = false;
-      var reply = "Sorry, I couldn't get a response. Please call us at +91 8248983815 — we're available 24/7!";
-      try { reply = data.candidates[0].content.parts[0].text; } catch(e){}
-      chatHistory.push({role:'assistant', content:reply});
       addBotMsg(reply);
-    })
-    .catch(function(){
+    } catch(err) {
+      console.error('Gemini error:', err);
       hideTyping();
+      addBotMsg("Oops! Something went wrong. Please reach us directly:\n📞 *+91 8248983815* (Call/WhatsApp) — available 24/7!");
+    } finally {
       isLoading = false;
       document.getElementById('kk-send').disabled = false;
-      addBotMsg("Oops! Something went wrong on my end. Please reach us directly:\n📞 *+91 8248983815* (Call/WhatsApp) — available 24/7!");
-    });
+    }
   };
 
   // ── Enter key sends ──
@@ -2781,11 +2774,12 @@ Always be enthusiastic about Kodaikanal. Mention that it is the "Queen of Hills"
 
   // ── Render bot message (supports *bold* and newlines) ──
   function addBotMsg(text){
-    var msgs = document.getElementById('kk-messages');
-    var div = document.createElement('div');
+    const msgs = document.getElementById('kk-messages');
+    const div = document.createElement('div');
     div.className = 'kk-msg bot';
-    var formatted = text
+    const formatted = text
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
       .replace(/\*(.*?)\*/g,'<strong>$1</strong>')
       .replace(/\n/g,'<br>');
     div.innerHTML = '<div class="kk-msg-avatar">🚖</div><div class="kk-bubble">'+formatted+'</div>';
@@ -2794,18 +2788,18 @@ Always be enthusiastic about Kodaikanal. Mention that it is the "Queen of Hills"
   }
 
   function addUserMsg(text){
-    var msgs = document.getElementById('kk-messages');
-    var div = document.createElement('div');
+    const msgs = document.getElementById('kk-messages');
+    const div = document.createElement('div');
     div.className = 'kk-msg user';
-    var safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
     div.innerHTML = '<div class="kk-bubble">'+safe+'</div>';
     msgs.appendChild(div);
     scrollToBottom();
   }
 
-  var typingEl = null;
+  let typingEl = null;
   function showTyping(){
-    var msgs = document.getElementById('kk-messages');
+    const msgs = document.getElementById('kk-messages');
     typingEl = document.createElement('div');
     typingEl.className = 'kk-msg bot';
     typingEl.id = 'kk-typing';
@@ -2815,18 +2809,17 @@ Always be enthusiastic about Kodaikanal. Mention that it is the "Queen of Hills"
   }
 
   function hideTyping(){
-    var t = document.getElementById('kk-typing');
+    const t = document.getElementById('kk-typing');
     if(t) t.remove();
   }
 
   function scrollToBottom(){
-    var msgs = document.getElementById('kk-messages');
+    const msgs = document.getElementById('kk-messages');
     setTimeout(function(){ msgs.scrollTop = msgs.scrollHeight; }, 50);
   }
 
-})();
 </script>
 <!-- ══════════════════════════════════════════════════════════ -->
 
 </body>
-</html>	
+</html>
