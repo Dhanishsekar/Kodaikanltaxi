@@ -6,7 +6,6 @@
 <title>Affordable Dindigul to Kodaikanal Taxi | Cab Service ₹2,800</title>
 <meta name="description" content="Book affordable Dindigul to Kodaikanal taxi from ₹2,800. Cheap cab service — 75 KM, 2 hrs. Toll & fuel included. Call +91 82489 83815.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -167,7 +166,7 @@
   /* ── Map Modal: full-screen on mobile, centred card on desktop ── */
   .map-modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:10000; align-items:flex-end; justify-content:center; padding:0; }
   .map-modal-overlay.open { display:flex; }
-  .map-modal { background:#16161F; border:1px solid rgba(245,166,35,0.18); border-radius:20px 20px 0 0; width:100%; max-width:100%; display:flex; flex-direction:column; height:100svh; max-height:100svh; }
+  .map-modal { background:#16161F; border:1px solid rgba(245,166,35,0.18); border-radius:20px 20px 0 0; width:100%; max-width:100%; display:flex; flex-direction:column; height:100vh; height:100svh; max-height:100vh; max-height:100svh; }
   .map-modal-header { background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%); padding:14px 18px; display:flex; align-items:center; justify-content:space-between; border-radius:20px 20px 0 0; flex-shrink:0; }
   .map-modal-header h3 { font-family:'Playfair Display',serif; font-size:17px; font-weight:900; color:#0A0A0F; margin:0; }
   .map-modal-close { background:rgba(0,0,0,0.18); border:none; color:#0A0A0F; width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:17px; font-weight:700; line-height:34px; text-align:center; }
@@ -507,7 +506,11 @@
     const date   = document.getElementById('bDate').value;
     const pickup = document.getElementById('bPickup').value;
     const drop   = document.getElementById('bDrop').value;
-    const msg = 'Hi KodaikanalTaxis!\n\nBooking Request:\nRoute: Dindigul → Kodaikanal\nVehicle: ' + selectedVehicle + ' (\u20b9' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nPhone: ' + (phone||'Not given') + '\nDate: ' + (date||'Not specified') + '\nPickup: ' + (pickup||'Dindigul') + '\nDrop: ' + (drop||'Kodaikanal');
+    var locationLine = '';
+    if (window._pickupCoords) {
+      locationLine = '\nMap Link: https://maps.google.com/?q=' + window._pickupCoords.lat + ',' + window._pickupCoords.lng;
+    }
+    const msg = 'Hi KodaikanalTaxis!\n\nBooking Request:\nRoute: Dindigul to Kodaikanal\nVehicle: ' + selectedVehicle + ' (Rs.' + parseInt(selectedPrice).toLocaleString('en-IN') + ')\nName: ' + (name||'Not given') + '\nPhone: ' + (phone||'Not given') + '\nDate: ' + (date||'Not specified') + '\nPickup: ' + (pickup||'Dindigul') + locationLine + '\nDrop: ' + (drop||'Kodaikanal');
     window.open('https://wa.me/918248983815?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -564,31 +567,60 @@
 </div>
 
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
+// ── Dynamically load Leaflet only when map is opened ─────────────────────────
+var leafletLoaded = false;
 var pickupMap = null, pickupMarker = null;
 var pickedLat = null, pickedLng = null;
 var searchTimer = null;
 
-// ── Open / Close ─────────────────────────────────────────────────────────────
 function openPickupMap() {
   var overlay = document.getElementById('mapModalOverlay');
   overlay.style.display = 'flex';
+  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      if (!pickupMap) { initLeafletMap(); }
-      else { pickupMap.invalidateSize(true); }
-      // Focus search input on desktop
-      if (window.innerWidth >= 640) {
-        setTimeout(function(){ document.getElementById('mapSearchInput').focus(); }, 300);
-      }
-    });
-  });
+
+  if (!leafletLoaded) {
+    // Load Leaflet CSS
+    if (!document.getElementById('leaflet-css')) {
+      var lCss = document.createElement('link');
+      lCss.id = 'leaflet-css';
+      lCss.rel = 'stylesheet';
+      lCss.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(lCss);
+    }
+    // Load Leaflet JS dynamically
+    var lJs = document.createElement('script');
+    lJs.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    lJs.onload = function() {
+      leafletLoaded = true;
+      initAndShowMap();
+    };
+    lJs.onerror = function() {
+      alert('Map failed to load. Please check your internet connection and try again.');
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    };
+    document.head.appendChild(lJs);
+  } else {
+    initAndShowMap();
+  }
+}
+
+function initAndShowMap() {
+  setTimeout(function() {
+    if (!pickupMap) { initLeafletMap(); }
+    else { pickupMap.invalidateSize(true); }
+    if (window.innerWidth >= 640) {
+      setTimeout(function(){ var s = document.getElementById('mapSearchInput'); if(s) s.focus(); }, 300);
+    }
+  }, 150);
 }
 
 function closePickupMap() {
-  document.getElementById('mapModalOverlay').style.display = 'none';
+  var overlay = document.getElementById('mapModalOverlay');
+  overlay.style.display = 'none';
+  overlay.classList.remove('open');
   document.body.style.overflow = '';
   closeSuggestions();
 }
@@ -596,10 +628,9 @@ function closeMapOnOverlay(e) {
   if (e.target === document.getElementById('mapModalOverlay')) closePickupMap();
 }
 
-// ── Init Leaflet ──────────────────────────────────────────────────────────────
 function initLeafletMap() {
   var el = document.getElementById('pickup-map');
-  if (el._leaflet_id) { pickupMap.invalidateSize(true); return; }
+  if (!el || el._leaflet_id) { if(pickupMap) pickupMap.invalidateSize(true); return; }
   pickupMap = L.map(el, {zoomControl:true, scrollWheelZoom:true}).setView([10.3673, 77.9803], 12);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -611,40 +642,34 @@ function initLeafletMap() {
     iconSize: [34,34], iconAnchor: [17,34]
   });
   pickupMarker = L.marker([10.3673, 77.9803], {icon:goldIcon, draggable:true}).addTo(pickupMap);
-  pickupMarker.bindPopup('<b style="color:#F5A623">Drag to your pickup spot!</b>').openPopup();
+  pickupMarker.bindPopup('<b style="color:#F5A623">Drag to your exact pickup spot!</b>').openPopup();
   pickupMarker.on('dragend', function(e) {
     var p = e.target.getLatLng(); pickedLat = p.lat; pickedLng = p.lng;
     reverseGeocode(p.lat, p.lng);
   });
   pickupMap.on('click', function(e) {
     pickedLat = e.latlng.lat; pickedLng = e.latlng.lng;
-    pickupMarker.setLatLng(e.latlng);
-    pickupMarker.closePopup();
+    pickupMarker.setLatLng(e.latlng); pickupMarker.closePopup();
     reverseGeocode(e.latlng.lat, e.latlng.lng);
   });
-  setTimeout(function() { pickupMap.invalidateSize(true); }, 400);
+  setTimeout(function() { pickupMap.invalidateSize(true); }, 600);
 }
 
-// ── Search (Nominatim restricted to Dindigul district) ───────────────────────
+// ── Village/Area Search ───────────────────────────────────────────────────────
 function onMapSearch(val) {
-  var clearBtn = document.getElementById('mapSearchClear');
-  clearBtn.style.display = val ? 'block' : 'none';
+  document.getElementById('mapSearchClear').style.display = val ? 'block' : 'none';
   clearTimeout(searchTimer);
   if (val.length < 2) { closeSuggestions(); return; }
   searchTimer = setTimeout(function() { fetchSuggestions(val); }, 400);
 }
 
 function fetchSuggestions(query) {
-  // Step 1: Search within wider Dindigul + nearby viewbox (unbounded so Palani shows)
-  var baseUrl = 'https://nominatim.openstreetmap.org/search?format=json&countrycodes=in&limit=7&addressdetails=1&Accept-Language=en';
-  var wideBox = '&viewbox=77.4,9.9,78.6,10.9'; // wider box covers Palani, Kodaikanal area
-
-  var url1 = baseUrl + '&q=' + encodeURIComponent(query + ', Tamil Nadu') + wideBox;
-  fetch(url1, {headers:{'Accept-Language':'en'}})
+  var baseUrl = 'https://nominatim.openstreetmap.org/search?format=json&countrycodes=in&limit=7&addressdetails=1';
+  var wideBox = '&viewbox=77.4,9.9,78.6,10.9';
+  fetch(baseUrl + '&q=' + encodeURIComponent(query + ', Tamil Nadu') + wideBox, {headers:{'Accept-Language':'en'}})
     .then(function(r){return r.json();})
     .then(function(results){
       if (!results || !results.length) {
-        // Final fallback: no restriction
         return fetch(baseUrl + '&q=' + encodeURIComponent(query + ', Tamil Nadu'), {headers:{'Accept-Language':'en'}})
           .then(function(r){return r.json();});
       }
@@ -658,9 +683,8 @@ function showSuggestions(results) {
   var ul = document.getElementById('mapSuggestions');
   ul.innerHTML = '';
   if (!results || !results.length) {
-    ul.innerHTML = '<li style="color:#9A9490;cursor:default"><span class="sug-icon">&#128269;</span><span>No results found in Dindigul</span></li>';
-    ul.classList.add('open');
-    return;
+    ul.innerHTML = '<li style="color:#9A9490;cursor:default"><span class="sug-icon">&#128269;</span> No results found</li>';
+    ul.classList.add('open'); return;
   }
   results.forEach(function(r) {
     var li = document.createElement('li');
@@ -677,8 +701,7 @@ function showSuggestions(results) {
 function selectSuggestion(lat, lng, label) {
   pickedLat = lat; pickedLng = lng;
   pickupMap.setView([lat, lng], 15, {animate:true});
-  pickupMarker.setLatLng([lat, lng]);
-  pickupMarker.closePopup();
+  pickupMarker.setLatLng([lat, lng]); pickupMarker.closePopup();
   document.getElementById('mapSearchInput').value = label.split(',')[0];
   document.getElementById('mapSearchClear').style.display = 'block';
   closeSuggestions();
@@ -687,8 +710,7 @@ function selectSuggestion(lat, lng, label) {
 
 function closeSuggestions() {
   var ul = document.getElementById('mapSuggestions');
-  ul.classList.remove('open');
-  ul.innerHTML = '';
+  if (ul) { ul.classList.remove('open'); ul.innerHTML = ''; }
 }
 
 function clearMapSearch() {
@@ -698,93 +720,59 @@ function clearMapSearch() {
   document.getElementById('mapSearchInput').focus();
 }
 
-// Close suggestions when tapping map
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('.map-search-row')) closeSuggestions();
+  if (!e.target.closest || !e.target.closest('.map-search-row')) closeSuggestions();
 });
 
 // ── Current Location ──────────────────────────────────────────────────────────
 function useCurrentLocation() {
   var btn = document.getElementById('mapLocBtn');
-
-  // Must be HTTPS or localhost for geolocation to work
   if (location.protocol === 'http:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-    showLocError('Location requires HTTPS. Please open the site over https://');
-    return;
+    alert('Location requires HTTPS. Please open the site over https://'); return;
   }
-  if (!navigator.geolocation) {
-    showLocError('Your browser does not support location access.');
-    return;
-  }
-
-  btn.classList.add('loading');
-  btn.innerHTML = '&#9203; Locating...';
-
-  // Try without high accuracy first (faster, works on more devices)
+  if (!navigator.geolocation) { alert('Your browser does not support location access.'); return; }
+  btn.classList.add('loading'); btn.innerHTML = '&#9203; Locating...';
   navigator.geolocation.getCurrentPosition(
     function(pos) { onLocSuccess(pos, btn); },
-    function(err) {
-      // On failure retry WITH high accuracy (some Android needs it)
+    function() {
       navigator.geolocation.getCurrentPosition(
         function(pos) { onLocSuccess(pos, btn); },
-        function(err2) { onLocError(err2, btn); },
+        function(err) { onLocError(err, btn); },
         {enableHighAccuracy:true, timeout:15000, maximumAge:0}
       );
     },
     {enableHighAccuracy:false, timeout:10000, maximumAge:30000}
   );
 }
-
 function onLocSuccess(pos, btn) {
-  btn.classList.remove('loading');
-  btn.innerHTML = '&#9678; My Location';
-  pickedLat = pos.coords.latitude;
-  pickedLng = pos.coords.longitude;
+  btn.classList.remove('loading'); btn.innerHTML = '&#9678; My Location';
+  pickedLat = pos.coords.latitude; pickedLng = pos.coords.longitude;
   pickupMap.setView([pickedLat, pickedLng], 16, {animate:true});
   pickupMarker.setLatLng([pickedLat, pickedLng]);
   reverseGeocode(pickedLat, pickedLng);
 }
-
 function onLocError(err, btn) {
-  btn.classList.remove('loading');
-  btn.innerHTML = '&#9678; My Location';
-  var msg = '';
-  if (err.code === 1) {
-    msg = 'Location permission denied.
-
-To fix:
-1. Tap the lock/info icon in your browser address bar
-2. Set Location to "Allow"
-3. Reload the page and try again.';
-  } else if (err.code === 2) {
-    msg = 'Location unavailable. Please turn on GPS/Location in your phone Settings and try again.';
-  } else if (err.code === 3) {
-    msg = 'Location request timed out. Make sure GPS is ON and you have a network connection, then try again.';
-  } else {
-    msg = 'Could not get your location. Please check GPS settings and try again.';
-  }
-  alert(msg);
-}
-
-function showLocError(msg) {
-  alert(msg);
+  btn.classList.remove('loading'); btn.innerHTML = '&#9678; My Location';
+  var msgs = {1:'Location permission denied.\n\nTap the lock icon in address bar → Set Location to Allow → Reload.',
+              2:'Location unavailable. Please turn on GPS in your phone Settings.',
+              3:'Location timed out. Make sure GPS is ON and try again.'};
+  alert(msgs[err.code] || 'Could not get your location. Check GPS settings.');
 }
 
 // ── Reverse Geocode ───────────────────────────────────────────────────────────
 function reverseGeocode(lat, lng) {
   document.getElementById('mapAddressText').innerHTML = '<span>Fetching address...</span>';
-  fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lng + '&zoom=17', {
-    headers:{'Accept-Language':'en'}
-  }).then(function(r){return r.json();}).then(function(data){
-    var addr = data.display_name || (lat.toFixed(5)+', '+lng.toFixed(5));
-    var short = addr.split(',').slice(0,4).join(',').trim();
-    document.getElementById('mapAddressText').innerHTML = '<strong style="color:#F5A623">&#128205;</strong> ' + short;
-    window._pickedAddr = short;
-  }).catch(function(){
-    var addr = lat.toFixed(5)+', '+lng.toFixed(5);
-    document.getElementById('mapAddressText').innerHTML = '<strong style="color:#F5A623">&#128205;</strong> ' + addr;
-    window._pickedAddr = addr;
-  });
+  fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lng+'&zoom=17',{headers:{'Accept-Language':'en'}})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var addr = data.display_name||(lat.toFixed(5)+', '+lng.toFixed(5));
+      var short = addr.split(',').slice(0,4).join(',').trim();
+      document.getElementById('mapAddressText').innerHTML='<strong style="color:#F5A623">&#128205;</strong> '+short;
+      window._pickedAddr = short;
+    }).catch(function(){
+      window._pickedAddr = lat.toFixed(5)+', '+lng.toFixed(5);
+      document.getElementById('mapAddressText').innerHTML='<strong style="color:#F5A623">&#128205;</strong> '+window._pickedAddr;
+    });
 }
 
 // ── Confirm ───────────────────────────────────────────────────────────────────
@@ -794,17 +782,19 @@ function confirmPickupLocation() {
     pickedLat = pos.lat; pickedLng = pos.lng;
     reverseGeocode(pickedLat, pickedLng);
     setTimeout(function(){
-      document.getElementById('bPickup').value = window._pickedAddr || '';
+      document.getElementById('bPickup').value = window._pickedAddr||'';
       window._pickupCoords = {lat:pickedLat, lng:pickedLng};
       closePickupMap();
     }, 1600);
     return;
   }
-  document.getElementById('bPickup').value = window._pickedAddr || '';
+  document.getElementById('bPickup').value = window._pickedAddr||'';
   window._pickupCoords = {lat:pickedLat, lng:pickedLng};
   closePickupMap();
 }
 </script>
 
 </body>
+</html>
+
 </html>
