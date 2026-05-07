@@ -2423,5 +2423,512 @@
 })();
 </script>
 
+
+<!-- ============================================================
+     CHATBOT WIDGET — KodaikanalTaxis
+     Place just before </body>
+============================================================ -->
+
+<!-- Chatbot Styles -->
+<style>
+/* ── Floating Button ── */
+#kdt-chat-btn {
+  position: fixed;
+  bottom: 104px;
+  right: 24px;
+  z-index: 9999;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F5A623 0%, #e8920f 100%);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(245,166,35,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: kdt-pulse 2.2s infinite;
+}
+#kdt-chat-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(245,166,35,0.75);
+  animation: none;
+}
+@keyframes kdt-pulse {
+  0%   { box-shadow: 0 4px 20px rgba(245,166,35,0.55); }
+  50%  { box-shadow: 0 4px 32px rgba(245,166,35,0.9), 0 0 0 10px rgba(245,166,35,0.12); }
+  100% { box-shadow: 0 4px 20px rgba(245,166,35,0.55); }
+}
+#kdt-chat-btn svg { width: 30px; height: 30px; }
+#kdt-chat-btn .kdt-close-icon { display: none; }
+#kdt-chat-btn.open .kdt-chat-icon { display: none; }
+#kdt-chat-btn.open .kdt-close-icon { display: block; }
+
+/* Notification dot */
+#kdt-chat-btn::after {
+  content: '';
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 12px; height: 12px;
+  background: #ff4d4d;
+  border-radius: 50%;
+  border: 2px solid #13131C;
+  animation: kdt-dot-blink 1.5s infinite;
+}
+#kdt-chat-btn.open::after { display: none; }
+@keyframes kdt-dot-blink {
+  0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+}
+
+/* Tooltip */
+#kdt-chat-tooltip {
+  position: fixed;
+  bottom: 178px;
+  right: 20px;
+  z-index: 9998;
+  background: #1a1a26;
+  color: #F5A623;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(245,166,35,0.3);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.4s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+#kdt-chat-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -7px; right: 22px;
+  border-width: 7px 7px 0;
+  border-style: solid;
+  border-color: rgba(245,166,35,0.3) transparent transparent;
+}
+#kdt-chat-tooltip.hidden { opacity: 0; }
+
+/* ── Chat Window ── */
+#kdt-chatbox {
+  position: fixed;
+  bottom: 180px;
+  right: 24px;
+  z-index: 9998;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  background: #13131C;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+  border: 1px solid rgba(245,166,35,0.2);
+  display: none;
+  flex-direction: column;
+  font-family: inherit;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+#kdt-chatbox.open {
+  display: flex;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Header */
+#kdt-chat-header {
+  background: linear-gradient(135deg, #1a1a26 0%, #0f0f18 100%);
+  border-bottom: 1px solid rgba(245,166,35,0.2);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#kdt-chat-header .kdt-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F5A623, #e8920f);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(245,166,35,0.4);
+}
+#kdt-chat-header .kdt-info h4 {
+  margin: 0; font-size: 14px; font-weight: 700; color: #fff;
+}
+#kdt-chat-header .kdt-info span {
+  font-size: 11px; color: #4caf50; display: flex; align-items: center; gap: 4px;
+}
+#kdt-chat-header .kdt-info span::before {
+  content: ''; width: 7px; height: 7px;
+  background: #4caf50; border-radius: 50%; display: inline-block;
+}
+
+/* Messages area */
+#kdt-messages {
+  padding: 14px 14px 8px;
+  overflow-y: auto;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245,166,35,0.3) transparent;
+}
+.kdt-msg {
+  max-width: 88%;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 13px;
+  border-radius: 14px;
+  animation: kdt-fade-in 0.3s ease;
+}
+@keyframes kdt-fade-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+.kdt-msg.bot {
+  background: #1a1a26;
+  color: #e8e8f0;
+  border: 1px solid rgba(245,166,35,0.15);
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+.kdt-msg.user {
+  background: linear-gradient(135deg, #F5A623, #e8920f);
+  color: #13131C;
+  font-weight: 600;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+}
+
+/* Quick reply chips */
+#kdt-quick-replies {
+  padding: 6px 14px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.kdt-chip {
+  background: rgba(245,166,35,0.1);
+  color: #F5A623;
+  border: 1px solid rgba(245,166,35,0.35);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+.kdt-chip:hover { background: rgba(245,166,35,0.22); transform: scale(1.03); }
+
+/* Input bar */
+#kdt-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid rgba(245,166,35,0.12);
+  background: #0f0f18;
+}
+#kdt-input {
+  flex: 1;
+  background: #1a1a26;
+  border: 1px solid rgba(245,166,35,0.25);
+  border-radius: 22px;
+  color: #fff;
+  font-size: 13px;
+  padding: 9px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#kdt-input::placeholder { color: rgba(255,255,255,0.35); }
+#kdt-input:focus { border-color: rgba(245,166,35,0.6); }
+#kdt-send-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F5A623, #e8920f);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(245,166,35,0.4);
+}
+#kdt-send-btn:hover { transform: scale(1.1); box-shadow: 0 3px 14px rgba(245,166,35,0.6); }
+#kdt-send-btn svg { width: 18px; height: 18px; }
+
+/* Action buttons */
+.kdt-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: rgba(245,166,35,0.08);
+  color: #F5A623;
+  border: 1px solid rgba(245,166,35,0.3);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 2px 0;
+  transition: background 0.2s;
+}
+.kdt-action-btn:hover { background: rgba(245,166,35,0.18); color: #F5A623; }
+.kdt-action-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* Footer */
+#kdt-chat-footer {
+  padding: 6px 14px 10px;
+  text-align: center;
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+}
+</style>
+
+<!-- Chatbot HTML -->
+<div id="kdt-chat-tooltip">👋 Need a cab? Chat with us!</div>
+
+<button id="kdt-chat-btn" aria-label="Open chat" onclick="kdtToggleChat()">
+  <!-- Chat icon -->
+  <svg class="kdt-chat-icon" viewBox="0 0 24 24" fill="none" stroke="#13131C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <!-- Close icon -->
+  <svg class="kdt-close-icon" viewBox="0 0 24 24" fill="none" stroke="#13131C" stroke-width="2.5" stroke-linecap="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<div id="kdt-chatbox" role="dialog" aria-label="KodaikanalTaxis Chat">
+  <!-- Header -->
+  <div id="kdt-chat-header">
+    <div class="kdt-avatar">🚕</div>
+    <div class="kdt-info">
+      <h4>KodaikanalTaxis Support</h4>
+      <span>Online — Typically replies instantly</span>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div id="kdt-messages"></div>
+
+  <!-- Quick Reply Chips -->
+  <div id="kdt-quick-replies"></div>
+
+  <!-- Input -->
+  <div id="kdt-input-bar">
+    <input id="kdt-input" type="text" placeholder="Type your question..." autocomplete="off"
+      onkeydown="if(event.key==='Enter') kdtSend()">
+    <button id="kdt-send-btn" onclick="kdtSend()" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#13131C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+
+  <div id="kdt-chat-footer">KodaikanalTaxis · Available 24/7</div>
+</div>
+
+<!-- Chatbot Script -->
+<script>
+(function(){
+  var PHONE = '+918248983815';
+  var WA    = '918248983815';
+
+  // ── Knowledge Base ──────────────────────────────────────────
+  var KB = [
+    {
+      q: ['price','fare','cost','rate','charge','₹','rs','rupee','cheap','affordable','how much'],
+      a: '💰 Our fares start from just <b>₹1,800</b> for Kodai Road to Kodaikanal. All routes include fuel. Toll & parking are included for Kodai Road, Dindigul & Madurai routes. <b>No hidden charges!</b>',
+      chips: ['Check Route Prices','Book Now']
+    },
+    {
+      q: ['route','from','madurai','chennai','coimbatore','trichy','cochin','munnar','dindigul','kodai road','kanyakumari'],
+      a: '🗺️ We cover all major routes:<br>• Madurai → Kodaikanal<br>• Chennai → Kodaikanal<br>• Coimbatore → Kodaikanal<br>• Trichy → Kodaikanal<br>• Cochin → Kodaikanal<br>• Munnar → Kodaikanal<br>• Dindigul → Kodaikanal<br>• Kodai Road → Kodaikanal<br>• Kanyakumari → Kodaikanal',
+      chips: ['Get Fare for My Route','Call Us']
+    },
+    {
+      q: ['vehicle','car','innova','sedan','tavera','tempo','bus','mini','ac'],
+      a: '🚗 We have a wide fleet for every group size:<br>• <b>Sedan</b> (up to 4 pax)<br>• <b>Innova</b> (up to 6 pax)<br>• <b>Tavera</b> (up to 7 pax)<br>• <b>Tempo Traveller</b> (up to 12 pax)<br>• <b>Mini Bus</b> (20 seater)<br>All vehicles are AC & well-maintained.',
+      chips: ['Book a Vehicle','Call Us']
+    },
+    {
+      q: ['book','booking','reserve','how to book','instant'],
+      a: '📲 Booking is super easy! Just call or WhatsApp us at <b>+91 82489 83815</b>. We are available <b>24/7</b> for instant booking. You can also use the booking form on our website.',
+      chips: ['WhatsApp Us','Call Now']
+    },
+    {
+      q: ['time','24/7','available','night','early','morning','anytime','late'],
+      a: '🕐 We are available <b>24 hours, 7 days a week</b> — including early morning pickups and late-night transfers. Call us anytime at <b>+91 82489 83815</b>.',
+      chips: ['Call Us Now','WhatsApp Us']
+    },
+    {
+      q: ['package','tour','sightseeing','sight seeing','tourist','trip','places'],
+      a: '🏔️ We offer customized <b>Kodaikanal tour packages</b> covering popular spots like Pine Forest, Coaker's Walk, Bryant Park, Berijam Lake & more. Ask us for a custom quote!',
+      chips: ['View Packages','WhatsApp for Quote']
+    },
+    {
+      q: ['driver','safe','safety','experience','trusted','ghat'],
+      a: '✅ All our drivers are <b>experienced in ghat & hill roads</b>, police-verified, and trained for passenger safety. We have <b>2,000+ happy customers</b> who trust us!',
+      chips: ['Book a Ride','View Reviews']
+    },
+    {
+      q: ['toll','fuel','parking','hidden','charge','include'],
+      a: '✅ <b>Fuel is always included</b> in all fares. <b>Toll & parking are included</b> for Kodai Road, Dindigul & Madurai routes. For other routes, toll/parking is extra. <b>Zero hidden charges!</b>',
+      chips: ['Check My Route Fare','Book Now']
+    },
+    {
+      q: ['contact','call','phone','number','reach','whatsapp','talk'],
+      a: '📞 You can reach us anytime:<br>• <b>Phone:</b> +91 82489 83815<br>• <b>WhatsApp:</b> +91 82489 83815<br>• Available <b>24/7</b> for instant booking!',
+      chips: ['Call Now','WhatsApp Us']
+    },
+    {
+      q: ['cancel','cancellation','refund'],
+      a: '❓ For cancellation or refund queries, please call us directly at <b>+91 82489 83815</b>. Our team will assist you right away.',
+      chips: ['Call Us','WhatsApp Us']
+    }
+  ];
+
+  var DEFAULT_CHIPS = ['Book a Ride 🚕','Check Fares 💰','Our Routes 🗺️','Contact Us 📞'];
+  var greetSent = false;
+
+  function kdtGreet(){
+    if(greetSent) return;
+    greetSent = true;
+    var hour = new Date().getHours();
+    var greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+    kdtAddMsg('bot', greeting + '! 👋 Welcome to <b>KodaikanalTaxis</b>!<br>I'm here to help you book a taxi or answer your questions. How can I help you today?');
+    setTimeout(function(){ kdtSetChips(DEFAULT_CHIPS); }, 400);
+  }
+
+  function kdtAddMsg(type, html){
+    var msgs = document.getElementById('kdt-messages');
+    var div = document.createElement('div');
+    div.className = 'kdt-msg ' + type;
+    div.innerHTML = html;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function kdtSetChips(chips){
+    var el = document.getElementById('kdt-quick-replies');
+    el.innerHTML = '';
+    chips.forEach(function(c){
+      var btn = document.createElement('button');
+      btn.className = 'kdt-chip';
+      btn.textContent = c;
+      btn.onclick = function(){ kdtHandleChip(c); };
+      el.appendChild(btn);
+    });
+  }
+
+  function kdtHandleChip(text){
+    var clean = text.replace(/[^a-zA-Z0-9 ]/g,'').trim().toLowerCase();
+    if(clean.indexOf('whatsapp') !== -1 || clean.indexOf('whatsapp') !== -1){
+      window.open('https://wa.me/' + WA + '?text=Hi%2C%20I%20want%20to%20book%20a%20taxi%20from%20KodaikanalTaxis', '_blank');
+      return;
+    }
+    if(clean.indexOf('call') !== -1){
+      window.location.href = 'tel:' + PHONE;
+      return;
+    }
+    if(clean.indexOf('package') !== -1 || clean.indexOf('view package') !== -1){
+      window.location.href = 'kodaikanal-packages.html';
+      return;
+    }
+    if(clean.indexOf('review') !== -1){
+      window.open('https://www.google.com/maps/search/KodaikanalTaxis', '_blank');
+      return;
+    }
+    kdtAddMsg('user', text);
+    document.getElementById('kdt-quick-replies').innerHTML = '';
+    setTimeout(function(){ kdtRespond(clean); }, 400);
+  }
+
+  function kdtRespond(text){
+    var lower = text.toLowerCase();
+    var found = null;
+    for(var i = 0; i < KB.length; i++){
+      for(var j = 0; j < KB[i].q.length; j++){
+        if(lower.indexOf(KB[i].q[j]) !== -1){
+          found = KB[i];
+          break;
+        }
+      }
+      if(found) break;
+    }
+    if(found){
+      kdtAddMsg('bot', found.a);
+      setTimeout(function(){ kdtSetChips(found.chips.concat(['Main Menu 🏠'])); }, 300);
+    } else {
+      kdtAddMsg('bot', '🙏 I'm not sure about that. For the best assistance, please contact us directly:<br><br>📞 <b>+91 82489 83815</b><br>Available 24/7!');
+      setTimeout(function(){
+        kdtSetChips(['WhatsApp Us','Call Now','Main Menu 🏠']);
+      }, 300);
+    }
+  }
+
+  window.kdtSend = function(){
+    var input = document.getElementById('kdt-input');
+    var val = input.value.trim();
+    if(!val) return;
+    kdtAddMsg('user', val);
+    input.value = '';
+    document.getElementById('kdt-quick-replies').innerHTML = '';
+    setTimeout(function(){ kdtRespond(val); }, 450);
+  };
+
+  window.kdtToggleChat = function(){
+    var box = document.getElementById('kdt-chatbox');
+    var btn = document.getElementById('kdt-chat-btn');
+    var tip = document.getElementById('kdt-chat-tooltip');
+    var isOpen = box.classList.contains('open');
+    if(!isOpen){
+      box.style.display = 'flex';
+      // Trigger animation on next frame
+      setTimeout(function(){
+        box.classList.add('open');
+        btn.classList.add('open');
+      }, 10);
+      tip.classList.add('hidden');
+      setTimeout(function(){ kdtGreet(); }, 300);
+    } else {
+      box.classList.remove('open');
+      btn.classList.remove('open');
+      setTimeout(function(){ box.style.display = 'none'; }, 320);
+    }
+    // Handle Main Menu chip
+    document.querySelectorAll('.kdt-chip').forEach(function(c){
+      if(c.textContent.indexOf('Main Menu') !== -1){
+        c.onclick = function(){
+          document.getElementById('kdt-quick-replies').innerHTML = '';
+          kdtSetChips(DEFAULT_CHIPS);
+        };
+      }
+    });
+  };
+
+  // Show tooltip after 3s, hide after 8s
+  setTimeout(function(){
+    var tip = document.getElementById('kdt-chat-tooltip');
+    if(tip) tip.classList.remove('hidden');
+  }, 3000);
+  setTimeout(function(){
+    var tip = document.getElementById('kdt-chat-tooltip');
+    if(tip) tip.classList.add('hidden');
+  }, 9000);
+
+  // Chip delegation for Main Menu (using event delegation for dynamically added chips)
+  document.addEventListener('click', function(e){
+    if(e.target.classList.contains('kdt-chip') && e.target.textContent.indexOf('Main Menu') !== -1){
+      document.getElementById('kdt-quick-replies').innerHTML = '';
+      kdtSetChips(DEFAULT_CHIPS);
+    }
+  });
+})();
+</script>
+<!-- ============================================================ END CHATBOT ============================================================ -->
+
 </body>
 </html>
