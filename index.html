@@ -2496,7 +2496,7 @@
   border: 1px solid rgba(245,166,35,0.3);
   white-space: nowrap;
   pointer-events: none;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.4s;
   box-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
@@ -2523,17 +2523,20 @@
   overflow: hidden;
   box-shadow: 0 8px 40px rgba(0,0,0,0.7);
   border: 1px solid rgba(245,166,35,0.2);
-  display: none;
+  display: flex;
   flex-direction: column;
   font-family: inherit;
   transform: translateY(20px);
   opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
 }
 #kdt-chatbox.open {
-  display: flex;
   transform: translateY(0);
   opacity: 1;
+  visibility: visible;
+  pointer-events: all;
 }
 
 /* Header */
@@ -2885,18 +2888,13 @@
     var tip = document.getElementById('kdt-chat-tooltip');
     var isOpen = box.classList.contains('open');
     if(!isOpen){
-      box.style.display = 'flex';
-      // Trigger animation on next frame
-      setTimeout(function(){
-        box.classList.add('open');
-        btn.classList.add('open');
-      }, 10);
+      box.classList.add('open');
+      btn.classList.add('open');
       tip.classList.add('hidden');
       setTimeout(function(){ kdtGreet(); }, 300);
     } else {
       box.classList.remove('open');
       btn.classList.remove('open');
-      setTimeout(function(){ box.style.display = 'none'; }, 320);
     }
     // Handle Main Menu chip
     document.querySelectorAll('.kdt-chip').forEach(function(c){
@@ -2912,11 +2910,11 @@
   // Show tooltip after 3s, hide after 8s
   setTimeout(function(){
     var tip = document.getElementById('kdt-chat-tooltip');
-    if(tip) tip.classList.remove('hidden');
+    if(tip) tip.style.opacity = '1';
   }, 3000);
   setTimeout(function(){
     var tip = document.getElementById('kdt-chat-tooltip');
-    if(tip) tip.classList.add('hidden');
+    if(tip) tip.style.opacity = '0';
   }, 9000);
 
   // Chip delegation for Main Menu (using event delegation for dynamically added chips)
