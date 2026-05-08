@@ -2616,7 +2616,7 @@
 </style>
 
 <!-- Launcher -->
-<button id="kk-chat-launcher" onclick="kkToggle()" aria-label="Chat with us">
+<button id="kk-chat-launcher" aria-label="Chat with us">
   <span id="kk-launcher-icon">💬</span>
   <span class="kk-notif" id="kk-notif">1</span>
   <span class="kk-tip">Chat with us!</span>
@@ -2630,23 +2630,23 @@
       <div class="kk-header-name">Kodai Assistant</div>
       <div class="kk-header-status"><span class="kk-status-dot"></span>Online · Instant replies</div>
     </div>
-    <button class="kk-close" onclick="kkToggle()" aria-label="Close chat">✕</button>
+    <button class="kk-close" id="kk-close-btn" aria-label="Close chat">✕</button>
   </div>
 
   <!-- Quick chips -->
   <div class="kk-chips" id="kk-chips">
-    <button class="kk-chip" onclick="kkChip('Prices & Routes')">💰 Prices</button>
-    <button class="kk-chip" onclick="kkChip('Book a cab')">🚗 Book Now</button>
-    <button class="kk-chip" onclick="kkChip('Sightseeing tours')">🏔️ Tours</button>
-    <button class="kk-chip" onclick="kkChip('Which vehicle for my family?')">👨‍👩‍👧 Vehicles</button>
-    <button class="kk-chip" onclick="kkChip('What is included in the fare?')">✅ Inclusions</button>
+    <button class="kk-chip" data-chip="Prices & Routes">💰 Prices</button>
+    <button class="kk-chip" data-chip="Book a cab">🚗 Book Now</button>
+    <button class="kk-chip" data-chip="Sightseeing tours">🏔️ Tours</button>
+    <button class="kk-chip" data-chip="Which vehicle for my family?">👨‍👩‍👧 Vehicles</button>
+    <button class="kk-chip" data-chip="What is included in the fare?">✅ Inclusions</button>
   </div>
 
   <div class="kk-messages" id="kk-messages"></div>
 
   <div class="kk-input-row">
-    <textarea id="kk-input" rows="1" placeholder="Ask anything about our cabs…" onkeydown="kkKey(event)" oninput="kkAutoResize(this)"></textarea>
-    <button id="kk-send" onclick="kkSend()" aria-label="Send">➤</button>
+    <textarea id="kk-input" rows="1" placeholder="Ask anything about our cabs…"></textarea>
+    <button id="kk-send" aria-label="Send">➤</button>
   </div>
   <div class="kk-footer-note">Powered by AI · KodaikanalTaxis</div>
 </div>
@@ -2673,7 +2673,7 @@ window.addEventListener('load', function(){
 window.kkToggle = function(){
   kkOpen = !kkOpen;
   document.getElementById('kk-chat-window').classList.toggle('open', kkOpen);
-  document.getElementById('kk-launcher-icon').textContent = kkOpen ? 'X' : 'chat';
+  document.getElementById('kk-launcher-icon').textContent = kkOpen ? '✕' : '💬';
   if(kkOpen){ document.getElementById('kk-notif').style.display='none'; kkScroll(); }
 };
 
@@ -2760,6 +2760,18 @@ function kkShowTyping(){
 }
 function kkHideTyping(){ var t=document.getElementById('kk-typing'); if(t) t.remove(); }
 function kkScroll(){ var m=document.getElementById('kk-messages'); setTimeout(function(){ m.scrollTop=m.scrollHeight; },50); }
+
+// ── Attach all event listeners here (safe — DOM + functions both ready) ──
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('kk-chat-launcher').addEventListener('click', kkToggle);
+  document.getElementById('kk-close-btn').addEventListener('click', kkToggle);
+  document.getElementById('kk-send').addEventListener('click', kkSend);
+  document.getElementById('kk-input').addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();kkSend();} });
+  document.getElementById('kk-input').addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
+  document.querySelectorAll('.kk-chip[data-chip]').forEach(function(btn){
+    btn.addEventListener('click', function(){ kkChip(this.getAttribute('data-chip')); });
+  });
+});
 
 </script>
 <!-- ══════════════════════════════════════════════════════════ -->
