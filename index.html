@@ -160,10 +160,6 @@
 
 <title>Kodaikanal Taxi | Best Cab & Car Rental | Kodai Call Taxi</title>
 <meta name="description" content="Best cab service in Kodaikanal. Car rental, Kodai call taxi & sightseeing tours. Routes from Madurai, Chennai, Coimbatore & more. Call +91 8248983815.">
-<!-- Gemini AI SDK -->
-<script type="importmap">
-  { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } }
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -2655,168 +2651,115 @@
   <div class="kk-footer-note">Powered by AI · KodaikanalTaxis</div>
 </div>
 
-<script type="module">
-  import { GoogleGenerativeAI } from "@google/generative-ai";
+<script>
+// ════════════════════════════════════════
+//  KODAIKANAL TAXIS — AI CHATBOT
+// ════════════════════════════════════════
 
-  const GEMINI_KEY = 'AIzaSyDddMOrSzEj36yx4SrUtdiKd9tFINnzlDk'; // ← paste your key from aistudio.google.com
+var KK_GEMINI_KEY = 'AIzaSyAqS3zoMPzRajHBGV9XquuzSjdxe8yyWrE'; // ← paste your AIzaSy... key here
 
-  const SYSTEM_PROMPT = `You are Kodai Assistant, the friendly and knowledgeable AI booking helper for KodaikanalTaxis — a trusted taxi and cab service based in Kodaikanal, Tamil Nadu, India. You help customers with route pricing, vehicle selection, tour packages, bookings, and general enquiries. Keep replies concise, warm, and helpful. Use ₹ for prices. Always end by offering to connect via call or WhatsApp: +91 8248983815.
+var KK_SYSTEM = "You are Kodai Assistant for KodaikanalTaxis. Be friendly and concise. Use rupee symbol for prices. Always offer to connect via WhatsApp +91 8248983815.\n\nROUTES & FARES (Sedan / Innova / Innova Crysta / Tempo Traveller):\nKodai Road to Kodaikanal: Rs2200/Rs3500/Rs4200/Rs5500 | 35KM 1hr\nDindigul to Kodaikanal: Rs2800/Rs4500/Rs5500/Rs5800 | 100KM 2.5hrs\nMadurai to Kodaikanal: Rs3400/Rs5200/Rs6200/Rs7500 | 120KM 3hrs\nCoimbatore to Kodaikanal: Rs4500/Rs6800/Rs8000/Rs9500 | 165KM 4hrs\nTrichy to Kodaikanal: Rs5800/Rs8500/Rs9800/Rs11500 | 195KM 4.5hrs\nCochin to Kodaikanal: Rs9500/Rs13500/Rs15500/Rs18000 | 325KM 7hrs\nMunnar to Kodaikanal: Rs6300/Rs9200/Rs10500/Rs13000 | 220KM 5hrs\nChennai to Kodaikanal: Rs14500/Rs19500/Rs22000/Rs26000 | 530KM 9hrs\nKanyakumari to Kodaikanal: Rs8300/Rs11800/Rs13500/Rs16000 | 280KM 6hrs\nAll fares include toll, parking, fuel, driver. No hidden charges. Free cancellation.\n\nVEHICLES:\nIndigo/Etios Sedan: 4 seats, budget friendly\nInnova: 7 seats, comfortable SUV\nInnova Crysta: 7 seats, premium luxury\nTavera: 7 seats, spacious\nTempo Traveller: 12 seats, large groups\n\nTOUR PACKAGES:\nTour 1 Valley & Lake (4hrs half day): Coakers Walk, Pillar Rocks, Green Valley, Pine Forest, Bryant Park. Rs2500 onwards.\nTour 2 Village & Farm (7hrs full day): Gundar Falls, Poomparai Village, Mannavanur Sheep Farm. Rs3500 onwards.\nTour 3 Forest & Berijam (8hrs full day, permit needed): Silent Valley, Berijam Lake. Rs4000 onwards.\nTour 4 Trekking & Waterfalls (4hrs): Dolphins Nose, Vattakanal Falls, Echo Rocks. Rs2500 onwards.\n\nFAQs:\nBooking: Call/WhatsApp +91 8248983815 or +91 8056598036, available 24/7\nPayment: Cash on service, no advance needed\nCancellation: Free anytime\nWaiting: First 30 min free, then Rs50 per 30 min\nDrivers speak Tamil and English";
 
-=== ROUTES & ONE-WAY FARES (Sedan / Innova / Innova Crysta / Tempo Traveller) ===
-- Kodai Road → Kodaikanal: ₹2,200 / ₹3,500 / ₹4,200 / ₹5,500 | 35 KM ~1 hr
-- Dindigul → Kodaikanal: ₹2,800 / ₹4,500 / ₹5,500 / ₹5,800 | 100 KM ~2.5 hrs
-- Madurai → Kodaikanal: ₹3,400 / ₹5,200 / ₹6,200 / ₹7,500 | 120 KM ~3 hrs
-- Coimbatore → Kodaikanal: ₹4,500 / ₹6,800 / ₹8,000 / ₹9,500 | 165 KM ~4 hrs
-- Trichy → Kodaikanal: ₹5,800 / ₹8,500 / ₹9,800 / ₹11,500 | 195 KM ~4.5 hrs
-- Cochin → Kodaikanal: ₹9,500 / ₹13,500 / ₹15,500 / ₹18,000 | 325 KM ~7 hrs
-- Munnar → Kodaikanal: ₹6,300 / ₹9,200 / ₹10,500 / ₹13,000 | 220 KM ~5 hrs
-- Chennai → Kodaikanal: ₹14,500 / ₹19,500 / ₹22,000 / ₹26,000 | 530 KM ~9 hrs
-- Kanyakumari → Kodaikanal: ₹8,300 / ₹11,800 / ₹13,500 / ₹16,000 | 280 KM ~6 hrs
-All fares include toll, parking, fuel, and driver. No hidden charges. Free cancellation.
+var kkHistory = [];
+var kkOpen = false;
+var kkBusy = false;
 
-=== VEHICLES ===
-- Indigo / Etios (Sedan): 4 seats. Budget-friendly. Best for small families or couples.
-- Innova: 7 seats. Comfortable SUV. Great for families.
-- Innova Crysta: 7 seats. Premium SUV with extra comfort. Best for luxury travel.
-- Tavera: 7 seats. Spacious. Good for groups.
-- Tempo Traveller: 12 seats. Ideal for large groups and corporate trips.
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    kkAddBot("Hi! I am your Kodai Assistant. Ask me anything about cab fares, routes, vehicles or sightseeing tours. How can I help you today?");
+  }, 1200);
+});
 
-=== SIGHTSEEING TOUR PACKAGES (from Kodaikanal) ===
-Tour 1 — Valley & Lake (Half Day ~4 hrs): Coaker's Walk, Upper Lake View, Pambar Falls, Green Valley View, Golf Course, Pillar Rocks, Devil's Kitchen, Pine Forest, Moier Point, Bryant Park. ₹2,500 onwards.
-Tour 2 — Village & Farm (Full Day ~7 hrs): Gundar Falls, Palani Hills View, Mahalakshmi Temple, Poomparai Village, Mannavanur Sheep Farm, Mannavanur Lake. ₹3,500 onwards.
-Tour 3 — Forest & Berijam Lake (Full Day ~8 hrs, permit required): Silent Valley, Berijam Lake, Cap's Fly Valley, Medicine Forest. ₹4,000 onwards.
-Tour 4 — Trekking & Waterfalls (Half Day ~4 hrs): La Salette Church, 500-Year Old Tree, Dolphins Nose, Vattakanal Falls, Echo Rocks. ₹2,500 onwards.
+window.kkToggle = function(){
+  kkOpen = !kkOpen;
+  document.getElementById('kk-chat-window').classList.toggle('open', kkOpen);
+  document.getElementById('kk-launcher-icon').textContent = kkOpen ? 'X' : 'chat';
+  if(kkOpen){ document.getElementById('kk-notif').style.display='none'; kkScroll(); }
+};
 
-=== FAQs ===
-- Booking: Call or WhatsApp +91 8248983815 or +91 8056598036. Available 24/7.
-- Payment: Cash on service. No advance required.
-- Cancellation: Free cancellation any time.
-- Driver: Experienced local drivers, fluent in Tamil and English.
-- Languages supported: Tamil, English.
-- Return trips: Available on all routes. Same transparent pricing.
-- Waiting charges: First 30 minutes free, then ₹50 per 30 minutes.
+window.kkChip = function(t){ document.getElementById('kk-input').value=t; kkSend(); };
 
-Always be enthusiastic about Kodaikanal. Mention it is the "Queen of Hills" when relevant. If the customer seems ready to book, encourage them to call or WhatsApp immediately.`;
+window.kkSend = function(){
+  if(kkBusy) return;
+  var inp = document.getElementById('kk-input');
+  var txt = inp.value.trim();
+  if(!txt) return;
+  inp.value = ''; inp.style.height='auto';
+  kkAddUser(txt);
 
-  // ── Init Gemini ──
-  const genAI = new GoogleGenerativeAI(GEMINI_KEY);
-  const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
-    systemInstruction: SYSTEM_PROMPT
-  });
+  // Build messages array
+  kkHistory.push({role:'user', parts:[{text: txt}]});
 
-  let chat = model.startChat({ history: [] });
-  let isOpen = false;
-  let isLoading = false;
-
-  // ── Greet on load ──
-  window.addEventListener('load', function(){
-    setTimeout(function(){
-      addBotMsg("👋 Hi! I'm your Kodai Assistant.\n\nI can help you with *cab fares*, *route info*, *vehicle options*, *sightseeing tours*, and *instant booking*.\n\nWhat would you like to know? 🏔️");
-    }, 1200);
-  });
-
-  // ── Toggle open/close ──
-  window.kkToggle = function(){
-    isOpen = !isOpen;
-    const win = document.getElementById('kk-chat-window');
-    const icon = document.getElementById('kk-launcher-icon');
-    const notif = document.getElementById('kk-notif');
-    win.classList.toggle('open', isOpen);
-    icon.textContent = isOpen ? '✕' : '💬';
-    if(isOpen){ notif.style.display='none'; scrollToBottom(); }
+  var payload = {
+    system_instruction: { parts: [{text: KK_SYSTEM}] },
+    contents: kkHistory,
+    generationConfig: { maxOutputTokens: 600, temperature: 0.7 }
   };
 
-  // ── Quick chips ──
-  window.kkChip = function(text){
-    document.getElementById('kk-input').value = text;
-    kkSend();
-  };
+  kkBusy = true;
+  document.getElementById('kk-send').disabled = true;
+  kkShowTyping();
 
-  // ── Send message ──
-  window.kkSend = async function(){
-    if(isLoading) return;
-    const inp = document.getElementById('kk-input');
-    const text = inp.value.trim();
-    if(!text) return;
-    inp.value = '';
-    kkAutoResize(inp);
-    addUserMsg(text);
-    showTyping();
-    isLoading = true;
-    document.getElementById('kk-send').disabled = true;
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' + KK_GEMINI_KEY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res){ return res.json(); })
+  .then(function(data){
+    kkHideTyping();
+    kkBusy = false;
+    document.getElementById('kk-send').disabled = false;
 
-    try {
-      const result = await chat.sendMessage(text);
-      const reply = result.response.text();
-      hideTyping();
-      addBotMsg(reply);
-    } catch(err) {
-      console.error('Gemini error:', err);
-      hideTyping();
-      addBotMsg("Oops! Something went wrong. Please reach us directly:\n📞 *+91 8248983815* (Call/WhatsApp) — available 24/7!");
-    } finally {
-      isLoading = false;
-      document.getElementById('kk-send').disabled = false;
+    if(data.error){
+      console.error('API Error:', data.error);
+      kkAddBot('API Error: ' + data.error.message + '. Please call +91 8248983815');
+      return;
     }
-  };
 
-  // ── Enter key sends ──
-  window.kkKey = function(e){
-    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); kkSend(); }
-  };
+    var reply = '';
+    try { reply = data.candidates[0].content.parts[0].text; } catch(e){ reply = 'No response received.'; }
+    kkHistory.push({role:'model', parts:[{text: reply}]});
+    kkAddBot(reply);
+  })
+  .catch(function(err){
+    kkHideTyping();
+    kkBusy = false;
+    document.getElementById('kk-send').disabled = false;
+    console.error('Fetch error:', err);
+    kkAddBot('Network error. Please call +91 8248983815 — available 24/7!');
+  });
+};
 
-  // ── Auto resize textarea ──
-  window.kkAutoResize = function(el){
-    el.style.height = 'auto';
-    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
-  };
+window.kkKey = function(e){ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); kkSend(); } };
+window.kkAutoResize = function(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,100)+'px'; };
 
-  // ── Render bot message (supports *bold* and newlines) ──
-  function addBotMsg(text){
-    const msgs = document.getElementById('kk-messages');
-    const div = document.createElement('div');
-    div.className = 'kk-msg bot';
-    const formatted = text
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g,'<strong>$1</strong>')
-      .replace(/\n/g,'<br>');
-    div.innerHTML = '<div class="kk-msg-avatar">🚖</div><div class="kk-bubble">'+formatted+'</div>';
-    msgs.appendChild(div);
-    scrollToBottom();
-  }
-
-  function addUserMsg(text){
-    const msgs = document.getElementById('kk-messages');
-    const div = document.createElement('div');
-    div.className = 'kk-msg user';
-    const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-    div.innerHTML = '<div class="kk-bubble">'+safe+'</div>';
-    msgs.appendChild(div);
-    scrollToBottom();
-  }
-
-  let typingEl = null;
-  function showTyping(){
-    const msgs = document.getElementById('kk-messages');
-    typingEl = document.createElement('div');
-    typingEl.className = 'kk-msg bot';
-    typingEl.id = 'kk-typing';
-    typingEl.innerHTML = '<div class="kk-msg-avatar">🚖</div><div class="kk-bubble"><div class="kk-typing"><span></span><span></span><span></span></div></div>';
-    msgs.appendChild(typingEl);
-    scrollToBottom();
-  }
-
-  function hideTyping(){
-    const t = document.getElementById('kk-typing');
-    if(t) t.remove();
-  }
-
-  function scrollToBottom(){
-    const msgs = document.getElementById('kk-messages');
-    setTimeout(function(){ msgs.scrollTop = msgs.scrollHeight; }, 50);
-  }
+function kkAddBot(text){
+  var m = document.getElementById('kk-messages');
+  var d = document.createElement('div'); d.className='kk-msg bot';
+  var html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<strong>$1</strong>')
+    .replace(/
+/g,'<br>');
+  d.innerHTML='<div class="kk-msg-avatar">&#x1F696;</div><div class="kk-bubble">'+html+'</div>';
+  m.appendChild(d); kkScroll();
+}
+function kkAddUser(text){
+  var m = document.getElementById('kk-messages');
+  var d = document.createElement('div'); d.className='kk-msg user';
+  var safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  d.innerHTML='<div class="kk-bubble">'+safe+'</div>';
+  m.appendChild(d); kkScroll();
+}
+function kkShowTyping(){
+  var m = document.getElementById('kk-messages');
+  var d = document.createElement('div'); d.className='kk-msg bot'; d.id='kk-typing';
+  d.innerHTML='<div class="kk-msg-avatar">&#x1F696;</div><div class="kk-bubble"><div class="kk-typing"><span></span><span></span><span></span></div></div>';
+  m.appendChild(d); kkScroll();
+}
+function kkHideTyping(){ var t=document.getElementById('kk-typing'); if(t) t.remove(); }
+function kkScroll(){ var m=document.getElementById('kk-messages'); setTimeout(function(){ m.scrollTop=m.scrollHeight; },50); }
 
 </script>
 <!-- ══════════════════════════════════════════════════════════ -->
