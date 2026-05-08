@@ -2656,7 +2656,7 @@
 //  KODAIKANAL TAXIS — AI CHATBOT
 // ════════════════════════════════════════
 
-var KK_GEMINI_KEY = 'AIzaSyAqS3zoMPzRajHBGV9XquuzSjdxe8yyWrE'; // ← paste your AIzaSy... key here
+var KK_GEMINI_KEY = 'YOUR_GEMINI_KEY_HERE'; // ← paste your AIzaSy... key here
 
 var KK_SYSTEM = "You are Kodai Assistant for KodaikanalTaxis. Be friendly and concise. Use rupee symbol for prices. Always offer to connect via WhatsApp +91 8248983815.\n\nROUTES & FARES (Sedan / Innova / Innova Crysta / Tempo Traveller):\nKodai Road to Kodaikanal: Rs2200/Rs3500/Rs4200/Rs5500 | 35KM 1hr\nDindigul to Kodaikanal: Rs2800/Rs4500/Rs5500/Rs5800 | 100KM 2.5hrs\nMadurai to Kodaikanal: Rs3400/Rs5200/Rs6200/Rs7500 | 120KM 3hrs\nCoimbatore to Kodaikanal: Rs4500/Rs6800/Rs8000/Rs9500 | 165KM 4hrs\nTrichy to Kodaikanal: Rs5800/Rs8500/Rs9800/Rs11500 | 195KM 4.5hrs\nCochin to Kodaikanal: Rs9500/Rs13500/Rs15500/Rs18000 | 325KM 7hrs\nMunnar to Kodaikanal: Rs6300/Rs9200/Rs10500/Rs13000 | 220KM 5hrs\nChennai to Kodaikanal: Rs14500/Rs19500/Rs22000/Rs26000 | 530KM 9hrs\nKanyakumari to Kodaikanal: Rs8300/Rs11800/Rs13500/Rs16000 | 280KM 6hrs\nAll fares include toll, parking, fuel, driver. No hidden charges. Free cancellation.\n\nVEHICLES:\nIndigo/Etios Sedan: 4 seats, budget friendly\nInnova: 7 seats, comfortable SUV\nInnova Crysta: 7 seats, premium luxury\nTavera: 7 seats, spacious\nTempo Traveller: 12 seats, large groups\n\nTOUR PACKAGES:\nTour 1 Valley & Lake (4hrs half day): Coakers Walk, Pillar Rocks, Green Valley, Pine Forest, Bryant Park. Rs2500 onwards.\nTour 2 Village & Farm (7hrs full day): Gundar Falls, Poomparai Village, Mannavanur Sheep Farm. Rs3500 onwards.\nTour 3 Forest & Berijam (8hrs full day, permit needed): Silent Valley, Berijam Lake. Rs4000 onwards.\nTour 4 Trekking & Waterfalls (4hrs): Dolphins Nose, Vattakanal Falls, Echo Rocks. Rs2500 onwards.\n\nFAQs:\nBooking: Call/WhatsApp +91 8248983815 or +91 8056598036, available 24/7\nPayment: Cash on service, no advance needed\nCancellation: Free anytime\nWaiting: First 30 min free, then Rs50 per 30 min\nDrivers speak Tamil and English";
 
@@ -2761,17 +2761,28 @@ function kkShowTyping(){
 function kkHideTyping(){ var t=document.getElementById('kk-typing'); if(t) t.remove(); }
 function kkScroll(){ var m=document.getElementById('kk-messages'); setTimeout(function(){ m.scrollTop=m.scrollHeight; },50); }
 
-// ── Attach all event listeners here (safe — DOM + functions both ready) ──
-document.addEventListener('DOMContentLoaded', function(){
-  document.getElementById('kk-chat-launcher').addEventListener('click', kkToggle);
-  document.getElementById('kk-close-btn').addEventListener('click', kkToggle);
-  document.getElementById('kk-send').addEventListener('click', kkSend);
-  document.getElementById('kk-input').addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();kkSend();} });
-  document.getElementById('kk-input').addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
+// ── Attach all event listeners directly (script is at bottom, DOM already ready) ──
+(function attachChatEvents(){
+  var launcher = document.getElementById('kk-chat-launcher');
+  var closeBtn = document.getElementById('kk-close-btn');
+  var sendBtn  = document.getElementById('kk-send');
+  var input    = document.getElementById('kk-input');
+
+  if(!launcher){ 
+    // fallback: try again after a short delay
+    setTimeout(attachChatEvents, 300); 
+    return; 
+  }
+
+  launcher.addEventListener('click', function(){ kkToggle(); });
+  closeBtn.addEventListener('click',  function(){ kkToggle(); });
+  sendBtn.addEventListener('click',   function(){ kkSend(); });
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();kkSend();} });
+  input.addEventListener('input', function(){ this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,100)+'px'; });
   document.querySelectorAll('.kk-chip[data-chip]').forEach(function(btn){
     btn.addEventListener('click', function(){ kkChip(this.getAttribute('data-chip')); });
   });
-});
+})();
 
 </script>
 <!-- ══════════════════════════════════════════════════════════ -->
