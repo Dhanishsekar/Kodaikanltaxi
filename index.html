@@ -160,6 +160,10 @@
 
 <title>Kodaikanal Taxi | Best Cab & Car Rental | Kodai Call Taxi</title>
 <meta name="description" content="Best cab service in Kodaikanal. Car rental, Kodai call taxi & sightseeing tours. Routes from Madurai, Chennai, Coimbatore & more. Call +91 8248983815.">
+<!-- Gemini AI SDK -->
+<script type="importmap">
+  { "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" } }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -2422,6 +2426,400 @@
   });
 })();
 </script>
+
+<!-- ══════════════════════════════════════════════════════════
+     KODAIKANAL TAXIS — AI CHATBOT WIDGET
+     ══════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Launcher button ── */
+  #kk-chat-launcher {
+    position:fixed; bottom:100px; left:24px; z-index:10001;
+    width:60px; height:60px; border-radius:50%;
+    background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%);
+    border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; color:#0A0A0F;
+    box-shadow:0 8px 28px rgba(245,166,35,0.55);
+    transition:transform 0.25s, box-shadow 0.25s;
+    animation: kkPulse 2.5s ease-in-out infinite;
+  }
+  #kk-chat-launcher:hover {
+    transform:scale(1.13);
+    box-shadow:0 14px 40px rgba(245,166,35,0.7);
+    animation:none;
+  }
+  @keyframes kkPulse {
+    0%,100%{box-shadow:0 8px 28px rgba(245,166,35,0.55),0 0 0 0 rgba(245,166,35,0.4)}
+    50%{box-shadow:0 8px 28px rgba(245,166,35,0.55),0 0 0 14px rgba(245,166,35,0)}
+  }
+  /* Notification dot */
+  #kk-chat-launcher .kk-notif {
+    position:absolute; top:2px; right:2px;
+    width:14px; height:14px; border-radius:50%;
+    background:#FF3B30; border:2px solid #0A0A0F;
+    font-size:8px; color:#fff; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  /* Tooltip label */
+  #kk-chat-launcher .kk-tip {
+    position:absolute; left:70px; top:50%; transform:translateY(-50%);
+    background:#fff; color:#111; border-radius:8px;
+    padding:7px 13px; font-size:13px; font-weight:600;
+    white-space:nowrap; font-family:'DM Sans',sans-serif;
+    box-shadow:0 4px 16px rgba(0,0,0,0.2);
+    opacity:0; pointer-events:none; transition:opacity 0.2s;
+  }
+  #kk-chat-launcher:hover .kk-tip { opacity:1; }
+
+  /* ── Chat window ── */
+  #kk-chat-window {
+    position:fixed; bottom:170px; left:24px; z-index:10002;
+    width:360px; max-width:calc(100vw - 32px);
+    background:#16161F;
+    border:1px solid rgba(245,166,35,0.22);
+    border-radius:20px; overflow:hidden;
+    display:flex; flex-direction:column;
+    box-shadow:0 24px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(245,166,35,0.1);
+    transform:scale(0.88) translateY(20px);
+    opacity:0; pointer-events:none;
+    transition:transform 0.28s cubic-bezier(.34,1.56,.64,1), opacity 0.22s ease;
+    max-height:520px;
+  }
+  #kk-chat-window.open {
+    transform:scale(1) translateY(0);
+    opacity:1; pointer-events:all;
+  }
+
+  /* Header */
+  .kk-header {
+    background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%);
+    padding:14px 18px; display:flex; align-items:center; gap:12px;
+    flex-shrink:0;
+  }
+  .kk-avatar {
+    width:40px; height:40px; border-radius:50%;
+    background:rgba(0,0,0,0.18);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; flex-shrink:0;
+  }
+  .kk-header-info { flex:1; }
+  .kk-header-name { font-family:'Playfair Display',serif; font-size:16px; font-weight:900; color:#0A0A0F; }
+  .kk-header-status { font-size:11px; color:rgba(10,10,15,0.65); font-weight:600; display:flex; align-items:center; gap:5px; }
+  .kk-status-dot { width:7px; height:7px; border-radius:50%; background:#0A0A0F; opacity:0.5; animation:kkDotPulse 1.5s infinite; }
+  @keyframes kkDotPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .kk-close {
+    background:rgba(0,0,0,0.18); border:none; color:#0A0A0F;
+    width:32px; height:32px; border-radius:50%; cursor:pointer;
+    font-size:16px; font-weight:700; display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s;
+  }
+  .kk-close:hover { background:rgba(0,0,0,0.35); }
+
+  /* Quick-reply chips */
+  .kk-chips {
+    padding:10px 12px 4px;
+    display:flex; gap:7px; flex-wrap:wrap; flex-shrink:0;
+    background:rgba(245,166,35,0.04);
+    border-bottom:1px solid rgba(245,166,35,0.1);
+  }
+  .kk-chip {
+    background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.25);
+    color:#F5A623; border-radius:50px; padding:5px 12px;
+    font-size:11px; font-weight:700; cursor:pointer;
+    font-family:'DM Sans',sans-serif; transition:all 0.18s;
+    white-space:nowrap;
+  }
+  .kk-chip:hover { background:rgba(245,166,35,0.22); border-color:#F5A623; }
+
+  /* Messages area */
+  .kk-messages {
+    flex:1; overflow-y:auto; padding:14px 14px 8px;
+    display:flex; flex-direction:column; gap:10px;
+    scroll-behavior:smooth; min-height:0;
+  }
+  .kk-messages::-webkit-scrollbar { width:5px; }
+  .kk-messages::-webkit-scrollbar-track { background:transparent; }
+  .kk-messages::-webkit-scrollbar-thumb { background:rgba(245,166,35,0.3); border-radius:3px; }
+
+  /* Bubbles */
+  .kk-msg { display:flex; gap:8px; align-items:flex-end; max-width:100%; }
+  .kk-msg.bot { flex-direction:row; }
+  .kk-msg.user { flex-direction:row-reverse; }
+  .kk-msg-avatar {
+    width:28px; height:28px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg,#F5A623,#FF6B35);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px;
+  }
+  .kk-bubble {
+    max-width:82%; padding:10px 14px; border-radius:16px;
+    font-size:13.5px; line-height:1.55; font-family:'DM Sans',sans-serif;
+  }
+  .kk-msg.bot .kk-bubble {
+    background:#1e1e2c; color:#F0EDE8;
+    border-radius:4px 16px 16px 16px;
+    border:1px solid rgba(245,166,35,0.12);
+  }
+  .kk-msg.user .kk-bubble {
+    background:linear-gradient(135deg,#F5A623,#FF6B35);
+    color:#0A0A0F; font-weight:600;
+    border-radius:16px 4px 16px 16px;
+  }
+  .kk-bubble a { color:#F5A623; font-weight:700; }
+  .kk-msg.bot .kk-bubble strong { color:#F5A623; }
+
+  /* Typing indicator */
+  .kk-typing { display:flex; gap:5px; align-items:center; padding:4px 2px; }
+  .kk-typing span {
+    width:7px; height:7px; border-radius:50%;
+    background:rgba(245,166,35,0.6);
+    animation:kkTyping 1.2s ease-in-out infinite;
+  }
+  .kk-typing span:nth-child(2) { animation-delay:0.2s; }
+  .kk-typing span:nth-child(3) { animation-delay:0.4s; }
+  @keyframes kkTyping { 0%,80%,100%{transform:scale(0.7);opacity:0.4} 40%{transform:scale(1.1);opacity:1} }
+
+  /* Input row */
+  .kk-input-row {
+    display:flex; gap:8px; padding:10px 12px 12px;
+    border-top:1px solid rgba(245,166,35,0.1); flex-shrink:0;
+    background:#111118;
+  }
+  #kk-input {
+    flex:1; background:rgba(255,255,255,0.05);
+    border:1px solid rgba(245,166,35,0.25); border-radius:12px;
+    padding:10px 14px; color:#F0EDE8; font-family:'DM Sans',sans-serif;
+    font-size:14px; outline:none; transition:border-color 0.2s;
+    resize:none; line-height:1.4;
+  }
+  #kk-input:focus { border-color:#F5A623; }
+  #kk-input::placeholder { color:rgba(255,255,255,0.35); }
+  #kk-send {
+    background:linear-gradient(135deg,#F5A623,#FF6B35);
+    border:none; border-radius:12px;
+    width:42px; height:42px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:17px; color:#0A0A0F; flex-shrink:0;
+    transition:transform 0.18s, box-shadow 0.18s;
+    align-self:flex-end;
+  }
+  #kk-send:hover { transform:scale(1.08); box-shadow:0 6px 18px rgba(245,166,35,0.45); }
+  #kk-send:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+
+  /* Powered by */
+  .kk-footer-note {
+    text-align:center; font-size:10px; color:rgba(154,148,144,0.55);
+    padding:0 12px 8px; font-family:'DM Sans',sans-serif;
+    flex-shrink:0;
+  }
+
+  @media (max-width:420px) {
+    #kk-chat-window { left:8px; right:8px; width:auto; max-width:none; bottom:160px; }
+    #kk-chat-launcher { left:16px; }
+  }
+</style>
+
+<!-- Launcher -->
+<button id="kk-chat-launcher" onclick="kkToggle()" aria-label="Chat with us">
+  <span id="kk-launcher-icon">💬</span>
+  <span class="kk-notif" id="kk-notif">1</span>
+  <span class="kk-tip">Chat with us!</span>
+</button>
+
+<!-- Chat Window -->
+<div id="kk-chat-window" role="dialog" aria-label="KodaikanalTaxis chat">
+  <div class="kk-header">
+    <div class="kk-avatar">🚖</div>
+    <div class="kk-header-info">
+      <div class="kk-header-name">Kodai Assistant</div>
+      <div class="kk-header-status"><span class="kk-status-dot"></span>Online · Instant replies</div>
+    </div>
+    <button class="kk-close" onclick="kkToggle()" aria-label="Close chat">✕</button>
+  </div>
+
+  <!-- Quick chips -->
+  <div class="kk-chips" id="kk-chips">
+    <button class="kk-chip" onclick="kkChip('Prices & Routes')">💰 Prices</button>
+    <button class="kk-chip" onclick="kkChip('Book a cab')">🚗 Book Now</button>
+    <button class="kk-chip" onclick="kkChip('Sightseeing tours')">🏔️ Tours</button>
+    <button class="kk-chip" onclick="kkChip('Which vehicle for my family?')">👨‍👩‍👧 Vehicles</button>
+    <button class="kk-chip" onclick="kkChip('What is included in the fare?')">✅ Inclusions</button>
+  </div>
+
+  <div class="kk-messages" id="kk-messages"></div>
+
+  <div class="kk-input-row">
+    <textarea id="kk-input" rows="1" placeholder="Ask anything about our cabs…" onkeydown="kkKey(event)" oninput="kkAutoResize(this)"></textarea>
+    <button id="kk-send" onclick="kkSend()" aria-label="Send">➤</button>
+  </div>
+  <div class="kk-footer-note">Powered by AI · KodaikanalTaxis</div>
+</div>
+
+<script type="module">
+  import { GoogleGenerativeAI } from "@google/generative-ai";
+
+  const GEMINI_KEY = 'AIzaSyDddMOrSzEj36yx4SrUtdiKd9tFINnzlDk'; // ← paste your key from aistudio.google.com
+
+  const SYSTEM_PROMPT = `You are Kodai Assistant, the friendly and knowledgeable AI booking helper for KodaikanalTaxis — a trusted taxi and cab service based in Kodaikanal, Tamil Nadu, India. You help customers with route pricing, vehicle selection, tour packages, bookings, and general enquiries. Keep replies concise, warm, and helpful. Use ₹ for prices. Always end by offering to connect via call or WhatsApp: +91 8248983815.
+
+=== ROUTES & ONE-WAY FARES (Sedan / Innova / Innova Crysta / Tempo Traveller) ===
+- Kodai Road → Kodaikanal: ₹2,200 / ₹3,500 / ₹4,200 / ₹5,500 | 35 KM ~1 hr
+- Dindigul → Kodaikanal: ₹2,800 / ₹4,500 / ₹5,500 / ₹5,800 | 100 KM ~2.5 hrs
+- Madurai → Kodaikanal: ₹3,400 / ₹5,200 / ₹6,200 / ₹7,500 | 120 KM ~3 hrs
+- Coimbatore → Kodaikanal: ₹4,500 / ₹6,800 / ₹8,000 / ₹9,500 | 165 KM ~4 hrs
+- Trichy → Kodaikanal: ₹5,800 / ₹8,500 / ₹9,800 / ₹11,500 | 195 KM ~4.5 hrs
+- Cochin → Kodaikanal: ₹9,500 / ₹13,500 / ₹15,500 / ₹18,000 | 325 KM ~7 hrs
+- Munnar → Kodaikanal: ₹6,300 / ₹9,200 / ₹10,500 / ₹13,000 | 220 KM ~5 hrs
+- Chennai → Kodaikanal: ₹14,500 / ₹19,500 / ₹22,000 / ₹26,000 | 530 KM ~9 hrs
+- Kanyakumari → Kodaikanal: ₹8,300 / ₹11,800 / ₹13,500 / ₹16,000 | 280 KM ~6 hrs
+All fares include toll, parking, fuel, and driver. No hidden charges. Free cancellation.
+
+=== VEHICLES ===
+- Indigo / Etios (Sedan): 4 seats. Budget-friendly. Best for small families or couples.
+- Innova: 7 seats. Comfortable SUV. Great for families.
+- Innova Crysta: 7 seats. Premium SUV with extra comfort. Best for luxury travel.
+- Tavera: 7 seats. Spacious. Good for groups.
+- Tempo Traveller: 12 seats. Ideal for large groups and corporate trips.
+
+=== SIGHTSEEING TOUR PACKAGES (from Kodaikanal) ===
+Tour 1 — Valley & Lake (Half Day ~4 hrs): Coaker's Walk, Upper Lake View, Pambar Falls, Green Valley View, Golf Course, Pillar Rocks, Devil's Kitchen, Pine Forest, Moier Point, Bryant Park. ₹2,500 onwards.
+Tour 2 — Village & Farm (Full Day ~7 hrs): Gundar Falls, Palani Hills View, Mahalakshmi Temple, Poomparai Village, Mannavanur Sheep Farm, Mannavanur Lake. ₹3,500 onwards.
+Tour 3 — Forest & Berijam Lake (Full Day ~8 hrs, permit required): Silent Valley, Berijam Lake, Cap's Fly Valley, Medicine Forest. ₹4,000 onwards.
+Tour 4 — Trekking & Waterfalls (Half Day ~4 hrs): La Salette Church, 500-Year Old Tree, Dolphins Nose, Vattakanal Falls, Echo Rocks. ₹2,500 onwards.
+
+=== FAQs ===
+- Booking: Call or WhatsApp +91 8248983815 or +91 8056598036. Available 24/7.
+- Payment: Cash on service. No advance required.
+- Cancellation: Free cancellation any time.
+- Driver: Experienced local drivers, fluent in Tamil and English.
+- Languages supported: Tamil, English.
+- Return trips: Available on all routes. Same transparent pricing.
+- Waiting charges: First 30 minutes free, then ₹50 per 30 minutes.
+
+Always be enthusiastic about Kodaikanal. Mention it is the "Queen of Hills" when relevant. If the customer seems ready to book, encourage them to call or WhatsApp immediately.`;
+
+  // ── Init Gemini ──
+  const genAI = new GoogleGenerativeAI(GEMINI_KEY);
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+    systemInstruction: SYSTEM_PROMPT
+  });
+
+  let chat = model.startChat({ history: [] });
+  let isOpen = false;
+  let isLoading = false;
+
+  // ── Greet on load ──
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      addBotMsg("👋 Hi! I'm your Kodai Assistant.\n\nI can help you with *cab fares*, *route info*, *vehicle options*, *sightseeing tours*, and *instant booking*.\n\nWhat would you like to know? 🏔️");
+    }, 1200);
+  });
+
+  // ── Toggle open/close ──
+  window.kkToggle = function(){
+    isOpen = !isOpen;
+    const win = document.getElementById('kk-chat-window');
+    const icon = document.getElementById('kk-launcher-icon');
+    const notif = document.getElementById('kk-notif');
+    win.classList.toggle('open', isOpen);
+    icon.textContent = isOpen ? '✕' : '💬';
+    if(isOpen){ notif.style.display='none'; scrollToBottom(); }
+  };
+
+  // ── Quick chips ──
+  window.kkChip = function(text){
+    document.getElementById('kk-input').value = text;
+    kkSend();
+  };
+
+  // ── Send message ──
+  window.kkSend = async function(){
+    if(isLoading) return;
+    const inp = document.getElementById('kk-input');
+    const text = inp.value.trim();
+    if(!text) return;
+    inp.value = '';
+    kkAutoResize(inp);
+    addUserMsg(text);
+    showTyping();
+    isLoading = true;
+    document.getElementById('kk-send').disabled = true;
+
+    try {
+      const result = await chat.sendMessage(text);
+      const reply = result.response.text();
+      hideTyping();
+      addBotMsg(reply);
+    } catch(err) {
+      console.error('Gemini error:', err);
+      hideTyping();
+      addBotMsg("Oops! Something went wrong. Please reach us directly:\n📞 *+91 8248983815* (Call/WhatsApp) — available 24/7!");
+    } finally {
+      isLoading = false;
+      document.getElementById('kk-send').disabled = false;
+    }
+  };
+
+  // ── Enter key sends ──
+  window.kkKey = function(e){
+    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); kkSend(); }
+  };
+
+  // ── Auto resize textarea ──
+  window.kkAutoResize = function(el){
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  };
+
+  // ── Render bot message (supports *bold* and newlines) ──
+  function addBotMsg(text){
+    const msgs = document.getElementById('kk-messages');
+    const div = document.createElement('div');
+    div.className = 'kk-msg bot';
+    const formatted = text
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g,'<strong>$1</strong>')
+      .replace(/\n/g,'<br>');
+    div.innerHTML = '<div class="kk-msg-avatar">🚖</div><div class="kk-bubble">'+formatted+'</div>';
+    msgs.appendChild(div);
+    scrollToBottom();
+  }
+
+  function addUserMsg(text){
+    const msgs = document.getElementById('kk-messages');
+    const div = document.createElement('div');
+    div.className = 'kk-msg user';
+    const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    div.innerHTML = '<div class="kk-bubble">'+safe+'</div>';
+    msgs.appendChild(div);
+    scrollToBottom();
+  }
+
+  let typingEl = null;
+  function showTyping(){
+    const msgs = document.getElementById('kk-messages');
+    typingEl = document.createElement('div');
+    typingEl.className = 'kk-msg bot';
+    typingEl.id = 'kk-typing';
+    typingEl.innerHTML = '<div class="kk-msg-avatar">🚖</div><div class="kk-bubble"><div class="kk-typing"><span></span><span></span><span></span></div></div>';
+    msgs.appendChild(typingEl);
+    scrollToBottom();
+  }
+
+  function hideTyping(){
+    const t = document.getElementById('kk-typing');
+    if(t) t.remove();
+  }
+
+  function scrollToBottom(){
+    const msgs = document.getElementById('kk-messages');
+    setTimeout(function(){ msgs.scrollTop = msgs.scrollHeight; }, 50);
+  }
+
+</script>
+<!-- ══════════════════════════════════════════════════════════ -->
 
 </body>
 </html>
